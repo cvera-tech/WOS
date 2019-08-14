@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
+    enum ArgumentType
+    {
+        String,
+        Number,
+        DateTime,
+        TimeSpan
+    }
+
     class Program
     {
+
         static void Main(string[] args)
         {
             Console.WriteLine("=================================");
@@ -27,10 +36,17 @@ namespace Calculator
                 Console.WriteLine();
                 Console.WriteLine($"Input expression:");
                 Console.WriteLine($"{argument1} {operatorType} {argument2}");
-                Console.ReadLine();
+                Console.WriteLine($"argument1: {GetArgumentType(argument1)}");
+                Console.WriteLine($"argument2: {GetArgumentType(argument2)}");
+                //Console.ReadLine();
             }
         }
 
+        /// <summary>
+        /// Prints the prompt message and returns user input if it is a valid string.
+        /// </summary>
+        /// <param name="message">The prompt to display.</param>
+        /// <returns>The valid string.</returns>
         static string GetArgument(string message)
         {
             bool validString = false;
@@ -51,6 +67,33 @@ namespace Calculator
             }
             while (!validString);
             return inputString;
+        }
+
+        /// <summary>
+        /// Returns the type of an input argument.
+        /// </summary>
+        /// <param name="argument">The input string.</param>
+        /// <returns>The corresponding ArgumentType.</returns>
+        static ArgumentType GetArgumentType(string argument)
+        {
+            var argType = ArgumentType.String;
+            var timeSpan = new TimeSpan();
+            var dateTime = new DateTime();
+            var intArg = 0;
+            if (int.TryParse(argument, out intArg))
+            {
+                argType = ArgumentType.Number;
+            }
+            else if (TimeSpan.TryParse(argument, out timeSpan))
+            {
+                argType = ArgumentType.TimeSpan;
+            }
+            else if (DateTime.TryParse(argument, out dateTime))
+            {
+                argType = ArgumentType.DateTime;
+            }
+
+            return argType;
         }
     }
 }
