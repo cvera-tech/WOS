@@ -25,7 +25,6 @@ namespace Calculator
 
     class Program
     {
-
         static void Main(string[] args)
         {
             Console.WriteLine("=================================");
@@ -46,6 +45,7 @@ namespace Calculator
 
                 if (operatorType != OperatorType.Unknown)
                 {
+                    // Number operator number
                     if (argument1Type == ArgumentType.Number && argument2Type == ArgumentType.Number)
                     {
                         validExpression = true;
@@ -79,12 +79,14 @@ namespace Calculator
                     {
                         if (argument2Type == ArgumentType.String)
                         {
+                            // String + String
                             if (operatorType == OperatorType.Addition)
                             {
                                 validExpression = true;
                                 string result = argument1 + argument2;
                                 Console.WriteLine($"Result = {result}");
                             }
+                            // String - String
                             else if (operatorType == OperatorType.Subtraction)
                             {
                                 validExpression = true;
@@ -100,6 +102,7 @@ namespace Calculator
                                 Console.WriteLine($"Result = {result}");
                             }
                         }
+                        // String * Number
                         else if (argument2Type == ArgumentType.Number && operatorType == OperatorType.Multiplication)
                         {
                             validExpression = true;
@@ -114,6 +117,7 @@ namespace Calculator
                     }
                     else if (argument1Type == ArgumentType.DateTime)
                     {
+                        // DateTime - DateTime
                         if (argument2Type == ArgumentType.DateTime && operatorType == OperatorType.Subtraction)
                         {
                             validExpression = true;
@@ -124,20 +128,19 @@ namespace Calculator
                         }
                         else if (argument2Type == ArgumentType.TimeSpan)
                         {
-                            // Perhaps these can be replaced by a switch block to remove redundancy
+                            var dateTime = DateTime.Parse(argument1);
+                            var timeSpan = TimeSpan.Parse(argument2);
+                            // DateTime + TimeSpan
                             if (operatorType == OperatorType.Addition)
                             {
                                 validExpression = true;
-                                var dateTime = DateTime.Parse(argument1);
-                                var timeSpan = TimeSpan.Parse(argument2);
                                 var result = dateTime + timeSpan;
                                 Console.WriteLine($"Result = {result}");
                             }
+                            // DateTime - TimeSpan
                             else if (operatorType == OperatorType.Subtraction)
                             {
                                 validExpression = true;
-                                var dateTime = DateTime.Parse(argument1);
-                                var timeSpan = TimeSpan.Parse(argument2);
                                 var result = dateTime - timeSpan;
                                 Console.WriteLine($"Result = {result}");
                             }
