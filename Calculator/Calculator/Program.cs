@@ -14,6 +14,15 @@ namespace Calculator
         TimeSpan
     }
 
+    enum OperatorType
+    {
+        Unknown,
+        Addition,
+        Subtraction,
+        Multiplication,
+        Division
+    }
+
     class Program
     {
 
@@ -27,16 +36,14 @@ namespace Calculator
             while (true)
             {
                 Console.WriteLine();
-                //Console.Write("Enter the first argument: ");
                 string argument1 = GetArgument("Enter the first argument");
-                Console.Write("Enter the operator: ");
-                string operatorType = Console.ReadLine();
-                //Console.Write("Enter the second Argument: ");
+                OperatorType operatorType = GetOperatorType() ;
                 string argument2 = GetArgument("Enter the second argument");
                 Console.WriteLine();
                 Console.WriteLine($"Input expression:");
                 Console.WriteLine($"{argument1} {operatorType} {argument2}");
                 Console.WriteLine($"argument1: {GetArgumentType(argument1)}");
+                Console.WriteLine($"OperatorType: {operatorType}");
                 Console.WriteLine($"argument2: {GetArgumentType(argument2)}");
                 //Console.ReadLine();
             }
@@ -94,6 +101,49 @@ namespace Calculator
             }
 
             return argType;
+        }
+
+        /// <summary>
+        /// Prompts the user to input an operator and returns the corresponing OperatorType.
+        /// </summary>
+        /// <returns>The OperatorType.</returns>
+        static OperatorType GetOperatorType()
+        {
+            var operatorType = OperatorType.Unknown;
+            bool validChar = false;
+            char inputChar;
+            do
+            {
+                Console.WriteLine();
+                Console.Write("Enter the operator: ");
+                inputChar = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                switch (inputChar)
+                {
+                    case '+':
+                        operatorType = OperatorType.Addition;
+                        validChar = true;
+                        break;
+                    case '-':
+                        operatorType = OperatorType.Subtraction;
+                        validChar = true;
+                        break;
+                    case '*':
+                        operatorType = OperatorType.Multiplication;
+                        validChar = true;
+                        break;
+                    case '/':
+                        operatorType = OperatorType.Division;
+                        validChar = true;
+                        break;
+                    default:
+                        Console.WriteLine("ERROR: Operator invalid! Input one of the following characters: + - * /");
+                        break;
+                }
+            }
+            while (!validChar);
+
+            return operatorType;
         }
     }
 }
