@@ -37,15 +37,130 @@ namespace Calculator
             {
                 Console.WriteLine();
                 string argument1 = GetArgument("Enter the first argument");
-                OperatorType operatorType = GetOperatorType() ;
+                OperatorType operatorType = GetOperatorType();
                 string argument2 = GetArgument("Enter the second argument");
-                Console.WriteLine();
-                Console.WriteLine($"Input expression:");
-                Console.WriteLine($"{argument1} {operatorType} {argument2}");
-                Console.WriteLine($"argument1: {GetArgumentType(argument1)}");
-                Console.WriteLine($"OperatorType: {operatorType}");
-                Console.WriteLine($"argument2: {GetArgumentType(argument2)}");
-                //Console.ReadLine();
+
+                var argument1Type = GetArgumentType(argument1);
+                var argument2Type = GetArgumentType(argument2);
+                bool validExpression = false;
+
+                if (operatorType != OperatorType.Unknown)
+                {
+                    if (argument1Type == ArgumentType.Number && argument2Type == ArgumentType.Number)
+                    {
+                        validExpression = true;
+                        double number1 = double.Parse(argument1);
+                        double number2 = double.Parse(argument2);
+                        double result = 0.0;
+
+                        switch (operatorType)
+                        {
+                            case OperatorType.Addition:
+                                result = number1 + number2;
+                                break;
+                            case OperatorType.Subtraction:
+                                result = number1 - number2;
+                                break;
+                            case OperatorType.Multiplication:
+                                result = number1 * number2;
+                                break;
+                            case OperatorType.Division:
+                                // Doubles can divide by zero
+                                result = number1 / number2;
+                                break;
+                            default:
+                                Console.WriteLine("What in the world happened?");
+                                break;
+                        }
+                        Console.WriteLine($"Result = {result}");
+
+                    }
+                    else if (argument1Type == ArgumentType.String)
+                    {
+                        if (argument2Type == ArgumentType.String)
+                        {
+                            if (operatorType == OperatorType.Addition)
+                            {
+                                validExpression = true;
+                                string result = argument1 + argument2;
+                                Console.WriteLine($"Result = {result}");
+                            }
+                            else if (operatorType == OperatorType.Subtraction)
+                            {
+                                validExpression = true;
+                                var result = new StringBuilder();
+                                var arg1CharArray = argument1.ToCharArray();
+                                foreach (char arg1Char in arg1CharArray)
+                                {
+                                    if (!argument2.Contains(arg1Char))
+                                    {
+                                        result.Append(arg1Char);
+                                    }
+                                }
+                                Console.WriteLine($"Result = {result}");
+                            }
+                        }
+                        else if (argument2Type == ArgumentType.Number && operatorType == OperatorType.Multiplication)
+                        {
+                            validExpression = true;
+                            var result = new StringBuilder();
+                            var times = (int)double.Parse(argument2);
+                            for (int counter = 0; counter < times; counter++)
+                            {
+                                result.Append(argument1);
+                            }
+                            Console.WriteLine($"Result = {result}");
+                        }
+                    }
+                    else if (argument1Type == ArgumentType.DateTime)
+                    {
+                        if (argument2Type == ArgumentType.DateTime && operatorType == OperatorType.Subtraction)
+                        {
+                            validExpression = true;
+                            var dateTime1 = DateTime.Parse(argument1);
+                            var dateTime2 = DateTime.Parse(argument2);
+                            var result = dateTime1 - dateTime2;
+                            Console.WriteLine($"Result = {result}");
+                        }
+                        else if (argument2Type == ArgumentType.TimeSpan)
+                        {
+                            // Perhaps these can be replaced by a switch block to remove redundancy
+                            if (operatorType == OperatorType.Addition)
+                            {
+                                validExpression = true;
+                                var dateTime = DateTime.Parse(argument1);
+                                var timeSpan = TimeSpan.Parse(argument2);
+                                var result = dateTime + timeSpan;
+                                Console.WriteLine($"Result = {result}");
+                            }
+                            else if (operatorType == OperatorType.Subtraction)
+                            {
+                                validExpression = true;
+                                var dateTime = DateTime.Parse(argument1);
+                                var timeSpan = TimeSpan.Parse(argument2);
+                                var result = dateTime - timeSpan;
+                                Console.WriteLine($"Result = {result}");
+                            }
+                        }
+                    }
+                }
+
+                if (!validExpression)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("ERROR: Invalid expression");
+                    Console.WriteLine("=================================");
+                    Console.WriteLine("These operations are supported:");
+                    Console.WriteLine("=> Arithmetic operations on Numbers");
+                    Console.WriteLine("=> String + String");
+                    Console.WriteLine("=> String - String");
+                    Console.WriteLine("=> DateTime - DateTime");
+                    Console.WriteLine("=> DateTime + TimeSpan");
+                    Console.WriteLine("=> DateTime - TimeSpan");
+                    Console.WriteLine("=> String * Number");
+                    Console.WriteLine("=================================");
+                }
+
             }
         }
 
@@ -86,8 +201,8 @@ namespace Calculator
             var argType = ArgumentType.String;
             var timeSpan = new TimeSpan();
             var dateTime = new DateTime();
-            var intArg = 0;
-            if (int.TryParse(argument, out intArg))
+            var number = 0.0;
+            if (double.TryParse(argument, out number))
             {
                 argType = ArgumentType.Number;
             }
