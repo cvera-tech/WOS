@@ -107,7 +107,10 @@ namespace Calculator
                         {
                             validExpression = true;
                             var result = new StringBuilder();
+
+                            // Do not support partial duplication of strings
                             var times = (int)double.Parse(argument2);
+
                             for (int counter = 0; counter < times; counter++)
                             {
                                 result.Append(argument1);
@@ -205,6 +208,8 @@ namespace Calculator
             var timeSpan = new TimeSpan();
             var dateTime = new DateTime();
             var number = 0.0;
+
+            // TimeSpan.Parse accepts doubles, so we try to parse as a double first
             if (double.TryParse(argument, out number))
             {
                 argType = ArgumentType.Number;
