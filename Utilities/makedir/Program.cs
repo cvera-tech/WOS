@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace touch
+namespace makedir
 {
     class Program
     {
@@ -13,19 +13,18 @@ namespace touch
         {
             if (args.Length == 0)
             {
-                Console.Error.WriteLine("USAGE: touch <file name>");
+                Console.Error.WriteLine("USAGE: makedir <directory name>");
             }
             else
             {
-                string fileName = args[0];
-                if (File.Exists(fileName))
+                string directoryName = args[0];
+                if (Directory.Exists(directoryName))
                 {
-                    var fileInfo = new FileInfo(fileName);
-                    fileInfo.LastWriteTime = DateTime.Now;
+                    Console.Error.WriteLine("makedir: docs: Directory exists");
                 }
                 else
                 {
-                    using (File.Create(fileName)) {}
+                    Directory.CreateDirectory(directoryName);
                 }
             }
 #if DEBUG

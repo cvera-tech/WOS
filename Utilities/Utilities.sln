@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ls", "ls\ls.csproj", "{5866
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "touch", "touch\touch.csproj", "{FCBF1810-1749-40BA-BB42-7DC6FDDF05FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "makedir", "makedir\makedir.csproj", "{823B7FD1-D759-40DB-A019-04FF727E4F37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FCBF1810-1749-40BA-BB42-7DC6FDDF05FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCBF1810-1749-40BA-BB42-7DC6FDDF05FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCBF1810-1749-40BA-BB42-7DC6FDDF05FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823B7FD1-D759-40DB-A019-04FF727E4F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823B7FD1-D759-40DB-A019-04FF727E4F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823B7FD1-D759-40DB-A019-04FF727E4F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823B7FD1-D759-40DB-A019-04FF727E4F37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
