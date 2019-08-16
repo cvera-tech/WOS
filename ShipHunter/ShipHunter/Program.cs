@@ -48,10 +48,10 @@ namespace ShipHunter
             // Default value is Ship.None
             var board = new Ship[10, 10];
             board[0, 5] = Ship.AircraftCarrier;
-            //board[0, 6] = Ship.AircraftCarrier;
-            //board[0, 7] = Ship.AircraftCarrier;
-            //board[0, 8] = Ship.AircraftCarrier;
-            //board[0, 9] = Ship.AircraftCarrier;
+            board[0, 6] = Ship.AircraftCarrier;
+            board[0, 7] = Ship.AircraftCarrier;
+            board[0, 8] = Ship.AircraftCarrier;
+            board[0, 9] = Ship.AircraftCarrier;
 
             var shots = new HashSet<Tuple<int, int>>();
             shots.Add(new Tuple<int, int>(0, 5));
@@ -61,6 +61,9 @@ namespace ShipHunter
             PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
             //var shot = GetUserInput();
             //ProcessUserInput(shot);
+
+
+            Console.WriteLine(PlaceIsValid(board, Tuple.Create(8, 9), true, 2));
             Console.ReadKey();
         }
         static void PrintUI(List<Ship> activeShips, List<Ship> destroyedShips, Dictionary<Ship, int> shipLengths, Ship[,] board, HashSet<Tuple<int, int>> shots, int maxMisses, int misses)
@@ -97,18 +100,48 @@ namespace ShipHunter
                     {
                         Console.BackgroundColor = ConsoleColor.Blue;
                     }
-                    Console.Write("  ");
+
+                    string square = string.Empty;
+                    switch (board[row, col])
+                    {
+                        case Ship.AircraftCarrier:
+                            square = "AC";
+                            break;
+                        case Ship.Battleship:
+                            square = "BS";
+                            break;
+                        case Ship.Cruiser:
+                            square = "CR";
+                            break;
+                        case Ship.Destroyer1:
+                            square = "D1";
+                            break;
+                        case Ship.Destroyer2:
+                            square = "D2";
+                            break;
+                        case Ship.Submarine1:
+                            square = "S1";
+                            break;
+                        case Ship.Submarine2:
+                            square = "S2";
+                            break;
+                        default:
+                            square = "  ";
+                            break;
+                    }
+                    Console.Write(square.PadLeft(columnWidth));
                 }
 
                 Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
             }
 
             Console.WriteLine($"Number of misses allowed: {maxMisses - misses}");
-            Console.WriteLine($"Ships remaining:");
+            Console.WriteLine("Ships remaining:");
             foreach (Ship ship in activeShips)
             {
-                Console.WriteLine($"> {ship} ({shipLengths[ship]})");
+                Console.WriteLine($" > {ship} ({shipLengths[ship]})");
             }
 
             Console.WriteLine();
@@ -117,10 +150,61 @@ namespace ShipHunter
 
         static void PlaceShip(Ship ship, int shipLength, Ship[,] board)
         {
+            Random rng = new Random();
             bool success = false;
             while (!success)
             {
+                int row = rng.Next(0, 10);
+                int col = rng.Next(0, 10);
+                var coordinates = Tuple.Create(row, col);
+                bool horizontal = rng.Next(0, 2) == 0 ? true : false;
+                for (int counter = 0; counter < shipLength; counter++)
+                {
 
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks whether or not a ship can fit in the board at a given location and orientation.
+        /// </summary>
+        /// <param name="board">The game board.</param>
+        /// <param name="coordinates">The row and column tuple to check.</param>
+        /// <param name="horizontal">True if ship is horizontal; false if it is vertical</param>
+        /// <param name="shipLength">The length of the ship.</param>
+        /// <returns>True if the ship can be placed at the given location and orientation. False otherwise.</returns>
+        static bool PlaceIsValid(Ship[,] board, Tuple<int, int> coordinates, bool horizontal, int shipLength)
+        {
+            // Check board boundaries
+            if (horizontal && coordinates.Item2 + shipLength > board.GetLength(1))
+            {
+                return false;
+            }
+            else if (!horizontal && coordinates.Item1 + shipLength > board.GetLength(0))
+            {
+                return false;
+            }
+            else
+            {
+                bool isValid = true;
+                for (int counter = 0; counter < shipLength; counter++)
+                {
+                    int row = coordinates.Item1;
+                    int col = coordinates.Item2;
+                    if (horizontal)
+                    {
+                        col += counter;
+                    }
+                    else
+                    {
+                        row += counter;
+                    }
+                    if (board[row, col] != Ship.None)
+                    {
+                        isValid = false;
+                    }
+                }
+                return isValid;
             }
         }
     }
