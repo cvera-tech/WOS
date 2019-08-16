@@ -51,22 +51,55 @@ namespace ShipHunter
 
             var shots = new HashSet<Tuple<int, int>>();
 
-            //foreach (Ship ship in activeShips)
-            //{
-            //    PlaceShip(ship, shipLengths[ship], board);
-            //}
+            foreach (Ship ship in activeShips)
+            {
+                PlaceShip(ship, shipLengths[ship], board);
+            }
 
-            //bool gameWin = false;
-            //while (!gameWin)
-            //{
-            //    Console.Clear();
-            //    PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
-            //    var shot = GetUserInput(board.GetLength(0), board.GetLength(1));
-            //    Console.WriteLine(shot);
-            //    Console.ReadKey();
-            //}
+            bool gameWin = false;
+            while (!gameWin && misses < maxMisses)
+            {
+                Console.Clear();
+                PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
+                var newShot = GetUserInput(board.GetLength(0), board.GetLength(1), shots);
+                shots.Add(newShot);
+                if (board[newShot.Item1, newShot.Item2] == Ship.None)
+                {
+                    misses++;
+                }
+                foreach (Ship ship in activeShips)
+                {
+                    if (ShipIsDestroyed(ship, shipLengths[ship], board, shots))
+                    {
+                        activeShips.Remove(ship);
+                        destroyedShips.Add(ship);
+                        break;
+                    }
+                }
+                if (activeShips.Count == 0)
+                {
+                    gameWin = true;
+                }
+            }
 
-            //ProcessUserInput(shot);
+            Console.Clear();
+            PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
+
+            if (gameWin)
+            {
+                Console.WriteLine();
+                Console.WriteLine(string.Empty.PadLeft(20, '='));
+                Console.WriteLine("Well done, Ship Hunter! You have destroyed all the ships!");
+                Console.WriteLine(string.Empty.PadLeft(20, '='));
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine(string.Empty.PadLeft(20, '='));
+                Console.WriteLine("Mission failed. We'll get them next time.");
+                Console.WriteLine(string.Empty.PadLeft(20, '='));
+            }
+
             Console.ReadKey();
         }
 
@@ -90,11 +123,40 @@ namespace ShipHunter
 
                 for (int col = 0; col < 10; col++)
                 {
-                    if (shots.Contains(new Tuple<int, int>(row, col)))
+                    string square = string.Empty;
+                    Ship currentShip = board[row, col];
+                    if (shots.Contains(Tuple.Create(row, col)))
                     {
-                        if (board[row, col] != Ship.None)
+                        if (currentShip != Ship.None)
                         {
                             Console.BackgroundColor = ConsoleColor.Red;
+                            if (destroyedShips.Contains(currentShip))
+                            {
+                                switch (currentShip)
+                                {
+                                    case Ship.AircraftCarrier:
+                                        square = "AC";
+                                        break;
+                                    case Ship.Battleship:
+                                        square = "BS";
+                                        break;
+                                    case Ship.Cruiser:
+                                        square = "CR";
+                                        break;
+                                    case Ship.Destroyer1:
+                                        square = "D1";
+                                        break;
+                                    case Ship.Destroyer2:
+                                        square = "D2";
+                                        break;
+                                    case Ship.Submarine1:
+                                        square = "S1";
+                                        break;
+                                    case Ship.Submarine2:
+                                        square = "S2";
+                                        break;
+                                }
+                            }
                         }
                         else
                         {
@@ -106,34 +168,6 @@ namespace ShipHunter
                         Console.BackgroundColor = ConsoleColor.Blue;
                     }
 
-                    string square = string.Empty;
-                    switch (board[row, col])
-                    {
-                        case Ship.AircraftCarrier:
-                            square = "AC";
-                            break;
-                        case Ship.Battleship:
-                            square = "BS";
-                            break;
-                        case Ship.Cruiser:
-                            square = "CR";
-                            break;
-                        case Ship.Destroyer1:
-                            square = "D1";
-                            break;
-                        case Ship.Destroyer2:
-                            square = "D2";
-                            break;
-                        case Ship.Submarine1:
-                            square = "S1";
-                            break;
-                        case Ship.Submarine2:
-                            square = "S2";
-                            break;
-                        default:
-                            square = "  ";
-                            break;
-                    }
                     Console.Write(square.PadLeft(columnWidth));
                 }
 
@@ -237,10 +271,11 @@ namespace ShipHunter
         /// <param name="maxRow">The row upper boundary.</param>
         /// <param name="maxCol">The column upper boundary.</param>
         /// <returns>The valid coordinates tuple.</returns>
-        static Tuple<int, int> GetUserInput(int maxRow, int maxCol)
+        static Tuple<int, int> GetUserInput(int maxRow, int maxCol, HashSet<Tuple<int, int>> shots)
         {
-            const string syntaxErrorMessage = "ERROR: Coordinates are a letter followed by a number (e.g. \"C2\", \"G5\", \"A6\")";
-            const string invalidValueMessage = "ERROR: Input coordinates out of bounds";
+            const string syntaxErrorMessage = "ERROR: Coordinates are a letter followed by a number (e.g. \"C2\", \"G5\", \"A6\").";
+            const string invalidValueMessage = "ERROR: Input coordinates out of bounds.";
+            const string repeatShotMessage = "ERROR: Coordinates already shot. Enter new coordinates.";
 
             bool success = false;
             Tuple<int, int> coordinates = Tuple.Create(-1, -1);
@@ -269,7 +304,14 @@ namespace ShipHunter
                     else
                     {
                         coordinates = Tuple.Create(row, col);
-                        success = true;
+                        if (shots.Contains(coordinates))
+                        {
+                            Console.Error.WriteLine(repeatShotMessage);
+                        }
+                        else
+                        {
+                            success = true;
+                        }
                     }
                 }
             }
