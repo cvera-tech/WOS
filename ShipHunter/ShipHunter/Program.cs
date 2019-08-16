@@ -20,87 +20,41 @@ namespace ShipHunter
             Submarine2
         }
 
+        enum MenuChoice
+        {
+            Classic,
+            Versus,
+            LoadReplay
+        }
+
         static void Main(string[] args)
         {
-            const int maxMisses = 25;
-            int misses = 0;
-
-            Dictionary<Ship, int> shipLengths = new Dictionary<Ship, int>();
-            shipLengths.Add(Ship.AircraftCarrier, 5);
-            shipLengths.Add(Ship.Battleship, 4);
-            shipLengths.Add(Ship.Cruiser, 3);
-            shipLengths.Add(Ship.Destroyer1, 2);
-            shipLengths.Add(Ship.Destroyer2, 2);
-            shipLengths.Add(Ship.Submarine1, 1);
-            shipLengths.Add(Ship.Submarine2, 1);
-
-            var activeShips = new List<Ship>() {
-                Ship.AircraftCarrier,
-                Ship.Battleship,
-                Ship.Cruiser,
-                Ship.Destroyer1,
-                Ship.Destroyer2,
-                Ship.Submarine1,
-                Ship.Submarine2
-            };
-
-            var destroyedShips = new List<Ship>();
-
-            // Default value is Ship.None
-            var board = new Ship[20, 10];
-
-            var shots = new HashSet<Tuple<int, int>>();
-
-            foreach (Ship ship in activeShips)
+            MenuChoice choice = GetMenuChoice();
+            if (choice == MenuChoice.Classic)
             {
-                PlaceShip(ship, shipLengths[ship], board);
+                PlayClassicGame();
             }
-
-            bool gameWin = false;
-            while (!gameWin && misses < maxMisses)
+            else if (choice == MenuChoice.Versus)
             {
-                Console.Clear();
-                PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
-                var newShot = GetUserInput(board.GetLength(0), board.GetLength(1), shots);
-                shots.Add(newShot);
-                if (board[newShot.Item1, newShot.Item2] == Ship.None)
-                {
-                    misses++;
-                }
-                foreach (Ship ship in activeShips)
-                {
-                    if (ShipIsDestroyed(ship, shipLengths[ship], board, shots))
-                    {
-                        activeShips.Remove(ship);
-                        destroyedShips.Add(ship);
-                        break;
-                    }
-                }
-                if (activeShips.Count == 0)
-                {
-                    gameWin = true;
-                }
+                PlayVersusGame();
             }
-
-            Console.Clear();
-            PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
-
-            if (gameWin)
+            else if (choice == MenuChoice.LoadReplay)
             {
-                Console.WriteLine();
-                Console.WriteLine(string.Empty.PadLeft(40, '='));
-                Console.WriteLine("Well done, Ship Hunter! You have destroyed all the ships!");
-                Console.WriteLine(string.Empty.PadLeft(40, '='));
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine(string.Empty.PadLeft(40, '='));
-                Console.WriteLine("Mission failed. We'll get them next time.");
-                Console.WriteLine(string.Empty.PadLeft(40, '='));
-            }
 
-            Console.ReadKey();
+            }
+        }
+
+        /// <summary>
+        /// Prints a message to the error output stream.
+        /// </summary>
+        /// <param name="errorMessage">The message to print.</param>
+        static void PrintError(string errorMessage)
+        {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Error.WriteLine();
+            Console.Error.WriteLine(errorMessage);
+            Console.ForegroundColor = currentColor;
         }
 
         /// <summary>
@@ -241,7 +195,7 @@ namespace ShipHunter
         /// <param name="coordinates">The row and column tuple to check.</param>
         /// <param name="horizontal">True if ship is horizontal; false if it is vertical</param>
         /// <param name="shipLength">The length of the ship.</param>
-        /// <returns>True if the ship can be placed at the given location and orientation. False otherwise.</returns>
+        /// <returns>True if the ship can be placed at the given location and orientation; false otherwise.</returns>
         static bool PlaceIsValid(Ship[,] board, Tuple<int, int> coordinates, bool horizontal, int shipLength)
         {
             // Check board boundaries
@@ -299,11 +253,11 @@ namespace ShipHunter
                 string input = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    Console.Error.WriteLine(syntaxErrorMessage);
+                    PrintError(syntaxErrorMessage);
                 }
                 else if (!char.IsLetter(input[0]) || (!int.TryParse(input.Substring(1), out col)))
                 {
-                    Console.Error.WriteLine(syntaxErrorMessage);
+                    PrintError(syntaxErrorMessage);
                 }
                 else
                 {
@@ -311,14 +265,14 @@ namespace ShipHunter
                     col--;
                     if ((row >= maxRow || row < 0) || (col >= maxCol || col < 0))
                     {
-                        Console.Error.WriteLine(invalidValueMessage);
+                        PrintError(invalidValueMessage);
                     }
                     else
                     {
                         coordinates = Tuple.Create(row, col);
                         if (shots.Contains(coordinates))
                         {
-                            Console.Error.WriteLine(repeatShotMessage);
+                            PrintError(repeatShotMessage);
                         }
                         else
                         {
@@ -357,6 +311,143 @@ namespace ShipHunter
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Prompts the user to input a choice for the main menu and returns a valid choice.
+        /// </summary>
+        /// <returns>The MenuChoice corresponding to the input.</returns>
+        static MenuChoice GetMenuChoice()
+        {
+            const string invalidChoiceMessage = "ERROR: Invalid choice";
+
+            Console.WriteLine(string.Empty.PadLeft(40, '#'));
+            Console.WriteLine("Welcome to Ship Hunter!");
+            Console.WriteLine(string.Empty.PadLeft(40, '#'));
+            bool choiceMade = false;
+            MenuChoice choice = MenuChoice.Classic;
+            do
+            {
+                Console.WriteLine();
+                Console.WriteLine(string.Empty.PadLeft(30, '='));
+                Console.WriteLine(" 1) Classic");
+                Console.WriteLine(" 2) Versus");
+                Console.WriteLine(" 3) Load Replay");
+                Console.WriteLine(string.Empty.PadLeft(30, '='));
+                Console.Write("Enter a number: ");
+                char input = Console.ReadKey().KeyChar;
+                switch (input)
+                {
+                    case '1':
+                        choice = MenuChoice.Classic;
+                        choiceMade = true;
+                        break;
+                    case '2':
+                        choice = MenuChoice.Versus;
+                        choiceMade = true;
+                        break;
+                    case '3':
+                        choice = MenuChoice.LoadReplay;
+                        choiceMade = true;
+                        break;
+                    default:
+                        PrintError(invalidChoiceMessage);
+                        break;
+                }
+            }
+            while (!choiceMade);
+
+            return choice;
+        }
+
+        /// <summary>
+        /// Starts a classic game. 
+        /// The player tries to guess where the computer has placed ships on the game board.
+        /// Ends when the player makes too many mistakes or when the player finds all ships.
+        /// </summary>
+        static void PlayClassicGame()
+        {
+            const int maxMisses = 25;
+            int misses = 0;
+
+            Dictionary<Ship, int> shipLengths = new Dictionary<Ship, int>();
+            shipLengths.Add(Ship.AircraftCarrier, 5);
+            shipLengths.Add(Ship.Battleship, 4);
+            shipLengths.Add(Ship.Cruiser, 3);
+            shipLengths.Add(Ship.Destroyer1, 2);
+            shipLengths.Add(Ship.Destroyer2, 2);
+            shipLengths.Add(Ship.Submarine1, 1);
+            shipLengths.Add(Ship.Submarine2, 1);
+
+            var activeShips = new List<Ship>() {
+                Ship.AircraftCarrier,
+                Ship.Battleship,
+                Ship.Cruiser,
+                Ship.Destroyer1,
+                Ship.Destroyer2,
+                Ship.Submarine1,
+                Ship.Submarine2
+            };
+
+            var destroyedShips = new List<Ship>();
+            var board = new Ship[10, 10];
+            var shots = new HashSet<Tuple<int, int>>();
+
+            foreach (Ship ship in activeShips)
+            {
+                PlaceShip(ship, shipLengths[ship], board);
+            }
+
+            bool gameWin = false;
+            while (!gameWin && misses < maxMisses)
+            {
+                Console.Clear();
+                PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
+                var newShot = GetUserInput(board.GetLength(0), board.GetLength(1), shots);
+                shots.Add(newShot);
+                if (board[newShot.Item1, newShot.Item2] == Ship.None)
+                {
+                    misses++;
+                }
+                foreach (Ship ship in activeShips)
+                {
+                    if (ShipIsDestroyed(ship, shipLengths[ship], board, shots))
+                    {
+                        activeShips.Remove(ship);
+                        destroyedShips.Add(ship);
+                        break;
+                    }
+                }
+                if (activeShips.Count == 0)
+                {
+                    gameWin = true;
+                }
+            }
+
+            Console.Clear();
+            PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
+
+            if (gameWin)
+            {
+                Console.WriteLine();
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
+                Console.WriteLine("Well done, Ship Hunter! You have destroyed all the ships!");
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
+                Console.WriteLine("Mission failed. We'll get them next time.");
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
+            }
+
+            Console.ReadKey();
+        }
+
+        static void PlayVersusGame()
+        {
+
         }
     }
 }
