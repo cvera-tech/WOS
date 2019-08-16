@@ -66,31 +66,6 @@ namespace ShipHunter
             //    Console.ReadKey();
             //}
 
-
-            board[0, 0] = Ship.Battleship;
-            board[1, 0] = Ship.Battleship;
-            board[2, 0] = Ship.Battleship;
-            board[3, 0] = Ship.Battleship;
-            board[2, 3] = Ship.Cruiser;
-            board[2, 4] = Ship.Cruiser;
-            board[2, 5] = Ship.Cruiser;
-            board[6, 7] = Ship.Submarine1;
-            shots.Add(Tuple.Create(0, 0));
-            shots.Add(Tuple.Create(0, 1));
-            shots.Add(Tuple.Create(1, 0));
-            shots.Add(Tuple.Create(2, 0));
-            shots.Add(Tuple.Create(3, 0));
-            shots.Add(Tuple.Create(4, 0));
-            shots.Add(Tuple.Create(2, 3));
-            shots.Add(Tuple.Create(2, 4));
-
-            PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
-            Console.WriteLine();
-            Console.WriteLine($"Battleship: {ShipIsDestroyed(Ship.Battleship, shipLengths[Ship.Battleship], board, shots)}");
-            Console.WriteLine($"Cruiser: {ShipIsDestroyed(Ship.Cruiser, shipLengths[Ship.Cruiser], board, shots)}");
-            Console.WriteLine($"Submarine1: {ShipIsDestroyed(Ship.Submarine1, shipLengths[Ship.Submarine1], board, shots)}");
-
-
             //ProcessUserInput(shot);
             Console.ReadKey();
         }
@@ -259,9 +234,9 @@ namespace ShipHunter
         /// <summary>
         /// Prompts the user for input and returns a valid tuple.
         /// </summary>
-        /// <param name="maxRow">The </param>
-        /// <param name="maxCol"></param>
-        /// <returns></returns>
+        /// <param name="maxRow">The row upper boundary.</param>
+        /// <param name="maxCol">The column upper boundary.</param>
+        /// <returns>The valid coordinates tuple.</returns>
         static Tuple<int, int> GetUserInput(int maxRow, int maxCol)
         {
             const string syntaxErrorMessage = "ERROR: Coordinates are a letter followed by a number (e.g. \"C2\", \"G5\", \"A6\")";
@@ -309,7 +284,7 @@ namespace ShipHunter
         /// <param name="shipLength">The length of the ship.</param>
         /// <param name="board">The game board.</param>
         /// <param name="shots">The list of shots already made.</param>
-        /// <returns></returns>
+        /// <returns>True if the ship is destroyed; false otherwise.</returns>
         static bool ShipIsDestroyed(Ship ship, int shipLength, Ship[,] board, HashSet<Tuple<int, int>> shots)
         {
             int squaresHit = 0;
