@@ -51,22 +51,45 @@ namespace ShipHunter
 
             var shots = new HashSet<Tuple<int, int>>();
 
-            foreach (Ship ship in activeShips)
-            {
-                PlaceShip(ship, shipLengths[ship], board);
-            }
+            //foreach (Ship ship in activeShips)
+            //{
+            //    PlaceShip(ship, shipLengths[ship], board);
+            //}
 
-            bool gameWin = false;
+            //bool gameWin = false;
+            //while (!gameWin)
+            //{
+            //    Console.Clear();
+            //    PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
+            //    var shot = GetUserInput(board.GetLength(0), board.GetLength(1));
+            //    Console.WriteLine(shot);
+            //    Console.ReadKey();
+            //}
 
-            while (!gameWin)
-            {
-                Console.Clear();
-                PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
-                var shot = GetUserInput(board.GetLength(0), board.GetLength(1));
-                Console.WriteLine(shot);
-                Console.ReadKey();
-            }
-            
+
+            board[0, 0] = Ship.Battleship;
+            board[1, 0] = Ship.Battleship;
+            board[2, 0] = Ship.Battleship;
+            board[3, 0] = Ship.Battleship;
+            board[2, 3] = Ship.Cruiser;
+            board[2, 4] = Ship.Cruiser;
+            board[2, 5] = Ship.Cruiser;
+            board[6, 7] = Ship.Submarine1;
+            shots.Add(Tuple.Create(0, 0));
+            shots.Add(Tuple.Create(0, 1));
+            shots.Add(Tuple.Create(1, 0));
+            shots.Add(Tuple.Create(2, 0));
+            shots.Add(Tuple.Create(3, 0));
+            shots.Add(Tuple.Create(4, 0));
+            shots.Add(Tuple.Create(2, 3));
+            shots.Add(Tuple.Create(2, 4));
+
+            PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
+            Console.WriteLine();
+            Console.WriteLine($"Battleship: {ShipIsDestroyed(Ship.Battleship, shipLengths[Ship.Battleship], board, shots)}");
+            Console.WriteLine($"Cruiser: {ShipIsDestroyed(Ship.Cruiser, shipLengths[Ship.Cruiser], board, shots)}");
+            Console.WriteLine($"Submarine1: {ShipIsDestroyed(Ship.Submarine1, shipLengths[Ship.Submarine1], board, shots)}");
+
 
             //ProcessUserInput(shot);
             Console.ReadKey();
@@ -243,7 +266,7 @@ namespace ShipHunter
         {
             const string syntaxErrorMessage = "ERROR: Coordinates are a letter followed by a number (e.g. \"C2\", \"G5\", \"A6\")";
             const string invalidValueMessage = "ERROR: Input coordinates out of bounds";
-            
+
             bool success = false;
             Tuple<int, int> coordinates = Tuple.Create(-1, -1);
             do
@@ -277,6 +300,34 @@ namespace ShipHunter
             }
             while (!success);
             return coordinates;
+        }
+
+        /// <summary>
+        /// Returns whether or not all a ship's squares have been hit.
+        /// </summary>
+        /// <param name="ship">The ship to check.</param>
+        /// <param name="shipLength">The length of the ship.</param>
+        /// <param name="board">The game board.</param>
+        /// <param name="shots">The list of shots already made.</param>
+        /// <returns></returns>
+        static bool ShipIsDestroyed(Ship ship, int shipLength, Ship[,] board, HashSet<Tuple<int, int>> shots)
+        {
+            int squaresHit = 0;
+            foreach (var shotCoordinates in shots)
+            {
+                if (board[shotCoordinates.Item1, shotCoordinates.Item2] == ship)
+                {
+                    squaresHit++;
+                }
+            }
+            if (squaresHit == shipLength)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
