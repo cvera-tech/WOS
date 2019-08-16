@@ -43,32 +43,39 @@ namespace ShipHunter
                 Ship.Submarine1,
                 Ship.Submarine2
             };
+
             var destroyedShips = new List<Ship>();
 
             // Default value is Ship.None
             var board = new Ship[10, 10];
-            board[0, 5] = Ship.AircraftCarrier;
-            board[0, 6] = Ship.AircraftCarrier;
-            board[0, 7] = Ship.AircraftCarrier;
-            board[0, 8] = Ship.AircraftCarrier;
-            board[0, 9] = Ship.AircraftCarrier;
 
             var shots = new HashSet<Tuple<int, int>>();
-            shots.Add(new Tuple<int, int>(0, 5));
-            shots.Add(new Tuple<int, int>(0, 6));
-            shots.Add(new Tuple<int, int>(3, 4));
 
-            PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
-            //var shot = GetUserInput();
+            foreach (Ship ship in activeShips)
+            {
+                PlaceShip(ship, shipLengths[ship], board);
+            }
+
+            bool gameWin = false;
+
+            while (!gameWin)
+            {
+                Console.Clear();
+                PrintUI(activeShips, destroyedShips, shipLengths, board, shots, maxMisses, misses);
+                var shot = GetUserInput(board.GetLength(0), board.GetLength(1));
+                Console.WriteLine(shot);
+                Console.ReadKey();
+            }
+            
+
             //ProcessUserInput(shot);
-
-
-            Console.WriteLine(PlaceIsValid(board, Tuple.Create(8, 9), true, 2));
             Console.ReadKey();
         }
+
         static void PrintUI(List<Ship> activeShips, List<Ship> destroyedShips, Dictionary<Ship, int> shipLengths, Ship[,] board, HashSet<Tuple<int, int>> shots, int maxMisses, int misses)
         {
             const int columnWidth = 2;
+            Console.ForegroundColor = ConsoleColor.White;
 
             string header = String.Empty.PadRight(columnWidth);
             for (int col = 1; col <= 10; col++)
@@ -133,7 +140,6 @@ namespace ShipHunter
                 }
 
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
             }
 
@@ -145,11 +151,19 @@ namespace ShipHunter
             }
 
             Console.WriteLine();
-            Console.Write("Enter coordinates: ");
         }
 
+        /// <summary>
+        /// Places a given ship on the board.
+        /// </summary>
+        /// <param name="ship">The ship to place.</param>
+        /// <param name="shipLength">The length of the ship.</param>
+        /// <param name="board">The game board.</param>
         static void PlaceShip(Ship ship, int shipLength, Ship[,] board)
         {
+            // A more robust solution probably requires checking for all empty contiguous 
+            // squares (similar to the memory fragmentation problem). If there are no spaces 
+            // large enough, the ship cannot be placed on the board.
             Random rng = new Random();
             bool success = false;
             while (!success)
@@ -158,9 +172,20 @@ namespace ShipHunter
                 int col = rng.Next(0, 10);
                 var coordinates = Tuple.Create(row, col);
                 bool horizontal = rng.Next(0, 2) == 0 ? true : false;
-                for (int counter = 0; counter < shipLength; counter++)
+                if (PlaceIsValid(board, coordinates, horizontal, shipLength))
                 {
-
+                    for (int counter = 0; counter < shipLength; counter++)
+                    {
+                        if (horizontal)
+                        {
+                            board[row, col + counter] = ship;
+                        }
+                        else
+                        {
+                            board[row + counter, col] = ship;
+                        }
+                    }
+                    success = true;
                 }
             }
         }
@@ -206,6 +231,52 @@ namespace ShipHunter
                 }
                 return isValid;
             }
+        }
+
+        /// <summary>
+        /// Prompts the user for input and returns a valid tuple.
+        /// </summary>
+        /// <param name="maxRow">The </param>
+        /// <param name="maxCol"></param>
+        /// <returns></returns>
+        static Tuple<int, int> GetUserInput(int maxRow, int maxCol)
+        {
+            const string syntaxErrorMessage = "ERROR: Coordinates are a letter followed by a number (e.g. \"C2\", \"G5\", \"A6\")";
+            const string invalidValueMessage = "ERROR: Input coordinates out of bounds";
+            
+            bool success = false;
+            Tuple<int, int> coordinates = Tuple.Create(-1, -1);
+            do
+            {
+                int row;
+                int col;
+                Console.Write("Enter coordinates: ");
+                string input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.Error.WriteLine(syntaxErrorMessage);
+                }
+                else if (!char.IsLetter(input[0]) || (!int.TryParse(input.Substring(1), out col)))
+                {
+                    Console.Error.WriteLine(syntaxErrorMessage);
+                }
+                else
+                {
+                    row = char.ToUpper(input[0]) - 'A';
+                    col--;
+                    if ((row >= maxRow || row < 0) || (col >= maxCol || col < 0))
+                    {
+                        Console.Error.WriteLine(invalidValueMessage);
+                    }
+                    else
+                    {
+                        coordinates = Tuple.Create(row, col);
+                        success = true;
+                    }
+                }
+            }
+            while (!success);
+            return coordinates;
         }
     }
 }
