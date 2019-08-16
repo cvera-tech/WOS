@@ -11,13 +11,6 @@ namespace ls
     {
         static void Main(string[] args)
         {
-            // Default
-            // Long
-
-            // Files
-            // Directories
-
-            // -l
             bool longFlag = false;
             if (args.Length > 0 && args[0] == "-l")
             {
@@ -35,6 +28,7 @@ namespace ls
 
         private static void PrintEnumerable(IEnumerable<string> items, bool longFlag)
         {
+            const int columnWidth = 14;
             if (!longFlag)
             {
                 foreach (var item in items)
@@ -51,27 +45,30 @@ namespace ls
             }
             else
             {
-                Console.WriteLine("SIZE\t\tCREATED\t\tMODIFIED");
+                string header = "SIZE".PadRight(columnWidth);
+                header += "CREATED".PadRight(columnWidth);
+                header += "MODIFIED".PadRight(columnWidth);
+                Console.WriteLine(header);
                 foreach (var item in items)
                 {
-                    string display = "";
+                    string display = String.Empty;
                     string name = item.Substring(2);
                     const string dateTimeFormat = "MMM dd HH:mm";
 
                     if (Directory.Exists(item))
                     {
-                        display += "\t\t";
                         DirectoryInfo directoryInfo = new DirectoryInfo(item);
-                        display += directoryInfo.CreationTime.ToString(dateTimeFormat) + "\t";
-                        display += directoryInfo.LastWriteTime.ToString(dateTimeFormat) + "\t";
+                        display += String.Empty.PadRight(columnWidth);
+                        display += directoryInfo.CreationTime.ToString(dateTimeFormat).PadRight(columnWidth);
+                        display += directoryInfo.LastWriteTime.ToString(dateTimeFormat).PadRight(columnWidth);
                         display += name + "/";
                     }
                     else
                     {
                         FileInfo fileInfo = new FileInfo(item);
-                        display += fileInfo.Length.ToString().PadLeft(14) + "\t";
-                        display += fileInfo.CreationTime.ToString(dateTimeFormat) + "\t";
-                        display += fileInfo.LastWriteTime.ToString(dateTimeFormat) + "\t";
+                        display += fileInfo.Length.ToString().PadLeft(12).PadRight(columnWidth);
+                        display += fileInfo.CreationTime.ToString(dateTimeFormat).PadRight(columnWidth);
+                        display += fileInfo.LastWriteTime.ToString(dateTimeFormat).PadRight(columnWidth);
                         display += name;
                     }
 

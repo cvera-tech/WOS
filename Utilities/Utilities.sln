@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "makedir", "makedir\makedir.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "removedir", "removedir\removedir.csproj", "{9DF6BEEB-D057-4C65-A64E-233D2DC8C225}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rm", "rm\rm.csproj", "{F04495EF-F873-4C31-AFE4-91D63713CB37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grep", "grep\grep.csproj", "{90381326-EE1A-4016-881C-43F03049BBD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{9DF6BEEB-D057-4C65-A64E-233D2DC8C225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DF6BEEB-D057-4C65-A64E-233D2DC8C225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DF6BEEB-D057-4C65-A64E-233D2DC8C225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F04495EF-F873-4C31-AFE4-91D63713CB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04495EF-F873-4C31-AFE4-91D63713CB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04495EF-F873-4C31-AFE4-91D63713CB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04495EF-F873-4C31-AFE4-91D63713CB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90381326-EE1A-4016-881C-43F03049BBD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90381326-EE1A-4016-881C-43F03049BBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90381326-EE1A-4016-881C-43F03049BBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90381326-EE1A-4016-881C-43F03049BBD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

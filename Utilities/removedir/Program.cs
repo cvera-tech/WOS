@@ -11,7 +11,7 @@ namespace removedir
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            if (args.Length != 1)
             {
                 Console.Error.WriteLine("USAGE: removedir <directory name>");
             }
