@@ -47,7 +47,7 @@ namespace ShipHunter
             var destroyedShips = new List<Ship>();
 
             // Default value is Ship.None
-            var board = new Ship[10, 10];
+            var board = new Ship[20, 10];
 
             var shots = new HashSet<Tuple<int, int>>();
 
@@ -88,35 +88,47 @@ namespace ShipHunter
             if (gameWin)
             {
                 Console.WriteLine();
-                Console.WriteLine(string.Empty.PadLeft(20, '='));
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
                 Console.WriteLine("Well done, Ship Hunter! You have destroyed all the ships!");
-                Console.WriteLine(string.Empty.PadLeft(20, '='));
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
             }
             else
             {
                 Console.WriteLine();
-                Console.WriteLine(string.Empty.PadLeft(20, '='));
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
                 Console.WriteLine("Mission failed. We'll get them next time.");
-                Console.WriteLine(string.Empty.PadLeft(20, '='));
+                Console.WriteLine(string.Empty.PadLeft(40, '='));
             }
 
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Prints the game board and other game information to the console.
+        /// </summary>
+        /// <param name="activeShips">The list of active ships.</param>
+        /// <param name="destroyedShips">The list of destroyed ships.</param>
+        /// <param name="shipLengths">The dictionary mapping ships to their lengths.</param>
+        /// <param name="board">The game board.</param>
+        /// <param name="shots">The hash set of shots previously made.</param>
+        /// <param name="maxMisses">The number of misses allowed.</param>
+        /// <param name="misses">The number of shots that missed.</param>
         static void PrintUI(List<Ship> activeShips, List<Ship> destroyedShips, Dictionary<Ship, int> shipLengths, Ship[,] board, HashSet<Tuple<int, int>> shots, int maxMisses, int misses)
         {
             const int columnWidth = 2;
             Console.ForegroundColor = ConsoleColor.White;
+            int maxRow = board.GetLength(0);
+            int maxCol = board.GetLength(1);
 
             string header = String.Empty.PadRight(columnWidth);
-            for (int col = 1; col <= 10; col++)
+            for (int col = 1; col <= maxCol; col++)
             {
                 header += col.ToString().PadRight(columnWidth);
             }
             Console.WriteLine(header);
 
             string rowString = String.Empty;
-            for (int row = 0; row < 10; row++)
+            for (int row = 0; row < maxRow; row++)
             {
                 // Print row label
                 Console.Write(((char)('A' + row)).ToString().PadRight(columnWidth));
@@ -130,6 +142,7 @@ namespace ShipHunter
                         if (currentShip != Ship.None)
                         {
                             Console.BackgroundColor = ConsoleColor.Red;
+                            // Display the ship if it is destroyed.
                             if (destroyedShips.Contains(currentShip))
                             {
                                 switch (currentShip)
@@ -167,7 +180,6 @@ namespace ShipHunter
                     {
                         Console.BackgroundColor = ConsoleColor.Blue;
                     }
-
                     Console.Write(square.PadLeft(columnWidth));
                 }
 
