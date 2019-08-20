@@ -72,6 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -84,12 +86,19 @@
     <Content Include="Controls\FontPreview.ascx" />
     <Content Include="Controls\QuoteOfTheDay.ascx" />
     <Content Include="Controls\RenderTime.ascx" />
+    <Content Include="Controls\Weather.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="ExampleCounter.aspx" />
     <Content Include="ExampleFontPreview.aspx" />
     <Content Include="ExampleQuoteOfTheDay.aspx" />
     <Content Include="ExampleRenderTime.aspx" />
+    <Content Include="ExampleWeather.aspx" />
     <Content Include="Global.asax" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +129,13 @@
     </Compile>
     <Compile Include="Controls\RenderTime.ascx.designer.cs">
       <DependentUpon>RenderTime.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Weather.ascx.cs">
+      <DependentUpon>Weather.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Weather.ascx.designer.cs">
+      <DependentUpon>Weather.ascx</DependentUpon>
     </Compile>
     <Compile Include="Data\FontsData.cs" />
     <Compile Include="Data\QuotesData.cs" />
@@ -158,6 +174,13 @@
     </Compile>
     <Compile Include="ExampleRenderTime.aspx.designer.cs">
       <DependentUpon>ExampleRenderTime.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleWeather.aspx.cs">
+      <DependentUpon>ExampleWeather.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExampleWeather.aspx.designer.cs">
+      <DependentUpon>ExampleWeather.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

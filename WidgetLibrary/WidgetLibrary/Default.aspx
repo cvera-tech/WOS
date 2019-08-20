@@ -15,6 +15,7 @@
                 <li><a href="ExampleQuoteOfTheDay.aspx">Quote of the Day</a></li>
                 <li><a href="ExampleCounter.aspx">Counter</a></li>
                 <li><a href="ExampleFontPreview.aspx">Font Preview</a></li>
+                <li><a href="ExampleWeather.aspx">Weather</a></li>
             </ul>
 
         </div>
