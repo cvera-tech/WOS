@@ -23,8 +23,9 @@
             <jwl:RenderTime runat="server" />
             <pre>&lt;jwl:RenderTime runat="server" Label="This is a custom label! " Format="yy/M/d hh:mm:ss"</pre>
             <jwl:RenderTime runat="server" Label="This is a custom label! " Format="yy/M/d hh:mm:ss" />
-        </div>
-        <div>
+            <p>
+                <a href="Default.aspx">Return to Home</a>
+            </p>
         </div>
     </form>
 </body>

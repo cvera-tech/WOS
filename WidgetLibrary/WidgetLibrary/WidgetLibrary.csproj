@@ -80,13 +80,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\QuoteOfTheDay.ascx" />
     <Content Include="Controls\RenderTime.ascx" />
     <Content Include="Default.aspx" />
+    <Content Include="ExampleQuoteOfTheDay.aspx" />
     <Content Include="ExampleRenderTime.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\QuoteOfTheDay.ascx.cs">
+      <DependentUpon>QuoteOfTheDay.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\QuoteOfTheDay.ascx.designer.cs">
+      <DependentUpon>QuoteOfTheDay.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RenderTime.ascx.cs">
       <DependentUpon>RenderTime.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,6 +111,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleQuoteOfTheDay.aspx.cs">
+      <DependentUpon>ExampleQuoteOfTheDay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExampleQuoteOfTheDay.aspx.designer.cs">
+      <DependentUpon>ExampleQuoteOfTheDay.aspx</DependentUpon>
     </Compile>
     <Compile Include="ExampleRenderTime.aspx.cs">
       <DependentUpon>ExampleRenderTime.aspx</DependentUpon>
