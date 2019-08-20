@@ -81,10 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controls\Counter.ascx" />
+    <Content Include="Controls\FontPreview.ascx" />
     <Content Include="Controls\QuoteOfTheDay.ascx" />
     <Content Include="Controls\RenderTime.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="ExampleCounter.aspx" />
+    <Content Include="ExampleFontPreview.aspx" />
     <Content Include="ExampleQuoteOfTheDay.aspx" />
     <Content Include="ExampleRenderTime.aspx" />
     <Content Include="Global.asax" />
@@ -97,6 +99,13 @@
     </Compile>
     <Compile Include="Controls\Counter.ascx.designer.cs">
       <DependentUpon>Counter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FontPreview.ascx.cs">
+      <DependentUpon>FontPreview.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\FontPreview.ascx.designer.cs">
+      <DependentUpon>FontPreview.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\QuoteOfTheDay.ascx.cs">
       <DependentUpon>QuoteOfTheDay.ascx</DependentUpon>
@@ -112,6 +121,7 @@
     <Compile Include="Controls\RenderTime.ascx.designer.cs">
       <DependentUpon>RenderTime.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Data\FontsData.cs" />
     <Compile Include="Data\QuotesData.cs" />
     <Compile Include="Data\WeatherData.cs" />
     <Compile Include="Default.aspx.cs">
@@ -127,6 +137,13 @@
     </Compile>
     <Compile Include="ExampleCounter.aspx.designer.cs">
       <DependentUpon>ExampleCounter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExampleFontPreview.aspx.cs">
+      <DependentUpon>ExampleFontPreview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExampleFontPreview.aspx.designer.cs">
+      <DependentUpon>ExampleFontPreview.aspx</DependentUpon>
     </Compile>
     <Compile Include="ExampleQuoteOfTheDay.aspx.cs">
       <DependentUpon>ExampleQuoteOfTheDay.aspx</DependentUpon>
