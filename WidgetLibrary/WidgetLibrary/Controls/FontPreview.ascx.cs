@@ -10,14 +10,30 @@ namespace WidgetLibrary.Controls
 {
     public partial class FontPreview : System.Web.UI.UserControl
     {
-
+        public string LoremType { get; set; } = "Lorem";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 FontList.DataSource = FontsData.Fonts;
                 FontList.DataBind();
-                FillerText.Text = FontsData.FillerText;
+                string sampleText = string.Empty;
+                switch (LoremType)
+                {
+                    case "Sagan":
+                        sampleText = FontsData.SaganText;
+                        break;
+                    case "Hipster":
+                        sampleText = FontsData.HipsterText;
+                        break;
+                    case "Pirate":
+                        sampleText = FontsData.PirateText;
+                        break;
+                    default:
+                        sampleText = FontsData.LoremText;
+                        break;
+                }
+                FillerText.Text = sampleText;
             }
         }
 

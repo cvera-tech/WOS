@@ -10,7 +10,8 @@
     <form id="form1" runat="server">
         <div>
             <h1>Widget Library</h1>
-            <ul>
+            <p>Click one of the following to view a sample of each widget.</p>
+            <ul style=" list-style: none ">
                 <li><a href="ExampleRenderTime.aspx">Render Time</a></li>
                 <li><a href="ExampleQuoteOfTheDay.aspx">Quote of the Day</a></li>
                 <li><a href="ExampleCounter.aspx">Counter</a></li>
