@@ -9,7 +9,7 @@ namespace WidgetLibrary
     {
         protected override void OnPreInit(EventArgs e)
         {
-            var master = Master as Site1;
+            var master = Master as Site;
             if (master != null && !string.IsNullOrEmpty(master.Theme))
             {
                 Theme = master.Theme;

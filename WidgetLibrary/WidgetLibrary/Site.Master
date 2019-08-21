@@ -1,11 +1,11 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WidgetLibrary.Site1" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WidgetLibrary.Site" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
+    <asp:ContentPlaceHolder ID="Head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
@@ -22,10 +22,10 @@
                 </Items>
             </asp:Menu>
             <asp:Panel runat="server" Style="float: right;">
-                <asp:Label runat="server" style="margin-right: 5px;">Theme</asp:Label>
-                <asp:DropDownList runat="server" 
-                    ID="ThemeDropDownList" 
-                    ViewStateMode="Enabled" 
+                <asp:Label runat="server" Style="margin-right: 5px;">Theme</asp:Label>
+                <asp:DropDownList runat="server"
+                    ID="ThemeDropDownList"
+                    ViewStateMode="Enabled"
                     AutoPostBack="true"
                     OnSelectedIndexChanged="ThemeDropDownList_SelectedIndexChanged">
                     <asp:ListItem Text="" Value="" />

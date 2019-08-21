@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace WidgetLibrary
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class Site : System.Web.UI.MasterPage
     {
         private const string ThemeSessionKey = "theme";
         public string Theme
@@ -25,7 +25,10 @@ namespace WidgetLibrary
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                ThemeDropDownList.SelectedValue = Theme;
+            }
         }
 
         protected void ThemeDropDownList_SelectedIndexChanged(object sender, EventArgs e)
