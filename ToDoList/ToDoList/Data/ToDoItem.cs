@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ToDoList.Models
+namespace ToDoList.Data
 {
     public class ToDoItem
     {
-
         public string Description { get; set; }
         public bool Done { get; set; }
     }

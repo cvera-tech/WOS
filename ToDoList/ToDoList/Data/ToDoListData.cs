@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ToDoList.Data
 {
-    public class ToDoItemData
+    public class ToDoListData
     {
         // This is a hack. We are working around
         // not having a database.
@@ -21,7 +21,7 @@ namespace ToDoList.Data
             {
                 Description = text,
                 Done = false
-            }) ;
+            });
         }
     }
 }
