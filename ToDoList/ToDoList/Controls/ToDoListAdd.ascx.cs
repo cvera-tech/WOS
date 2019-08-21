@@ -17,6 +17,11 @@ namespace ToDoList.Controls
 
         protected void Submit_Click(object sender, EventArgs e)
         {
+            if (Page.IsValid)
+            {
+                ToDoItemData.AddItem(Description.Text);
+                Description.Text = string.Empty;
+            }
             //if (!string.IsNullOrWhiteSpace(Description.Text))
             //{
             //    ErrorMessage.Visible = false;

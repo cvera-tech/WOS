@@ -12,6 +12,11 @@ namespace ToDoList.Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //PopulateList();
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
             PopulateList();
         }
 
