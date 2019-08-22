@@ -1,8 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ToDoListAdd.ascx.cs" Inherits="ToDoList.Controls.ToDoListAdd" %>
 
 <div>
-    <asp:TextBox ID="Description" runat="server"></asp:TextBox>
-
+    <asp:Label runat="server"
+        ID="DescriptionLabel"
+        AssociatedControlID="Description" 
+        Text="Description: " />
+    <asp:TextBox runat="server" ID="Description" />
+    <asp:Label runat="server"
+        ID="CategoriesLabel"
+        AssociatedControlID="Category"
+        Text="Category: " />
+    <asp:DropDownList runat="server"
+        ID="Category" />
     <asp:RequiredFieldValidator runat="server"
         ControlToValidate="Description"
         Display="Dynamic"
@@ -10,11 +19,11 @@
         ValidationGroup="ToDoListAdd" 
         ErrorMessage="Please enter a task."
         Text="*" />
-    <asp:Button ID="Submit" runat="server"
+    <asp:Button runat="server"
+        ID="Submit"
         Text="Submit" 
         OnClick="Submit_Click" 
         ValidationGroup="ToDoListAdd" />
-
     <asp:ValidationSummary runat="server"
         ValidationGroup="ToDoListAdd"
         DisplayMode="List" 

@@ -12,26 +12,26 @@ namespace ToDoList.Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                PopulateCategories();
+            }
         }
 
         protected void Submit_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
-                ToDoItemData.AddItem(Description.Text);
+                ToDoItemData.AddItem(Description.Text, Category.SelectedValue);
                 Description.Text = string.Empty;
             }
-            //if (!string.IsNullOrWhiteSpace(Description.Text))
-            //{
-            //    ErrorMessage.Visible = false;
-            //    ToDoItemData.AddItem(Description.Text);
-            //    Description.Text = string.Empty;
-            //}
-            //else
-            //{
-            //    ErrorMessage.Visible = true;
-            //}
+        }
+
+        private void PopulateCategories()
+        {
+            List<string> categories = ToDoItemData.GetCategories();
+            Category.DataSource = categories;
+            Category.DataBind();
         }
     }
 }

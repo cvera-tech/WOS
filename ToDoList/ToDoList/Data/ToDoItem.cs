@@ -8,6 +8,7 @@ namespace ToDoList.Data
     public class ToDoItem
     {
         public string Description { get; set; }
+        public string Category { get; set; }
         public bool Done { get; set; }
     }
 }

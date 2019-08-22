@@ -15,11 +15,12 @@ namespace ToDoList.Data
             return Items;
         }
 
-        public static void AddItem(string text)
+        public static void AddItem(string text, string category)
         {
             Items.Add(new ToDoItem
             {
                 Description = text,
+                Category = category,
                 Done = false
             });
         }

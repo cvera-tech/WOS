@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <jwl:ToDoList runat="server" />
+            <jwl:ToDoList runat="server" CategoryFilter="Work" />
             <jwl:ToDoListAdd runat="server" />
         </div>
     </form>
