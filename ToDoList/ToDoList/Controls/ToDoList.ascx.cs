@@ -22,7 +22,7 @@ namespace ToDoList.Controls
                 }
                 else
                 {
-                    return string.Empty;
+                    return "ALL";
                 }
             }
             set
@@ -58,7 +58,9 @@ namespace ToDoList.Controls
             if (!IsPostBack)
             {
                 // Bind Categories list to CategoriesDropDown and set the initial selected value
-                CategoryDropDown.DataSource = ToDoItemData.GetCategories();
+                List<string> categoriesList = ToDoItemData.GetCategories();
+                categoriesList.Add("ALL");
+                CategoryDropDown.DataSource = categoriesList;
                 CategoryDropDown.DataBind();
                 int currentCategoryIndex = ToDoItemData.GetCategories().IndexOf(CategoryFilter);
                 CategoryDropDown.SelectedIndex = currentCategoryIndex;
@@ -132,7 +134,7 @@ namespace ToDoList.Controls
         /// <returns>True if the categories match; false otherwise.</returns>
         private bool HasCategory(ToDoItem item)
         {
-            if (item.Category.Equals(CategoryFilter))
+            if (CategoryFilter.Equals("ALL") || item.Category.Equals(CategoryFilter))
             {
                 return true;
             }

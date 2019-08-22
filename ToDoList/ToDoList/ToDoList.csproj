@@ -103,7 +103,6 @@
     <Compile Include="Controls\ToDoListAdd.ascx.designer.cs">
       <DependentUpon>ToDoListAdd.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Data\ToDoListData.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
