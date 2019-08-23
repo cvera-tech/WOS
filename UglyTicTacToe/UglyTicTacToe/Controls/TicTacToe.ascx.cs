@@ -66,6 +66,7 @@ namespace UglyTicTacToe.Controls
                 WinImage.Visible = false;
                 PlayerImage.Visible = false;
                 TieImage.Visible = false;
+                //
             }
         }
 
@@ -111,8 +112,11 @@ namespace UglyTicTacToe.Controls
                     GameEndPanel.Visible = true;
                 }
 
-                // Switch players
-                CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
+                if (IsPostBack)
+                {
+                    // Switch players
+                    CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
+                }
             }
         }
 

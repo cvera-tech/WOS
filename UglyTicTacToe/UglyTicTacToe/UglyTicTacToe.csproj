@@ -93,6 +93,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\UnbeatableAI.cs" />
     <Compile Include="Controls\TicTacToe.ascx.cs">
       <DependentUpon>TicTacToe.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -101,7 +102,6 @@
       <DependentUpon>TicTacToe.ascx</DependentUpon>
     </Compile>
     <Compile Include="Data\Square.cs" />
-    <Compile Include="Data\TicTacToeData.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
