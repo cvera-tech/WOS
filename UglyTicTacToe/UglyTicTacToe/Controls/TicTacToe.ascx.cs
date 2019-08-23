@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UglyTicTacToe.Data;
+using UglyTicTacToe.Code;
 
 namespace UglyTicTacToe.Controls
 {
     public partial class TicTacToe : System.Web.UI.UserControl
     {
+        public bool VersusAI { get; set; }
         private const string BlankUrl = "~/Images/deepfriedBlank.png";
         private const string OUrl = "~/Images/deepfriedO.png";
         private const string XUrl = "~/Images/deepfriedX.png";
@@ -66,57 +68,18 @@ namespace UglyTicTacToe.Controls
                 WinImage.Visible = false;
                 PlayerImage.Visible = false;
                 TieImage.Visible = false;
-                //
             }
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            UpdateImageButtons();
-
-            if (GameWon())
+            if (VersusAI)
             {
-                // Player 1 won
-                if (CurrentPlayer == Square.X)
-                {
-                    PlayerImage.ImageUrl = Player1Url;
-                }
-                // Player 2 won
-                else
-                {
-                    PlayerImage.ImageUrl = Player2Url;
-                }
-                GameEndPanel.Visible = true;
-                WinImage.Visible = true;
-                PlayerImage.Visible = true;
-
-                // Disable all ImageButtons
-                for (int index = 0; index < 9; index++)
-                {
-                    var row = index / 3;
-                    var col = index % 3;
-                    var square = GameBoard[index];
-                    var imageButtonId = $"Square{row}{col}";
-                    ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
-                    imageButton.Enabled = false;
-                }
+                HandleVersusAI();
             }
             else
             {
-                if (GameBoardFilled())
-                {
-                    // Game tied
-                    WinImage.Visible = false;
-                    PlayerImage.Visible = false;
-                    TieImage.Visible = true;
-                    GameEndPanel.Visible = true;
-                }
-
-                if (IsPostBack)
-                {
-                    // Switch players
-                    CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
-                }
+                HandlePvP();
             }
         }
 
@@ -198,6 +161,66 @@ namespace UglyTicTacToe.Controls
                 }
             }
             return true;
+        }
+
+        private void HandlePvP()
+        {
+            UpdateImageButtons();
+            // Check for winning condition
+            if (GameWon())
+            {
+                // Player 1 won
+                if (CurrentPlayer == Square.X)
+                {
+                    PlayerImage.ImageUrl = Player1Url;
+                }
+                // Player 2 won
+                else
+                {
+                    PlayerImage.ImageUrl = Player2Url;
+                }
+                GameEndPanel.Visible = true;
+                WinImage.Visible = true;
+                PlayerImage.Visible = true;
+
+                // Disable all ImageButtons
+                for (int index = 0; index < 9; index++)
+                {
+                    var row = index / 3;
+                    var col = index % 3;
+                    var square = GameBoard[index];
+                    var imageButtonId = $"Square{row}{col}";
+                    ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
+                    imageButton.Enabled = false;
+                }
+            }
+
+            // Check if game is tied
+            else if (GameBoardFilled())
+            {
+                WinImage.Visible = false;
+                PlayerImage.Visible = false;
+                TieImage.Visible = true;
+                GameEndPanel.Visible = true;
+            }
+
+            else if (IsPostBack)
+            {
+                // Switch players
+                CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
+            }
+
+        }
+
+        private void HandleVersusAI()
+        {
+            int computerMove = UnbeatableAI.GetBestMove(GameBoard);
+            if (computerMove >= 0)
+            {
+                CurrentPlayer = Square.O;
+                GameBoard[computerMove] = Square.O;
+            }
+            // Switch players
         }
 
         protected void Square_Command(object sender, CommandEventArgs e)
