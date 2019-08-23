@@ -13,73 +13,112 @@ namespace UglyTicTacToe.Controls
         private const string BlankUrl = "~/Images/deepfriedBlank.png";
         private const string OUrl = "~/Images/deepfriedO.png";
         private const string XUrl = "~/Images/deepfriedX.png";
-
-        private Square[,] GameBoard
+        private const string PlayerString = "Player";
+        private const string GameBoardString = "GameBoard";
+        private Square CurrentPlayer
         {
             get
             {
-                object o = ViewState["GameBoard"];
-                return o != null ? (Square[,])o : new Square[3, 3];
+                object o = ViewState[PlayerString];
+                if (o != null)
+                {
+                    //string indexString = o.ToString();
+                    //return (Square)(Enum.Parse(typeof(Square), indexString));
+                    return (Square)o;
+                }
+                else
+                {
+                    return Square.X;
+                }
             }
             set
             {
-                ViewState["GameBoard"] = value;
-            }
-        }
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                // default(Square) is Square.Empty
-                GameBoard = new Square[3,3];
-                GameBoard[0, 0] = Square.O;
-                GameBoard[0, 1] = Square.X;
-                GameBoard[0, 2] = Square.X;
-                GameBoard[1, 0] = Square.O;
-                GameBoard[1, 1] = Square.O;
-                GameBoard[1, 2] = Square.X;
-                GameBoard[2, 0] = Square.O;
-                GameBoard[2, 1] = Square.O;
-                GameBoard[2, 2] = Square.X;
-                UpdateImageButtons();
+                ViewState[PlayerString] = value;
             }
         }
 
+        private Square[] GameBoard
+        {
+            get
+            {
+                object o = ViewState[GameBoardString];
+                if (o != null)
+                {
+                    return (Square[])o;
+                }
+                else
+                {
+                    ViewState[GameBoardString] = new Square[9];
+                    return new Square[9];
+                }
+            }
+            set
+            {
+                ViewState[GameBoardString] = value;
+            }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            UpdateImageButtons();
+        }
+
+        /// <summary>
+        /// Iterates through the game board and sets the ImageUrl of each square.
+        /// </summary>
         private void UpdateImageButtons()
         {
-            for (int row = 0; row < 3; row++)
+            for (int index = 0; index < 9; index++)
             {
-                for (int col = 0; col < 3; col++)
+                var row = index / 3;
+                var col = index % 3;
+                var square = GameBoard[index];
+                var imageButtonId = $"Square{row}{col}";
+                var imageUrl = string.Empty;
+                ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
+                switch (square)
                 {
-                    var square = GameBoard[row, col];
-                    var imageButtonId = $"Square{row}{col}";
-                    var imageUrl = string.Empty;
-                    switch (square)
-                    {
-                        case Square.Empty:
-                            imageUrl = BlankUrl;
-                            break;
-                        case Square.O:
-                            imageUrl = OUrl;
-                            break;
-                        case Square.X:
-                            imageUrl = XUrl;
-                            break;
-                    }
-                    ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
-                    imageButton.ImageUrl = imageUrl;
+                    case Square.Empty:
+                        imageUrl = BlankUrl;
+                        break;
+                    case Square.O:
+                        imageUrl = OUrl;
+                        break;
+                    case Square.X:
+                        imageUrl = XUrl;
+                        break;
+                }
+                imageButton.ImageUrl = imageUrl;
+                
+                if (square != Square.Empty)
+                {
+                    imageButton.Enabled = false;
                 }
             }
         }
-        
+
         protected void Square_Command(object sender, CommandEventArgs e)
         {
-
+            var coords = (string)e.CommandArgument;
+            var rowString = coords.Substring(0, 1);
+            var colString = coords.Substring(1, 1);
+            var row = int.Parse(rowString);
+            var col = int.Parse(colString);
+            var index = row * 3 + col;
+            // Update the game board
+            GameBoard[index] = CurrentPlayer;
+            // Switch players
+            CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
         }
 
         protected void Reset_Command(object sender, CommandEventArgs e)
         {
-
+            Response.Redirect("~/");
         }
     }
 }

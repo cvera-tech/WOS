@@ -13,6 +13,33 @@ namespace UglyTicTacToe.Controls {
     public partial class TicTacToe {
         
         /// <summary>
+        /// GameEndPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel GameEndPanel;
+        
+        /// <summary>
+        /// WinImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image WinImage;
+        
+        /// <summary>
+        /// PlayerImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image PlayerImage;
+        
+        /// <summary>
         /// Square00 control.
         /// </summary>
         /// <remarks>
