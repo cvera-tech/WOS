@@ -13,6 +13,8 @@ namespace UglyTicTacToe.Controls
         private const string BlankUrl = "~/Images/deepfriedBlank.png";
         private const string OUrl = "~/Images/deepfriedO.png";
         private const string XUrl = "~/Images/deepfriedX.png";
+        private const string Player1Url = "~/Images/deepfriedPlayer1.png";
+        private const string Player2Url = "~/Images/deepfriedPlayer2.png";
         private const string PlayerString = "Player";
         private const string GameBoardString = "GameBoard";
         private Square CurrentPlayer
@@ -22,8 +24,6 @@ namespace UglyTicTacToe.Controls
                 object o = ViewState[PlayerString];
                 if (o != null)
                 {
-                    //string indexString = o.ToString();
-                    //return (Square)(Enum.Parse(typeof(Square), indexString));
                     return (Square)o;
                 }
                 else
@@ -60,12 +60,60 @@ namespace UglyTicTacToe.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                GameEndPanel.Visible = false;
+                WinImage.Visible = false;
+                PlayerImage.Visible = false;
+                TieImage.Visible = false;
+            }
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
             UpdateImageButtons();
+
+            if (GameWon())
+            {
+                // Player 1 won
+                if (CurrentPlayer == Square.X)
+                {
+                    PlayerImage.ImageUrl = Player1Url;
+                }
+                // Player 2 won
+                else
+                {
+                    PlayerImage.ImageUrl = Player2Url;
+                }
+                GameEndPanel.Visible = true;
+                WinImage.Visible = true;
+                PlayerImage.Visible = true;
+
+                // Disable all ImageButtons
+                for (int index = 0; index < 9; index++)
+                {
+                    var row = index / 3;
+                    var col = index % 3;
+                    var square = GameBoard[index];
+                    var imageButtonId = $"Square{row}{col}";
+                    ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
+                    imageButton.Enabled = false;
+                }
+            }
+            else
+            {
+                if (GameBoardFilled())
+                {
+                    // Game tied
+                    WinImage.Visible = false;
+                    PlayerImage.Visible = false;
+                    TieImage.Visible = true;
+                    GameEndPanel.Visible = true;
+                }
+
+                // Switch players
+                CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
+            }
         }
 
         /// <summary>
@@ -94,12 +142,58 @@ namespace UglyTicTacToe.Controls
                         break;
                 }
                 imageButton.ImageUrl = imageUrl;
-                
+
                 if (square != Square.Empty)
                 {
                     imageButton.Enabled = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Checks if the board has a winning combination.
+        /// </summary>
+        /// <returns>True if the game is won; false otherwise.</returns>
+        private bool GameWon()
+        {
+            Square[] board = GameBoard;
+            // Horizontals
+            if ((board[0] != Square.Empty && board[0] == board[3] && board[0] == board[6]) ||
+                (board[1] != Square.Empty && board[1] == board[4] && board[1] == board[7]) ||
+                (board[2] != Square.Empty && board[2] == board[5] && board[2] == board[8]))
+            {
+                return true;
+            }
+            // Verticals
+            if ((board[0] != Square.Empty && board[0] == board[1] && board[0] == board[2]) ||
+                (board[3] != Square.Empty && board[3] == board[4] && board[3] == board[5]) ||
+                (board[6] != Square.Empty && board[6] == board[7] && board[6] == board[8]))
+            {
+                return true;
+            }
+            // Diagonals
+            if ((board[0] != Square.Empty && board[0] == board[4] && board[0] == board[8]) ||
+                (board[2] != Square.Empty && board[2] == board[4] && board[2] == board[6]))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if the game board is completely filled.
+        /// </summary>
+        /// <returns>True if the board is filled; false otherwise.</returns>
+        private bool GameBoardFilled()
+        {
+            foreach (var square in GameBoard)
+            {
+                if (square == Square.Empty)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         protected void Square_Command(object sender, CommandEventArgs e)
@@ -112,8 +206,6 @@ namespace UglyTicTacToe.Controls
             var index = row * 3 + col;
             // Update the game board
             GameBoard[index] = CurrentPlayer;
-            // Switch players
-            CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
         }
 
         protected void Reset_Command(object sender, CommandEventArgs e)

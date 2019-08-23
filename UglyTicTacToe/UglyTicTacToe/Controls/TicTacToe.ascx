@@ -2,8 +2,9 @@
 
 <asp:Image runat="server" ImageUrl="~/Images/deepfriedLogo.png"/>
 <asp:Panel runat="server" ID="GameEndPanel">
-    <asp:Image runat="server" ID="WinImage" />
+    <asp:Image runat="server" ID="WinImage" ImageUrl="~/Images/deepfriedWinner.png" />
     <asp:Image runat="server" ID="PlayerImage" />
+    <asp:Image runat="server" ID="TieImage" ImageUrl="~/Images/deepfriedTied.png" />
 </asp:Panel>
 
 <div>
