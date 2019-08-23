@@ -31,39 +31,45 @@ namespace UglyTicTacToe.Controls
             if (!IsPostBack)
             {
                 // default(Square) is Square.Empty
-                GameBoard.Initialize();
+                GameBoard = new Square[3,3];
+                GameBoard[0, 0] = Square.O;
+                GameBoard[0, 1] = Square.X;
+                GameBoard[0, 2] = Square.X;
+                GameBoard[1, 0] = Square.O;
+                GameBoard[1, 1] = Square.O;
+                GameBoard[1, 2] = Square.X;
+                GameBoard[2, 0] = Square.O;
+                GameBoard[2, 1] = Square.O;
+                GameBoard[2, 2] = Square.X;
+                UpdateImageButtons();
             }
         }
 
         private void UpdateImageButtons()
         {
-            ControlCollection allControls = Page.Controls;
-            Square00.ImageUrl = "";
-            //for (int row = 0; row < 3; row++)
-            //{
-            //    for (int col = 0; col < 3; col++)
-            //    {
-            //        var square = GameBoard[row, col];
-            //        var imgID = $"Square{row}{col}";
-            //        switch (square)
-            //        {
-            //            case Square.Empty:
-            //                break;
-            //            case Square.O:
-            //                break;
-            //            case Square.X:
-            //                break;
-            //        }
-            //    }
-            //}
-        }
-
-        private List<ImageButton> GetImageButtons()
-        {
-            var list = new List<ImageButton>();
-            ControlCollection allControls = Page.Controls;
-            //list.AddRange()
-            return list;
+            for (int row = 0; row < 3; row++)
+            {
+                for (int col = 0; col < 3; col++)
+                {
+                    var square = GameBoard[row, col];
+                    var imageButtonId = $"Square{row}{col}";
+                    var imageUrl = string.Empty;
+                    switch (square)
+                    {
+                        case Square.Empty:
+                            imageUrl = BlankUrl;
+                            break;
+                        case Square.O:
+                            imageUrl = OUrl;
+                            break;
+                        case Square.X:
+                            imageUrl = XUrl;
+                            break;
+                    }
+                    ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
+                    imageButton.ImageUrl = imageUrl;
+                }
+            }
         }
         
         protected void Square_Command(object sender, CommandEventArgs e)
