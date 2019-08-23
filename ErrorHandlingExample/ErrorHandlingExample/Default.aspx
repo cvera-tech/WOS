@@ -9,5 +9,6 @@
         <asp:Label runat="server" AssociatedControlID="Result" Text="Result:" />
         <asp:Label runat="server" ID="Result"></asp:Label>
     </asp:Panel>
+    <asp:HyperLink runat="server" Text="Go Bye Bye" NavigateUrl="~/Xyzzy.aspx" />
 
 </asp:Content>
