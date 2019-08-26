@@ -64,6 +64,12 @@ namespace RpnCalculator.Code
                 case OperationType.SquareRoot:
                     operation = new SquareRootOperation();
                     break;
+                case OperationType.Exponential:
+                    operation = new ExponentialOperation();
+                    break;
+                case OperationType.Power:
+                    operation = new PowerOperation();
+                    break;
             }
             if (operation != null)
             {

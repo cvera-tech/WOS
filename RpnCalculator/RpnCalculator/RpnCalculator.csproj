@@ -84,10 +84,12 @@
     <Compile Include="Code\Operations\AddOperation.cs" />
     <Compile Include="Code\Calculator.cs" />
     <Compile Include="Code\Operations\DivideOperation.cs" />
+    <Compile Include="Code\Operations\ExponentialOperation.cs" />
     <Compile Include="Code\Operations\IOperation.cs" />
     <Compile Include="Code\Operations\MinusOperation.cs" />
     <Compile Include="Code\Operations\MultiplyOperation.cs" />
     <Compile Include="Code\Operations\NegateOperation.cs" />
+    <Compile Include="Code\Operations\PowerOperation.cs" />
     <Compile Include="Code\Operations\SquareRootOperation.cs" />
     <Compile Include="Code\OperationType.cs" />
     <Compile Include="CalculatorUI.aspx.cs">

@@ -5,16 +5,16 @@ using System.Web;
 
 namespace RpnCalculator.Code.Operations
 {
-    public class AddOperation : IOperation
+    public class PowerOperation : IOperation
     {
-        void IOperation.Perform(Stack<decimal> stack)
+        public void Perform(Stack<decimal> stack)
         {
             if (stack.Count > 1)
             {
                 var arg2 = stack.Pop();
                 var arg1 = stack.Pop();
-                var result = arg1 + arg2;
-                stack.Push(result);
+                var result = Math.Pow(decimal.ToDouble(arg1), decimal.ToDouble(arg2));
+                stack.Push((decimal)result);
             }
         }
     }

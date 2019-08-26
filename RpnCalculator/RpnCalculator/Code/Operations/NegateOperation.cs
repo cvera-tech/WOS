@@ -11,8 +11,8 @@ namespace RpnCalculator.Code.Operations
         {
             if (stack.Count > 0)
             {
-                var arg1 = stack.Pop();
-                var result = -arg1;
+                var arg = stack.Pop();
+                var result = -arg;
                 stack.Push(result);
             }
         }
