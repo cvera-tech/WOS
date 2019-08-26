@@ -30,17 +30,17 @@ namespace ShipHunter
         static void Main(string[] args)
         {
             MenuChoice choice = GetMenuChoice();
-            if (choice == MenuChoice.Classic)
+            switch (choice)
             {
-                PlayClassicGame();
-            }
-            else if (choice == MenuChoice.Versus)
-            {
-                PlayVersusGame();
-            }
-            else if (choice == MenuChoice.LoadReplay)
-            {
-
+                case MenuChoice.Classic:
+                    PlayClassicGame();
+                    break;
+                case MenuChoice.Versus:
+                    PlayVersusGame();
+                    break;
+                case MenuChoice.LoadReplay:
+                    // TODO
+                    break;
             }
         }
 
@@ -74,7 +74,7 @@ namespace ShipHunter
             int maxRow = board.GetLength(0);
             int maxCol = board.GetLength(1);
 
-            string header = String.Empty.PadRight(columnWidth);
+            string header = string.Empty.PadRight(columnWidth);
             for (int col = 1; col <= maxCol; col++)
             {
                 header += col.ToString().PadRight(columnWidth);
