@@ -6,6 +6,11 @@ using UglyTicTacToe.Data;
 
 namespace UglyTicTacToe.Code
 {
+    /// <summary>
+    /// This is an implementation of a Tic-Tac-Toe AI using the Minimax algorithm.
+    /// It was adapted from Akshay L Aradhya's article on GeeksForGeeks.org:
+    /// https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/
+    /// </summary>
     public static class UnbeatableAI
     {
         /// <summary>
@@ -41,78 +46,12 @@ namespace UglyTicTacToe.Code
             }
             return false;
         }
-
-        //private static Square GameWon(Square[,] board)
-        //{
-        //    // Check rows
-        //    for (int row = 0; row < 3; row++)
-        //    {
-        //        if (board[row, 0] == board[row, 1] &&
-        //            board[row, 1] == board[row, 2])
-        //        {
-        //            return board[row, 0];
-        //        }
-        //    }
-
-        //    // Check columns
-        //    for (int col = 0; col < 3; col++)
-        //    {
-        //        if (board[0, col] == board[1, col] &&
-        //            board[1, col] == board[2, col])
-        //        {
-        //            return board[0, col];
-        //        }
-        //    }
-
-        //    // Checking for Diagonals for X or O victory. 
-        //    if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
-        //    {
-        //        return board[0, 0];
-        //    }
-
-        //    if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0])
-        //    {
-        //        return board[0, 2];
-        //    }
-
-        //    return Square.Empty;
-        //}
-
-        //private static int Score(Square winningSquare)
-        //{
-        //    const Square player = Square.X;
-        //    const Square computer = Square.O;
-        //    if (winningSquare == computer)
-        //    {
-        //        return 10;
-        //    }
-        //    else if (winningSquare == player)
-        //    {
-        //        return -10;
-        //    }
-        //    else
-        //    {
-        //        return 0;
-        //    }
-        //}
-
-        //private static int Minimax(Square[,] board)
-        //{
-        //    Square winningSquare = GameWon(board);
-        //    if (winningSquare != Square.Empty)
-        //    {
-        //        return Score(winningSquare);
-        //    }
-
-
-        //}
-
+        
         /// <summary>
-        /// 
+        /// Checks the game board and returns a score for the minimax algorithm.
         /// </summary>
-        /// <param name="b"></param>
-        /// <param name=""></param>
-        /// <returns></returns>
+        /// <param name="board">The game board.</param>
+        /// <returns>Positive integer if AI won; negative integer if player won. Zero otherwise.</returns>
         private static int Evaluate(Square[,] board)
         {
             const Square computer = Square.O;
@@ -182,9 +121,15 @@ namespace UglyTicTacToe.Code
             return 0;
         }
 
-        // This is the minimax function.It considers all
-        //the possible ways the game can go and returns
-        //  the value of the board
+        /// <summary>
+        /// Considers all the possible ways the game can go 
+        /// and returns the value of the board.
+        /// </summary>
+        /// <param name="board">The game board.</param>
+        /// <param name="depth">The current iteration of the recursive algorithm.</param>
+        /// <param name="isMax">True if it is the AI's turn for the current iteration. False otherwise.</param>
+        /// <returns>The value of the board.</returns>
+        // 
         private static int Minimax(Square[,] board, int depth, bool isMax)
         {
             const Square computer = Square.O;
@@ -252,7 +197,12 @@ namespace UglyTicTacToe.Code
 
         }
 
-        // This will return the best possible move for the computer 
+        /// <summary>
+        /// Calculates and returns the index of the best possible move 
+        /// for the AI using the minimax algorithm.
+        /// </summary>
+        /// <param name="board">The game board.</param>
+        /// <returns>The index of the move.</returns>
         public static int GetBestMove(Square[] board)
         {
             const Square player = Square.X;
