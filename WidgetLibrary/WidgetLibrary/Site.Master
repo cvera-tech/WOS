@@ -1,0 +1,44 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WidgetLibrary.Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="Head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <asp:Menu ID="MainMenu" runat="server" Orientation="Horizontal">
+                <Items>
+                    <asp:MenuItem runat="server" NavigateUrl="~/Default.aspx" Text="Home" Value="Home" />
+                    <asp:MenuItem runat="server" NavigateUrl="~/ExampleRenderTime.aspx" Text="Render Time" Value="Render Time" />
+                    <asp:MenuItem runat="server" NavigateUrl="~/ExampleQuoteOfTheDay.aspx" Text="Quote of the Day" Value="Quote of the Day" />
+                    <asp:MenuItem runat="server" NavigateUrl="~/ExampleCounter.aspx" Text="Counter" Value="Counter" />
+                    <asp:MenuItem runat="server" NavigateUrl="~/ExampleFontPreview.aspx" Text="Font Preview" Value="Font Preview" />
+                    <asp:MenuItem runat="server" NavigateUrl="~/ExampleWeather.aspx" Text="Weather" Value="Weather" />
+                </Items>
+            </asp:Menu>
+            <asp:Panel runat="server" Style="float: right;">
+                <asp:Label runat="server" Style="margin-right: 5px;">Theme</asp:Label>
+                <asp:DropDownList runat="server"
+                    ID="ThemeDropDownList"
+                    ViewStateMode="Enabled"
+                    AutoPostBack="true"
+                    OnSelectedIndexChanged="ThemeDropDownList_SelectedIndexChanged">
+                    <asp:ListItem Text="" Value="" />
+                    <asp:ListItem Text="Light" Value="Light" />
+                    <asp:ListItem Text="Dark" Value="Dark" />
+                    <asp:ListItem Text="Neon" Value="Neon" />
+                </asp:DropDownList>
+            </asp:Panel>
+        </header>
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+    </form>
+</body>
+</html>

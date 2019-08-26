@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace WidgetLibrary
 {
-    public partial class ExampleQuoteOfTheDay : System.Web.UI.Page
+    public partial class ExampleQuoteOfTheDay : ThemedPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
