@@ -11,6 +11,15 @@ namespace RpnCalculator.Code
         Minus,
         Multiply,
         Divide,
-        Negate
+        Negate,
+        SquareRoot,
+        Exponential,
+        Power,
+        Reciprocal,
+        Sine,
+        Cosine,
+        Clear,
+        Swap,
+        Rotate
     }
 }

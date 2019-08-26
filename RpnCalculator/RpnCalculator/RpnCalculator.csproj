@@ -81,13 +81,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\AddOperation.cs" />
+    <Compile Include="Code\Operations\AddOperation.cs" />
     <Compile Include="Code\Calculator.cs" />
-    <Compile Include="Code\DivideOperation.cs" />
-    <Compile Include="Code\IOperation.cs" />
-    <Compile Include="Code\MinusOperation.cs" />
-    <Compile Include="Code\MultiplyOperation.cs" />
-    <Compile Include="Code\NegateOperation.cs" />
+    <Compile Include="Code\Operations\DivideOperation.cs" />
+    <Compile Include="Code\Operations\IOperation.cs" />
+    <Compile Include="Code\Operations\MinusOperation.cs" />
+    <Compile Include="Code\Operations\MultiplyOperation.cs" />
+    <Compile Include="Code\Operations\NegateOperation.cs" />
+    <Compile Include="Code\Operations\SquareRootOperation.cs" />
     <Compile Include="Code\OperationType.cs" />
     <Compile Include="CalculatorUI.aspx.cs">
       <DependentUpon>CalculatorUI.aspx</DependentUpon>

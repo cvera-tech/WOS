@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RpnCalculator.Code
+namespace RpnCalculator.Code.Operations
 {
-    public class AddOperation : IOperation
+    public class MinusOperation : IOperation
     {
         void IOperation.Perform(Stack<decimal> stack)
         {
@@ -13,7 +13,7 @@ namespace RpnCalculator.Code
             {
                 var arg1 = stack.Pop();
                 var arg2 = stack.Pop();
-                var result = arg1 + arg2;
+                var result = arg1 - arg2;
                 stack.Push(result);
             }
         }

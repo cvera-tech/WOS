@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RpnCalculator.Code
+namespace RpnCalculator.Code.Operations
 {
     public class NegateOperation : IOperation
     {

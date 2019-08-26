@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RpnCalculator.Code
+namespace RpnCalculator.Code.Operations
 {
-    public class MinusOperation : IOperation
+    public class MultiplyOperation : IOperation
     {
-        void IOperation.Perform(Stack<decimal> stack)
+        public void Perform(Stack<decimal> stack)
         {
             if (stack.Count > 1)
             {
                 var arg1 = stack.Pop();
                 var arg2 = stack.Pop();
-                var result = arg1 - arg2;
+                var result = arg1 * arg2;
                 stack.Push(result);
             }
         }

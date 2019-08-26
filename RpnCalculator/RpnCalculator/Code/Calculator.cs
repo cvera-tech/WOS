@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RpnCalculator.Code.Operations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -59,6 +60,9 @@ namespace RpnCalculator.Code
                     break;
                 case OperationType.Negate:
                     operation = new NegateOperation();
+                    break;
+                case OperationType.SquareRoot:
+                    operation = new SquareRootOperation();
                     break;
             }
             if (operation != null)

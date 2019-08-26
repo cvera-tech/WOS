@@ -77,9 +77,54 @@ namespace RpnCalculator
             Calculator.PerformOperation(OperationType.Negate);
         }
 
+        protected void HandleSquareRoot(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.SquareRoot);
+        }
+
+        protected void HandleExponential(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Exponential);
+        }
+
+        protected void HandlePower(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Power);
+        }
+
+        protected void HandleReciprocal(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Reciprocal);
+        }
+
+        protected void HandleSine(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Sine);
+        }
+
+        protected void HandleCosine(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Cosine);
+        }
+
         protected void HandleDrop(object sender, EventArgs e)
         {
             Calculator.Drop();
+        }
+
+        protected void HandleClear(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Clear);
+        }
+
+        protected void HandleSwap(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Swap);
+        }
+
+        protected void HandleRotate(object sender, EventArgs e)
+        {
+            Calculator.PerformOperation(OperationType.Rotate);
         }
     }
 }
