@@ -59,27 +59,27 @@ namespace RpnCalculator
 
         protected void HandleMinus(object sender, EventArgs e)
         {
-
+            Calculator.PerformOperation(OperationType.Minus);
         }
 
         protected void HandleMultiply(object sender, EventArgs e)
         {
-
+            Calculator.PerformOperation(OperationType.Multiply);
         }
 
         protected void HandleDivide(object sender, EventArgs e)
         {
-
+            Calculator.PerformOperation(OperationType.Divide);
         }
 
         protected void HandleNegate(object sender, EventArgs e)
         {
-
+            Calculator.PerformOperation(OperationType.Negate);
         }
 
         protected void HandleDrop(object sender, EventArgs e)
         {
-
+            Calculator.Drop();
         }
     }
 }

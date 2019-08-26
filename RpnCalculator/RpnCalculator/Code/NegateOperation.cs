@@ -13,7 +13,7 @@ namespace RpnCalculator.Code
             {
                 var arg1 = stack.Pop();
                 var result = -arg1;
-                stack.Push(arg1);
+                stack.Push(result);
             }
         }
     }
