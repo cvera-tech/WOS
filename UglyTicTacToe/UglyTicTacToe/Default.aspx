@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <jwl:TicTacToe runat="server" VersusAI="false"></jwl:TicTacToe>
+        <jwl:TicTacToe runat="server" VersusAI="true"></jwl:TicTacToe>
     </div>
     </form>
 </body>

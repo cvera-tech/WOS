@@ -8,13 +8,12 @@ namespace UglyTicTacToe.Code
 {
     public static class UnbeatableAI
     {
-
         /// <summary>
         /// Builds and returns a 2D Square array from a 1D Square array
         /// </summary>
         /// <param name="array">The 1D Square array.</param>
         /// <returns>The 2D Square array.</returns>
-        private static Square[,] To2DArray(Square[] array)
+        public static Square[,] To2DArray(Square[] array)
         {
             var array2D = new Square[3, 3];
             for (int index = 0; index < array.Length; index++)
@@ -127,11 +126,11 @@ namespace UglyTicTacToe.Code
                 {
                     if (board[row, 0] == player)
                     {
-                        return +10;
+                        return -10;
                     }
                     else if (board[row, 0] == computer)
                     {
-                        return -10;
+                        return +10;
                     }
                 }
             }
@@ -144,12 +143,12 @@ namespace UglyTicTacToe.Code
                 {
                     if (board[0, col] == player)
                     {
-                        return +10;
+                        return -10;
                     }
 
                     else if (board[0, col] == computer)
                     {
-                        return -10;
+                        return +10;
                     }
                 }
             }
@@ -159,11 +158,11 @@ namespace UglyTicTacToe.Code
             {
                 if (board[0, 0] == player)
                 {
-                    return +10;
+                    return -10;
                 }
                 else if (board[0, 0] == computer)
                 {
-                    return -10;
+                    return +10;
                 }
             }
 
@@ -171,11 +170,11 @@ namespace UglyTicTacToe.Code
             {
                 if (board[0, 2] == player)
                 {
-                    return +10;
+                    return -10;
                 }
                 else if (board[0, 2] == computer)
                 {
-                    return -10;
+                    return +10;
                 }
             }
 

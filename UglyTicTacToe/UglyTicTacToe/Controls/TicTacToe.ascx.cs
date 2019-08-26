@@ -118,33 +118,43 @@ namespace UglyTicTacToe.Controls
         }
 
         /// <summary>
-        /// Checks if the board has a winning combination.
+        /// Checks the game board for a winning combination and returns the winner.
         /// </summary>
-        /// <returns>True if the game is won; false otherwise.</returns>
-        private bool GameWon()
+        /// <returns>The player who won or Square.Empty if there is no winner.</returns>
+        private Square GetWinner()
         {
-            Square[] board = GameBoard;
-            // Horizontals
-            if ((board[0] != Square.Empty && board[0] == board[3] && board[0] == board[6]) ||
-                (board[1] != Square.Empty && board[1] == board[4] && board[1] == board[7]) ||
-                (board[2] != Square.Empty && board[2] == board[5] && board[2] == board[8]))
+            Square[,] board2D = UnbeatableAI.To2DArray(GameBoard);
+
+            // Check rows
+            for (int row = 0; row < 3; row++)
             {
-                return true;
+                if (board2D[row, 0] == board2D[row, 1] &&
+                    board2D[row, 1] == board2D[row, 2] &&
+                    board2D[row, 0] != Square.Empty)
+                {
+                    return board2D[row, 0];
+                }
             }
-            // Verticals
-            if ((board[0] != Square.Empty && board[0] == board[1] && board[0] == board[2]) ||
-                (board[3] != Square.Empty && board[3] == board[4] && board[3] == board[5]) ||
-                (board[6] != Square.Empty && board[6] == board[7] && board[6] == board[8]))
+
+            // Check columns
+            for (int col = 0; col < 3; col++)
             {
-                return true;
+                if (board2D[0, col] == board2D[1, col] &&
+                    board2D[1, col] == board2D[2, col] &&
+                    board2D[0, col] != Square.Empty)
+                {
+                    return board2D[0, col];
+                }
             }
-            // Diagonals
-            if ((board[0] != Square.Empty && board[0] == board[4] && board[0] == board[8]) ||
-                (board[2] != Square.Empty && board[2] == board[4] && board[2] == board[6]))
+
+            // Check diagonals
+            if ((board2D[0, 0] == board2D[1, 1] && board2D[1, 1] == board2D[2, 2] ||
+                 board2D[0, 2] == board2D[1, 1] && board2D[1, 1] == board2D[2, 0]) &&
+                 board2D[1, 1] != Square.Empty)
             {
-                return true;
+                return board2D[1, 1];
             }
-            return false;
+            return Square.Empty;
         }
 
         /// <summary>
@@ -163,45 +173,24 @@ namespace UglyTicTacToe.Controls
             return true;
         }
 
+        /// <summary>
+        /// Takes player input and updates the game board accordingly.
+        /// On Post Back, switches the active player.
+        /// </summary>
         private void HandlePvP()
         {
             UpdateImageButtons();
             // Check for winning condition
-            if (GameWon())
+            Square winner = GetWinner();
+            if (winner != Square.Empty)
             {
-                // Player 1 won
-                if (CurrentPlayer == Square.X)
-                {
-                    PlayerImage.ImageUrl = Player1Url;
-                }
-                // Player 2 won
-                else
-                {
-                    PlayerImage.ImageUrl = Player2Url;
-                }
-                GameEndPanel.Visible = true;
-                WinImage.Visible = true;
-                PlayerImage.Visible = true;
-
-                // Disable all ImageButtons
-                for (int index = 0; index < 9; index++)
-                {
-                    var row = index / 3;
-                    var col = index % 3;
-                    var square = GameBoard[index];
-                    var imageButtonId = $"Square{row}{col}";
-                    ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
-                    imageButton.Enabled = false;
-                }
+                WonGameImage(winner);
             }
 
             // Check if game is tied
             else if (GameBoardFilled())
             {
-                WinImage.Visible = false;
-                PlayerImage.Visible = false;
-                TieImage.Visible = true;
-                GameEndPanel.Visible = true;
+                TiedGameImage();
             }
 
             else if (IsPostBack)
@@ -209,18 +198,70 @@ namespace UglyTicTacToe.Controls
                 // Switch players
                 CurrentPlayer = (CurrentPlayer == Square.X) ? Square.O : Square.X;
             }
-
         }
 
         private void HandleVersusAI()
         {
-            int computerMove = UnbeatableAI.GetBestMove(GameBoard);
-            if (computerMove >= 0)
+            // Human player always has first move
+            if (IsPostBack)
             {
-                CurrentPlayer = Square.O;
-                GameBoard[computerMove] = Square.O;
+                int computerMove = UnbeatableAI.GetBestMove(GameBoard);
+                if (computerMove >= 0)
+                {
+                    //CurrentPlayer = Square.O;
+                    GameBoard[computerMove] = Square.O;
+                }
             }
-            // Switch players
+
+            UpdateImageButtons();
+
+            // Check for game win
+            Square winner = GetWinner();
+            if (winner != Square.Empty)
+            {
+                WonGameImage(winner);
+            }
+
+            else if (GameBoardFilled())
+            {
+                TiedGameImage();
+            }
+        }
+
+        private void TiedGameImage()
+        {
+            WinImage.Visible = false;
+            PlayerImage.Visible = false;
+            TieImage.Visible = true;
+            GameEndPanel.Visible = true;
+        }
+
+        private void WonGameImage(Square winner)
+        {
+            // Player 1 won
+            if (winner == Square.X)
+            {
+                PlayerImage.ImageUrl = Player1Url;
+            }
+            // Player 2 won
+            else
+            {
+                PlayerImage.ImageUrl = Player2Url;
+            }
+            GameEndPanel.Visible = true;
+            WinImage.Visible = true;
+            PlayerImage.Visible = true;
+
+            // Disable all ImageButtons
+            for (int index = 0; index < 9; index++)
+            {
+                var row = index / 3;
+                var col = index % 3;
+                var square = GameBoard[index];
+                var imageButtonId = $"Square{row}{col}";
+                ImageButton imageButton = (ImageButton)FindControl(imageButtonId);
+                imageButton.Enabled = false;
+            }
         }
 
         protected void Square_Command(object sender, CommandEventArgs e)
