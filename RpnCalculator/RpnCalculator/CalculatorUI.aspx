@@ -6,7 +6,7 @@
     <div>
         <asp:Repeater runat="server" ID="StackViewer" >
             <HeaderTemplate>
-                <ul>
+                <ul style="list-style-type: none;">
             </HeaderTemplate>
             <ItemTemplate>
                 <li><%# Container.DataItem %></li>

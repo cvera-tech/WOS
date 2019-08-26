@@ -83,6 +83,8 @@
   <ItemGroup>
     <Compile Include="Code\Operations\AddOperation.cs" />
     <Compile Include="Code\Calculator.cs" />
+    <Compile Include="Code\Operations\ClearOperation.cs" />
+    <Compile Include="Code\Operations\CosineOperation.cs" />
     <Compile Include="Code\Operations\DivideOperation.cs" />
     <Compile Include="Code\Operations\ExponentialOperation.cs" />
     <Compile Include="Code\Operations\IOperation.cs" />
@@ -91,8 +93,10 @@
     <Compile Include="Code\Operations\NegateOperation.cs" />
     <Compile Include="Code\Operations\PowerOperation.cs" />
     <Compile Include="Code\Operations\ReciprocalOperation.cs" />
+    <Compile Include="Code\Operations\RotateOperation.cs" />
     <Compile Include="Code\Operations\SineOperation.cs" />
     <Compile Include="Code\Operations\SquareRootOperation.cs" />
+    <Compile Include="Code\Operations\SwapOperation.cs" />
     <Compile Include="Code\OperationType.cs" />
     <Compile Include="CalculatorUI.aspx.cs">
       <DependentUpon>CalculatorUI.aspx</DependentUpon>

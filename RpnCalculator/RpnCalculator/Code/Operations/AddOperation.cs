@@ -13,8 +13,16 @@ namespace RpnCalculator.Code.Operations
             {
                 var arg2 = stack.Pop();
                 var arg1 = stack.Pop();
-                var result = arg1 + arg2;
-                stack.Push(result);
+                try
+                {
+                    var result = arg1 + arg2;
+                    stack.Push(result);
+                }
+                catch
+                {
+                    stack.Push(arg1);
+                    stack.Push(arg2);
+                }
             }
         }
     }

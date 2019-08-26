@@ -1,5 +1,6 @@
 ﻿using System;
 using RpnCalculator.Code;
+using System.Collections.Generic;
 
 namespace RpnCalculator
 {
@@ -31,14 +32,18 @@ namespace RpnCalculator
             if (!IsPostBack)
             {
                 Calculator = new Calculator();
-
             }
+            NumberInput.Focus();
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
             string[] fourEntries = Calculator.GetFourEntries();
-            StackViewer.DataSource = fourEntries;
+            // Reverse the list for aesthetics
+            var things = new List<string>();
+            things.AddRange(fourEntries);
+            things.Reverse();
+            StackViewer.DataSource = things;
             StackViewer.DataBind();
         }
 

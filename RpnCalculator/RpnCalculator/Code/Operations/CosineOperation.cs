@@ -5,22 +5,15 @@ using System.Web;
 
 namespace RpnCalculator.Code.Operations
 {
-    public class ReciprocalOperation : IOperation
+    public class CosineOperation : IOperation
     {
         public void Perform(Stack<decimal> stack)
         {
             if (stack.Count > 0)
             {
                 var arg = stack.Pop();
-                try
-                {
-                    var result = 1 / arg;
-                    stack.Push(result);
-                }
-                catch
-                {
-                    stack.Push(arg);
-                }
+                var result = Math.Cos(decimal.ToDouble(arg));
+                stack.Push((decimal)result);
             }
         }
     }

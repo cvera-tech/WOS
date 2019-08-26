@@ -13,8 +13,17 @@ namespace RpnCalculator.Code.Operations
             {
                 var arg2 = stack.Pop();
                 var arg1 = stack.Pop();
-                var result = Math.Pow(decimal.ToDouble(arg1), decimal.ToDouble(arg2));
-                stack.Push((decimal)result);
+                try
+                {
+                    var result = Math.Pow(decimal.ToDouble(arg1), decimal.ToDouble(arg2));
+                    stack.Push((decimal)result);
+                }
+                catch
+                {
+                    stack.Push(arg1);
+                    stack.Push(arg2);
+                }
+
             }
         }
     }

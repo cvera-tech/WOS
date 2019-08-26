@@ -12,8 +12,15 @@ namespace RpnCalculator.Code.Operations
             if (stack.Count > 0)
             {
                 var arg = stack.Pop();
-                var result = Math.Exp(decimal.ToDouble(arg));
-                stack.Push((decimal)result);
+                try
+                {
+                    var result = Math.Exp(decimal.ToDouble(arg));
+                    stack.Push((decimal)result);
+                }
+                catch
+                {
+                    stack.Push(arg);
+                }
             }
         }
     }

@@ -76,6 +76,18 @@ namespace RpnCalculator.Code
                 case OperationType.Sine:
                     operation = new SineOperation();
                     break;
+                case OperationType.Cosine:
+                    operation = new CosineOperation();
+                    break;
+                case OperationType.Clear:
+                    operation = new ClearOperation();
+                    break;
+                case OperationType.Swap:
+                    operation = new SwapOperation();
+                    break;
+                case OperationType.Rotate:
+                    operation = new RotateOperation();
+                    break;
             }
             if (operation != null)
             {
