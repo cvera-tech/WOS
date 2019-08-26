@@ -62,7 +62,7 @@ namespace ToDoList.Controls
                 categoriesList.Add("ALL");
                 CategoryDropDown.DataSource = categoriesList;
                 CategoryDropDown.DataBind();
-                int currentCategoryIndex = ToDoItemData.GetCategories().IndexOf(CategoryFilter);
+                int currentCategoryIndex = categoriesList.IndexOf(CategoryFilter);
                 CategoryDropDown.SelectedIndex = currentCategoryIndex;
             }
         }
@@ -82,10 +82,8 @@ namespace ToDoList.Controls
         protected void TODOs_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int index = int.Parse(e.CommandArgument.ToString());
-            //List<ToDoItem> todos = ToDoItemData.GetToDoItems();
             PruneList();
             ListToDisplay[index].Done = true;
-            BindListToDisplay();
         }
 
         /// <summary>
