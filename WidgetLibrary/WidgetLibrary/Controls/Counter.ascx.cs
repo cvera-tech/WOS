@@ -29,12 +29,9 @@ namespace WidgetLibrary.Controls
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                CounterLabel.Text = Count.ToString();
-            }
+            CounterLabel.Text = Count.ToString();
         }
 
         protected void IncrementButton_Click(object sender, EventArgs e)
@@ -45,11 +42,11 @@ namespace WidgetLibrary.Controls
 
         protected void DecrementButton_Click(object sender, EventArgs e)
         {
-            
+
             Count--;
             CounterLabel.Text = Count.ToString();
         }
-        
+
 
         //protected void Page_Load(object sender, EventArgs e)
         //{
