@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
     <h1>RPN Calculator</h1>
     <div>
-        <asp:Repeater runat="server" ID="StackViewer">
+        <asp:Repeater runat="server" ID="StackViewer" >
             <HeaderTemplate>
                 <ul>
             </HeaderTemplate>

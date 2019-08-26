@@ -1,5 +1,5 @@
 ﻿using System;
-using RpnCalculator.App_Code;
+using RpnCalculator.Code;
 
 namespace RpnCalculator
 {
@@ -54,7 +54,7 @@ namespace RpnCalculator
 
         protected void HandleAdd(object sender, EventArgs e)
         {
-
+            Calculator.PerformOperation(OperationType.Add);
         }
 
         protected void HandleMinus(object sender, EventArgs e)

@@ -81,7 +81,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Code\Calculator.cs" />
+    <Compile Include="Code\AddOperation.cs" />
+    <Compile Include="Code\Calculator.cs" />
+    <Compile Include="Code\DivideOperation.cs" />
+    <Compile Include="Code\IOperation.cs" />
+    <Compile Include="Code\MinusOperation.cs" />
+    <Compile Include="Code\MultiplyOperation.cs" />
+    <Compile Include="Code\NegateOperation.cs" />
+    <Compile Include="Code\OperationType.cs" />
     <Compile Include="CalculatorUI.aspx.cs">
       <DependentUpon>CalculatorUI.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -101,6 +108,7 @@
       <DependentUpon>RpnCalculator.Master</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
