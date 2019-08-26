@@ -70,6 +70,12 @@ namespace RpnCalculator.Code
                 case OperationType.Power:
                     operation = new PowerOperation();
                     break;
+                case OperationType.Reciprocal:
+                    operation = new ReciprocalOperation();
+                    break;
+                case OperationType.Sine:
+                    operation = new SineOperation();
+                    break;
             }
             if (operation != null)
             {

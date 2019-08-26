@@ -90,6 +90,8 @@
     <Compile Include="Code\Operations\MultiplyOperation.cs" />
     <Compile Include="Code\Operations\NegateOperation.cs" />
     <Compile Include="Code\Operations\PowerOperation.cs" />
+    <Compile Include="Code\Operations\ReciprocalOperation.cs" />
+    <Compile Include="Code\Operations\SineOperation.cs" />
     <Compile Include="Code\Operations\SquareRootOperation.cs" />
     <Compile Include="Code\OperationType.cs" />
     <Compile Include="CalculatorUI.aspx.cs">
