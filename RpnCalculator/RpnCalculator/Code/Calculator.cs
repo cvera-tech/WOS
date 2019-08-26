@@ -16,16 +16,27 @@ namespace RpnCalculator.Code
             stack = new Stack<decimal>();
         }
 
-        public void Push(Decimal value)
+        /// <summary>
+        /// Adds an element to the top of the stack.
+        /// </summary>
+        /// <param name="value"></param>
+        public void Push(decimal value)
         {
             stack.Push(value);
         }
 
+        /// <summary>
+        /// Removes the first element in the stack.
+        /// </summary>
         public void Drop()
         {
             stack.Pop();
         }
 
+        /// <summary>
+        /// Returns the first four entries of the stack as an array of strings.
+        /// </summary>
+        /// <returns>The first four numbers on the stack.</returns>
         public string[] GetFourEntries()
         {
             var firstFour = stack.Take(4).ToList();
@@ -34,6 +45,7 @@ namespace RpnCalculator.Code
             {
                 firstFourStrings.Add(number.ToString());
             }
+            // Make sure there are always four strings
             while (firstFourStrings.Count < 4)
             {
                 firstFourStrings.Add(string.Empty);
@@ -41,6 +53,10 @@ namespace RpnCalculator.Code
             return firstFourStrings.ToArray();
         }
 
+        /// <summary>
+        /// Calls the IOperation that corresponds to the input OperationType
+        /// </summary>
+        /// <param name="operationType">The operation to perform.</param>
         public void PerformOperation(OperationType operationType)
         {
             IOperation operation = null;
@@ -91,6 +107,12 @@ namespace RpnCalculator.Code
             }
             if (operation != null)
             {
+                /*
+                Exception handling is done within each class that implements IOperation.
+                Refactoring to multiple operation types (e.g. BinaryOperation,
+                UnaryOperation, and StackOperation) can make the code DRYer as each type
+                can use similar exception handling.
+                */
                 operation.Perform(stack);
             }
         }
