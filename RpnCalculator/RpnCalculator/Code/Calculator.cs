@@ -50,6 +50,8 @@ namespace RpnCalculator.Code
             {
                 firstFourStrings.Add(string.Empty);
             }
+            // Reverse list for aesthetics
+            firstFourStrings.Reverse();
             return firstFourStrings.ToArray();
         }
 

@@ -39,11 +39,7 @@ namespace RpnCalculator
         protected void Page_PreRender(object sender, EventArgs e)
         {
             string[] fourEntries = Calculator.GetFourEntries();
-            // Reverse the list for aesthetics
-            var things = new List<string>();
-            things.AddRange(fourEntries);
-            things.Reverse();
-            StackViewer.DataSource = things;
+            StackViewer.DataSource = fourEntries;
             StackViewer.DataBind();
         }
 
