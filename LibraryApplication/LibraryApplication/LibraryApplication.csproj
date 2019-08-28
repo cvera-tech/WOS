@@ -81,6 +81,7 @@
     <Content Include="AddAuthor.aspx" />
     <Content Include="Authors.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="EditAuthor.aspx" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -111,6 +112,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditAuthor.aspx.cs">
+      <DependentUpon>EditAuthor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditAuthor.aspx.designer.cs">
+      <DependentUpon>EditAuthor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
