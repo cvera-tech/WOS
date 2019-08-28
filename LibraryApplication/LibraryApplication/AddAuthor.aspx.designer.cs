@@ -10,16 +10,25 @@
 namespace LibraryApplication {
     
     
-    public partial class Authors {
+    public partial class AddAuthor {
         
         /// <summary>
-        /// AuthorsRepeater control.
+        /// FirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater AuthorsRepeater;
+        protected global::System.Web.UI.WebControls.TextBox FirstName;
+        
+        /// <summary>
+        /// LastName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox LastName;
         
         /// <summary>
         /// AddButton control.
@@ -29,5 +38,14 @@ namespace LibraryApplication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button AddButton;
+        
+        /// <summary>
+        /// CancelButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelButton;
     }
 }

@@ -26,4 +26,8 @@
             </table>
         </FooterTemplate>
     </asp:Repeater>
+    <asp:Button runat="server"
+        ID="AddButton"
+        OnCommand="AddButton_Command" 
+        Text="Add Author" />
 </asp:Content>
