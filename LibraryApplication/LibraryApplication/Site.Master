@@ -11,6 +11,11 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <h1>Library</h1>
+        <ul>
+            <li><asp:HyperLink runat="server" NavigateUrl="~/Authors.aspx">Authors</asp:HyperLink></li>
+        </ul>
+        
         <asp:ContentPlaceHolder ID="Main" runat="server">
         
         </asp:ContentPlaceHolder>
