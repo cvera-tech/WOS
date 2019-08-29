@@ -45,8 +45,8 @@ namespace LibraryApplication
                 {
                     string oldFirstName = dt.Rows[0].Field<string>("FirstName");
                     string oldLastName = dt.Rows[0].Field<string>("LastName");
-                    OldFirstName.Text = $"Current First Name: {oldFirstName}";
-                    OldLastName.Text = $"Current Last Name: {oldLastName}";
+                    OldFirstName.Text = oldFirstName;
+                    OldLastName.Text = oldLastName;
                     NewFirstName.Text = oldFirstName;
                     NewLastName.Text = oldLastName;
                 }
