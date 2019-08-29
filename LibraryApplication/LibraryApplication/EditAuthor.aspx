@@ -58,6 +58,7 @@
                 ErrorMessage="First name required."
                 Text="*" />
         </div>
+
         <div>
             <asp:Label runat="server"
                 AssociatedControlID="NewLastName"

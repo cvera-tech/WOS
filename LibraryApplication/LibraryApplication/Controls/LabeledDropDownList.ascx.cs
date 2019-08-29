@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace LibraryApplication.Controls
 {
-    public partial class LabeledTextBox : System.Web.UI.UserControl
+    public partial class LabeledDropDownList : System.Web.UI.UserControl
     {
         public string Label
         {
@@ -20,37 +20,22 @@ namespace LibraryApplication.Controls
                 ControlLabel.Text = value;
             }
         }
-        public bool Required
-        {
-            get
-            {
-                return ControlValidator.Enabled;
-            }
-            set
-            {
-                ControlValidator.Enabled = value;
-            }
-        }
-        public string Text
-        {
-            get
-            {
-                return ControlTextBox.Text;
-            }
-            set
-            {
-                ControlTextBox.Text = value;
-            }
-        }
         public string ValidationGroup
         {
             get
             {
-                return ControlTextBox.ValidationGroup;
+                return ControlDropDownList.ValidationGroup;
             }
             set
             {
-                ControlTextBox.ValidationGroup = value;
+                ControlDropDownList.ValidationGroup = value;
+            }
+        }
+        public DropDownList ListControl
+        {
+            get
+            {
+                return ControlDropDownList;
             }
         }
 
@@ -58,5 +43,7 @@ namespace LibraryApplication.Controls
         {
 
         }
+
     }
+
 }

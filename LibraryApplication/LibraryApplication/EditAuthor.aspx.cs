@@ -13,7 +13,7 @@ namespace LibraryApplication
     public partial class EditAuthor : System.Web.UI.Page
     {
         private const string AuthorsUrl = "~/Authors.aspx";
-        private const string GetAuthorsQuery = @"
+        private const string GetAuthorQuery = @"
             SELECT FirstName, LastName
             FROM Author
             WHERE Id = @AuthorId
@@ -38,7 +38,7 @@ namespace LibraryApplication
             if (!IsPostBack)
             {
                 DataTable dt = DatabaseHelper.Retrieve(
-                    GetAuthorsQuery,
+                    GetAuthorQuery,
                     new SqlParameter("@AuthorId", authorId));
 
                 if (dt.Rows.Count == 1)
@@ -69,7 +69,6 @@ namespace LibraryApplication
                 new SqlParameter("@AuthorId", authorId)
             );
 
-            // TODO: Update query
             Response.Redirect(AuthorsUrl);
         }
 

@@ -10,7 +10,7 @@
 namespace LibraryApplication.Controls {
     
     
-    public partial class LabeledTextBox {
+    public partial class LabeledDropDownList {
         
         /// <summary>
         /// ControlLabel control.
@@ -22,21 +22,12 @@ namespace LibraryApplication.Controls {
         protected global::System.Web.UI.WebControls.Label ControlLabel;
         
         /// <summary>
-        /// ControlTextBox control.
+        /// ControlDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ControlTextBox;
-        
-        /// <summary>
-        /// ControlValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ControlValidator;
+        protected global::System.Web.UI.WebControls.DropDownList ControlDropDownList;
     }
 }

@@ -82,6 +82,7 @@
     <Content Include="AddBook.aspx" />
     <Content Include="Authors.aspx" />
     <Content Include="Books.aspx" />
+    <Content Include="Controls\LabeledDropDownList.ascx" />
     <Content Include="Controls\LabeledTextBox.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="EditAuthor.aspx" />
@@ -122,6 +123,13 @@
     </Compile>
     <Compile Include="Books.aspx.designer.cs">
       <DependentUpon>Books.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LabeledDropDownList.ascx.cs">
+      <DependentUpon>LabeledDropDownList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\LabeledDropDownList.ascx.designer.cs">
+      <DependentUpon>LabeledDropDownList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\LabeledTextBox.ascx.cs">
       <DependentUpon>LabeledTextBox.ascx</DependentUpon>
