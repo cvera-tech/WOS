@@ -82,8 +82,10 @@
     <Content Include="AddBook.aspx" />
     <Content Include="Authors.aspx" />
     <Content Include="Books.aspx" />
+    <Content Include="Controls\LabeledTextBox.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="EditAuthor.aspx" />
+    <Content Include="EditBook.aspx" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -121,6 +123,13 @@
     <Compile Include="Books.aspx.designer.cs">
       <DependentUpon>Books.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LabeledTextBox.ascx.cs">
+      <DependentUpon>LabeledTextBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\LabeledTextBox.ascx.designer.cs">
+      <DependentUpon>LabeledTextBox.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -135,6 +144,13 @@
     </Compile>
     <Compile Include="EditAuthor.aspx.designer.cs">
       <DependentUpon>EditAuthor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditBook.aspx.cs">
+      <DependentUpon>EditBook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditBook.aspx.designer.cs">
+      <DependentUpon>EditBook.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
