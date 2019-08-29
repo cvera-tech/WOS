@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddAuthor.aspx" />
+    <Content Include="AddBook.aspx" />
     <Content Include="Authors.aspx" />
     <Content Include="Books.aspx" />
     <Content Include="Default.aspx" />
@@ -98,6 +99,13 @@
     </Compile>
     <Compile Include="AddAuthor.aspx.designer.cs">
       <DependentUpon>AddAuthor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddBook.aspx.cs">
+      <DependentUpon>AddBook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddBook.aspx.designer.cs">
+      <DependentUpon>AddBook.aspx</DependentUpon>
     </Compile>
     <Compile Include="Authors.aspx.cs">
       <DependentUpon>Authors.aspx</DependentUpon>

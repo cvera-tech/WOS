@@ -11,10 +11,10 @@ namespace LibraryApplication
 {
     public partial class Books : System.Web.UI.Page
     {
-        private const string AddBooksUrl = "~/AddBooks.aspx";
+        private const string AddBooksUrl = "~/AddBook.aspx";
         private const string SqlQuery = @"
             SELECT 
-                Author.Id, 
+                Book.Id, 
                 Title, 
                 Author.FirstName + ' ' + Author.LastName AS AuthorName, 
                 Isbn

@@ -61,6 +61,25 @@ namespace Library.Data
             return id;
         }
 
+        public static void ExecuteNonQuery(string sql, params SqlParameter[] parameters)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["Library"].ConnectionString;
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand(sql, connection);
+
+                foreach (var parameter in parameters)
+                {
+                    command.Parameters.Add(parameter);
+                }
+
+                // This is where the work is happening.
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         public static void Update(string sql, params SqlParameter[] parameters)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Library"].ConnectionString;
