@@ -80,6 +80,7 @@
   <ItemGroup>
     <Content Include="AddAuthor.aspx" />
     <Content Include="Authors.aspx" />
+    <Content Include="Books.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="EditAuthor.aspx" />
     <Content Include="Global.asax" />
@@ -104,6 +105,13 @@
     </Compile>
     <Compile Include="Authors.aspx.designer.cs">
       <DependentUpon>Authors.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Books.aspx.cs">
+      <DependentUpon>Books.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Books.aspx.designer.cs">
+      <DependentUpon>Books.aspx</DependentUpon>
     </Compile>
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Default.aspx.cs">

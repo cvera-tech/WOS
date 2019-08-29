@@ -8,9 +8,9 @@ namespace LibraryApplication
     {
         private const string AddAuthorUrl = "~/AddAuthor.aspx";
         private const string SqlQuery = @"
-            select Id, FirstName, LastName
-            from Author
-            order by LastName, FirstName
+            SELECT Id, FirstName, LastName
+            FROM Author
+            ORDER BY LastName, FirstName
         ";
 
         protected void Page_Load(object sender, EventArgs e)
