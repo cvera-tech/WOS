@@ -69,7 +69,7 @@ namespace LibraryApplication
                     new SqlParameter("@StateId", stateId),
                     new SqlParameter("@PostalCode", postalCode));
 
-                Response.Redirect("~/Libraries.aspx");
+                Response.Redirect(LibrariesUrl);
             }
         }
 
