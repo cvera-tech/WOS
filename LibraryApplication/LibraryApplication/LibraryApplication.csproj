@@ -80,6 +80,7 @@
   <ItemGroup>
     <Content Include="AddAuthor.aspx" />
     <Content Include="AddBook.aspx" />
+    <Content Include="AddLibrary.aspx" />
     <Content Include="Authors.aspx" />
     <Content Include="Books.aspx" />
     <Content Include="Controls\LabeledDropDownList.ascx" />
@@ -110,6 +111,13 @@
     </Compile>
     <Compile Include="AddBook.aspx.designer.cs">
       <DependentUpon>AddBook.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddLibrary.aspx.cs">
+      <DependentUpon>AddLibrary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddLibrary.aspx.designer.cs">
+      <DependentUpon>AddLibrary.aspx</DependentUpon>
     </Compile>
     <Compile Include="Authors.aspx.cs">
       <DependentUpon>Authors.aspx</DependentUpon>
