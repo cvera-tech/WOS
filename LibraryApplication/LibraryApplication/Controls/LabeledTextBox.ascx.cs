@@ -51,6 +51,7 @@ namespace LibraryApplication.Controls
             set
             {
                 ControlTextBox.ValidationGroup = value;
+                ControlValidator.ValidationGroup = value;
             }
         }
         public string RequiredErrorMessage
@@ -65,9 +66,16 @@ namespace LibraryApplication.Controls
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Init(object sender, EventArgs e)
         {
-
+            if (Required)
+            {
+                ControlValidator.Enabled = true;
+            }
+            else
+            {
+                ControlValidator.Enabled = false;
+            }
         }
     }
 }

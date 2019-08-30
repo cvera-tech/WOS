@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     <script>
         function AuthorValidation(sender, arguments) {
-            var selectedAuthor = $('#<%= AuthorDropDown.ClientID%>').val();
+            var selectedAuthor = $('#<%= AuthorDropDown.DropDownListClientId %>').val();
             if (selectedAuthor === '') {
                 arguments.IsValid = false;
             }
@@ -16,36 +16,25 @@
         <asp:ValidationSummary runat="server"
             ValidationGroup="AddBook"
             EnableClientScript="true" />
+        
+        <uc:TextBox ID="TitleTextBox" runat="server" 
+            Label="Title: "
+            Required="true"
+            RequiredErrorMessage="Title required." 
+            ValidationGroup="AddBook" />
+        <uc:DropDownList ID="AuthorDropDown" runat="server"
+            Label="Author: "
+            PrependEmptyItem="true" 
+            ValidationGroup="AddBook" />
         <asp:CustomValidator runat="server"
             ValidationGroup="AddBook"
             EnableClientScript="true"
             ClientValidationFunction="AuthorValidation"
             ErrorMessage="Author required."
             Display="None"
-            Text="" />
-
-        <div>
-            <asp:Label runat="server"
-                AssociatedControlID="TitleTextBox"
-                Text="Title: " />
-            <asp:TextBox ID="TitleTextBox" runat="server" />
-            <asp:RequiredFieldValidator runat="server"
-                ControlToValidate="TitleTextBox"
-                ValidationGroup="AddBook"
-                EnableClientScript="true"
-                Display="Dynamic"
-                ErrorMessage="Title required."
-                Text="*" />
-        </div>
-        <uc:DropDownList ID="AuthorDropDown" runat="server"
-            Label="Author: "
-            PrependEmptyItem="true" />
-        <div>
-            <asp:Label runat="server"
-                AssociatedControlID="ISBN"
-                Text="ISBN: " />
-            <asp:TextBox ID="ISBN" runat="server" />
-        </div>
+            Text="*" />
+        <uc:TextBox ID="ISBN" runat="server"
+            Label="ISBN" />
         <div>
             <asp:Button ID="AddButton" runat="server" 
                 OnCommand="AddButton_Command" 

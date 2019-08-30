@@ -14,7 +14,7 @@
         <asp:Label ID="OldIsbn" runat="server" />
     </div>
     <fieldset>
-        <uc:TextBox ID="TitleTextBox" runat="server" Label="Title: " Required="true" ErrorMessage="Title required."/>
+        <uc:TextBox ID="TitleTextBox" runat="server" Label="Title: " Required="true" RequiredErrorMessage="Title required."/>
         <uc:DropDownList ID="AuthorDropDown" runat="server" Label="Author: " />
         <uc:TextBox ID="IsbnTextBox" runat="server" Label="ISBN: " />
         <div>

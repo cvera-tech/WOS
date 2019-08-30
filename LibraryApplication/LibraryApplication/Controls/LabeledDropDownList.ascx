@@ -6,5 +6,4 @@
     <asp:DropDownList ID="ControlDropDownList" runat="server">
         <asp:ListItem ID="ControlEmptyItem" runat="server"></asp:ListItem>
     </asp:DropDownList>
-
 </div>

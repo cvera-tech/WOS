@@ -19,7 +19,7 @@ namespace LibraryApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TitleTextBox;
+        protected global::LibraryApplication.Controls.LabeledTextBox TitleTextBox;
         
         /// <summary>
         /// AuthorDropDown control.
@@ -37,7 +37,7 @@ namespace LibraryApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ISBN;
+        protected global::LibraryApplication.Controls.LabeledTextBox ISBN;
         
         /// <summary>
         /// AddButton control.
