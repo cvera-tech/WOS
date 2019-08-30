@@ -22,22 +22,22 @@ namespace LibraryApplication {
         protected global::LibraryApplication.Controls.LabeledTextBox NameTextBox;
         
         /// <summary>
-        /// Address1TextBox control.
+        /// AddressLine1TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox Address1TextBox;
+        protected global::LibraryApplication.Controls.LabeledTextBox AddressLine1TextBox;
         
         /// <summary>
-        /// Address2TextBox control.
+        /// AddressLine2TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox Address2TextBox;
+        protected global::LibraryApplication.Controls.LabeledTextBox AddressLine2TextBox;
         
         /// <summary>
         /// CityTextBox control.
