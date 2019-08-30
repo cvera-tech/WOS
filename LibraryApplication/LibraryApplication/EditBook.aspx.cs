@@ -42,14 +42,16 @@ namespace LibraryApplication
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            authorDropDownList = AuthorDropDown.ListControl;
+
             if (!int.TryParse(Request.QueryString["ID"], out bookId))
             {
                 Response.Redirect(BooksUrl);
             }
+
             if (!IsPostBack)
             {
                 DataTable authorsTable = DatabaseHelper.Retrieve(GetAuthorsQuery);
-                authorDropDownList = AuthorDropDown.ListControl;
                 authorDropDownList.DataSource = authorsTable;
                 authorDropDownList.DataTextField = "AuthorName";
                 authorDropDownList.DataValueField = "Id";
@@ -97,7 +99,7 @@ namespace LibraryApplication
                     UpdateBookQuery,
                     new SqlParameter("@Title", newTitle),
                     new SqlParameter("@AuthorId", newAuthorId),
-                    new SqlParameter("@Isbn", isbn ?? (object)DBNull.Value),
+                    DatabaseHelper.GetNullableStringSqlParameter(@"Isbn", isbn),
                     new SqlParameter("@BookId", bookId));
 
                 Response.Redirect(BooksUrl);

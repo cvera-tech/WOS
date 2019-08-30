@@ -50,7 +50,7 @@ namespace LibraryApplication
                     AddBookQuery,
                     new SqlParameter("@Title", title),
                     new SqlParameter("@AuthorId", authorId),
-                    new SqlParameter("@Isbn", isbn ?? (object)DBNull.Value));
+                    DatabaseHelper.GetNullableStringSqlParameter("@Isbn", isbn));
                 
                 Response.Redirect(BooksUrl);
             }

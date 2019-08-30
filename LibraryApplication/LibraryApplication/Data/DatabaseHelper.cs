@@ -98,5 +98,10 @@ namespace Library.Data
                 command.ExecuteNonQuery();
             }
         }
+
+        public static SqlParameter GetNullableStringSqlParameter(string parameterName, string value)
+        {
+            return new SqlParameter(parameterName, string.IsNullOrWhiteSpace(value) ? (object)DBNull.Value : value);
+        }
     }
 }
