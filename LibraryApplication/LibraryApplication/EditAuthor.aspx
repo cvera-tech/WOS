@@ -37,6 +37,17 @@
         <asp:ValidationSummary runat="server"
             ValidationGroup="EditAuthor"
             EnableClientScript="true" />
+        
+        <uc:TextBox ID="NewFirstName" runat="server"
+            Label="New First Name: "
+            Required="true"
+            RequiredErrorMessage="First name required."
+            ValidationGroup="EditAuthor" />
+        <uc:TextBox ID="NewLastName" runat="server"
+            Label="New Last Name: "
+            Required="true"
+            RequiredErrorMessage="Last name required."
+            ValidationGroup="EditAuthor" />
         <asp:CustomValidator runat="server"
             ValidationGroup="EditAuthor"
             EnableClientScript="true"
@@ -44,39 +55,11 @@
             ErrorMessage="First or last name must be changed."
             Display="None"
             Text="" />
-
-        <div>
-            <asp:Label runat="server"
-                AssociatedControlID="NewFirstName"
-                Text="New First Name: " />
-            <asp:TextBox ID="NewFirstName" runat="server" />
-            <asp:RequiredFieldValidator runat="server"
-                ControlToValidate="NewFirstName"
-                ValidationGroup="EditAuthor"
-                EnableClientScript="true"
-                Display="Dynamic"
-                ErrorMessage="First name required."
-                Text="*" />
-        </div>
-
-        <div>
-            <asp:Label runat="server"
-                AssociatedControlID="NewLastName"
-                Text="New Last Name: " />
-            <asp:TextBox ID="NewLastName" runat="server" />
-            <asp:RequiredFieldValidator runat="server"
-                ControlToValidate="NewLastName"
-                ValidationGroup="EditAuthor"
-                EnableClientScript="true"
-                Display="Dynamic"
-                ErrorMessage="Last name required."
-                Text="*" />
-        </div>
         <div>
             <asp:Button ID="SaveButton" runat="server" 
                 OnCommand="SaveButton_Command" 
                 Text="Save" 
-                ValidationGroup="EditAuthor"/>
+                ValidationGroup="EditAuthor" />
             <asp:Button ID="CancelButton" runat="server" OnCommand="CancelButton_Command" Text="Cancel" />
         </div>
     </fieldset>

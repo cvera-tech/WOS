@@ -37,7 +37,7 @@ namespace LibraryApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NewFirstName;
+        protected global::LibraryApplication.Controls.LabeledTextBox NewFirstName;
         
         /// <summary>
         /// NewLastName control.
@@ -46,7 +46,7 @@ namespace LibraryApplication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NewLastName;
+        protected global::LibraryApplication.Controls.LabeledTextBox NewLastName;
         
         /// <summary>
         /// SaveButton control.

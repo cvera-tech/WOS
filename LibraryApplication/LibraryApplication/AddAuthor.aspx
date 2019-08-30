@@ -4,34 +4,20 @@
 
     <fieldset>
         <asp:ValidationSummary runat="server"
-            EnableClientScript="true" />
-
+            EnableClientScript="true" 
+            ValidationGroup="AddAuthor"/>
+        <uc:TextBox ID="FirstName" runat="server"
+            Label="First Name: "
+            Required="true"
+            RequiredErrorMessage="First name required."
+            ValidationGroup="AddAuthor" />
+        <uc:TextBox ID="LastName" runat="server"
+            Label="Last Name: "
+            Required="true"
+            RequiredErrorMessage="Last name required."
+            ValidationGroup="AddAuthor" />
         <div>
-            <asp:Label runat="server"
-                AssociatedControlID="FirstName"
-                Text="First Name: " />
-            <asp:TextBox ID="FirstName" runat="server" />
-            <asp:RequiredFieldValidator runat="server"
-                ControlToValidate="FirstName"
-                EnableClientScript="true"
-                Display="Dynamic"
-                ErrorMessage="First name required."
-                Text="*" />
-        </div>
-        <div>
-            <asp:Label runat="server"
-                AssociatedControlID="LastName"
-                Text="Last Name: " />
-            <asp:TextBox ID="LastName" runat="server" />
-            <asp:RequiredFieldValidator runat="server"
-                ControlToValidate="LastName"
-                EnableClientScript="true"
-                Display="Dynamic"
-                ErrorMessage="Last name required."
-                Text="*" />
-        </div>
-        <div>
-            <asp:Button ID="AddButton" runat="server" OnCommand="AddButton_Command" Text="Add" />
+            <asp:Button ID="AddButton" runat="server" OnCommand="AddButton_Command" Text="Add" ValidationGroup="AddAuthor" />
             <asp:Button ID="CancelButton" runat="server" OnCommand="CancelButton_Command" Text="Cancel" />
         </div>
     </fieldset>
