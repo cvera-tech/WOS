@@ -38,10 +38,23 @@ namespace LibraryApplication.Controls
                 return ControlDropDownList;
             }
         }
+        public bool PrependEmptyItem { get; set; } = false;
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Init(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (PrependEmptyItem)
+                {
+                    ControlEmptyItem.Enabled = true;
+                    ControlDropDownList.AppendDataBoundItems = true;
+                }
+                else
+                {
+                    ControlEmptyItem.Enabled = false;
+                    ControlDropDownList.AppendDataBoundItems = false;
+                }
+            }
         }
 
     }

@@ -19,15 +19,19 @@ namespace LibraryApplication
             VALUES (@Title, @AuthorId, @Isbn)
         ";
 
+        private DropDownList authorDropDownList;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            authorDropDownList = AuthorDropDown.ListControl;
+
             if (!IsPostBack)
             {
                 DataTable dt = DatabaseHelper.Retrieve(GetAuthorsQuery);
-                AuthorDropDown.DataSource = dt;
-                AuthorDropDown.DataTextField = "AuthorName";
-                AuthorDropDown.DataValueField = "Id";
-                AuthorDropDown.DataBind();
+                authorDropDownList.DataSource = dt;
+                authorDropDownList.DataTextField = "AuthorName";
+                authorDropDownList.DataValueField = "Id";
+                authorDropDownList.DataBind();
             }
         }
 
@@ -36,7 +40,7 @@ namespace LibraryApplication
             if (Page.IsValid)
             {
                 string title = TitleTextBox.Text;
-                int authorId = int.Parse(AuthorDropDown.SelectedValue);
+                int authorId = int.Parse(authorDropDownList.SelectedValue);
 
                 // Isbn is nullable in the database
                 string isbn = ISBN.Text;

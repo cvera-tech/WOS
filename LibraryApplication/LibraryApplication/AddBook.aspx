@@ -37,16 +37,9 @@
                 ErrorMessage="Title required."
                 Text="*" />
         </div>
-        <div>
-            <asp:Label runat="server"
-                AssociatedControlID="AuthorDropDown"
-                Text="Author: " />
-            <asp:DropDownList ID="AuthorDropDown" runat="server"
-                AutoPostBack="false"
-                AppendDataBoundItems="true">
-                <asp:ListItem></asp:ListItem>
-            </asp:DropDownList>
-        </div>
+        <uc:DropDownList ID="AuthorDropDown" runat="server"
+            Label="Author: "
+            PrependEmptyItem="true" />
         <div>
             <asp:Label runat="server"
                 AssociatedControlID="ISBN"
