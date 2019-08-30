@@ -53,6 +53,17 @@ namespace LibraryApplication.Controls
                 ControlTextBox.ValidationGroup = value;
             }
         }
+        public string RequiredErrorMessage
+        {
+            get
+            {
+                return ControlValidator.ErrorMessage;
+            }
+            set
+            {
+                ControlValidator.ErrorMessage = value;
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

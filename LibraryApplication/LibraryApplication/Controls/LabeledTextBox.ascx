@@ -8,7 +8,7 @@
         ControlToValidate="ControlTextBox"
         EnableClientScript="true"
         Display="Dynamic"
-        ErrorMessage="Title required."
+        ErrorMessage="Field required."
         Text="*" 
         Enabled="false" />
 </div>
