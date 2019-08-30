@@ -38,12 +38,9 @@ namespace LibraryApplication
             WHERE Id=@BookId;
         ";
         private int bookId;
-        private DropDownList authorDropDownList;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            authorDropDownList = AuthorDropDown.ListControl;
-
             if (!int.TryParse(Request.QueryString["ID"], out bookId))
             {
                 Response.Redirect(BooksUrl);
@@ -51,11 +48,12 @@ namespace LibraryApplication
 
             if (!IsPostBack)
             {
-                DataTable authorsTable = DatabaseHelper.Retrieve(GetAuthorsQuery);
-                authorDropDownList.DataSource = authorsTable;
-                authorDropDownList.DataTextField = "AuthorName";
-                authorDropDownList.DataValueField = "Id";
-                authorDropDownList.DataBind();
+                AuthorDropDown.ListDataSource = () => 
+                {
+                    DataTable authorsTable = DatabaseHelper.Retrieve(GetAuthorsQuery);
+                    AuthorDropDown.SetTextAndValueFields("AuthorName", "Id");
+                    return authorsTable;
+                };
                 DataTable bookTable = DatabaseHelper.Retrieve(
                     GetBookQuery,
                     new SqlParameter("@BookId", bookId));
@@ -70,7 +68,7 @@ namespace LibraryApplication
                     OldAuthor.Text = oldAuthor;
                     OldIsbn.Text = oldIsbn;
                     TitleTextBox.Text = oldTitle;
-                    authorDropDownList.SelectedValue = oldAuthorId.ToString();
+                    AuthorDropDown.SelectedValue = oldAuthorId.ToString();
                     IsbnTextBox.Text = oldIsbn;
                 }
                 else
@@ -85,7 +83,7 @@ namespace LibraryApplication
             if (Page.IsValid)
             {
                 string newTitle = TitleTextBox.Text;
-                int newAuthorId = int.Parse(authorDropDownList.SelectedValue);
+                int newAuthorId = int.Parse(AuthorDropDown.SelectedValue);
 
                 // Isbn is nullable in the database
                 string isbn = IsbnTextBox.Text;

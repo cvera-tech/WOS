@@ -39,13 +39,13 @@ namespace LibraryApplication.Controls
                 return ControlDropDownList.ClientID;
             }
         }
-        public DropDownList ListControl
-        {
-            get
-            {
-                return ControlDropDownList;
-            }
-        }
+        //public DropDownList ListControl
+        //{
+        //    get
+        //    {
+        //        return ControlDropDownList;
+        //    }
+        //}
 
         public Func<DataTable> ListDataSource { get; set; }
         public bool PrependEmptyItem { get; set; } = false;
@@ -54,6 +54,10 @@ namespace LibraryApplication.Controls
             get
             {
                 return ControlDropDownList.SelectedValue;
+            }
+            set
+            {
+                ControlDropDownList.SelectedValue = value;
             }
         }
 
