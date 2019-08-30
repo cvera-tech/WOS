@@ -64,7 +64,7 @@ namespace LibraryApplication
                     string oldAuthor = bookTable.Rows[0].Field<string>("AuthorName");
                     string oldIsbn = bookTable.Rows[0].Field<string>("Isbn");
                     int oldAuthorId = bookTable.Rows[0].Field<int>("AuthorId");
-                    OldAuthor.Text = oldTitle;
+                    OldTitle.Text = oldTitle;
                     OldAuthor.Text = oldAuthor;
                     OldIsbn.Text = oldIsbn;
                     TitleTextBox.Text = oldTitle;
