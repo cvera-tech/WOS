@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Librarians.aspx" />
     <Content Include="packages.config" />
     <Content Include="Site.Master" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
@@ -179,6 +180,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Librarians.aspx.cs">
+      <DependentUpon>Librarians.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Librarians.aspx.designer.cs">
+      <DependentUpon>Librarians.aspx</DependentUpon>
     </Compile>
     <Compile Include="Libraries.aspx.cs">
       <DependentUpon>Libraries.aspx</DependentUpon>
