@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddLibrarian.aspx" />
     <Content Include="Librarians.aspx" />
     <Content Include="packages.config" />
     <Content Include="Site.Master" />
@@ -113,6 +114,13 @@
     </Compile>
     <Compile Include="AddBook.aspx.designer.cs">
       <DependentUpon>AddBook.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddLibrarian.aspx.cs">
+      <DependentUpon>AddLibrarian.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddLibrarian.aspx.designer.cs">
+      <DependentUpon>AddLibrarian.aspx</DependentUpon>
     </Compile>
     <Compile Include="AddLibrary.aspx.cs">
       <DependentUpon>AddLibrary.aspx</DependentUpon>

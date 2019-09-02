@@ -16,6 +16,7 @@
             <li><asp:HyperLink runat="server" NavigateUrl="~/Authors.aspx">Authors</asp:HyperLink></li>
             <li><asp:HyperLink runat="server" NavigateUrl="~/Books.aspx">Books</asp:HyperLink></li>
             <li><asp:HyperLink runat="server" NavigateUrl="~/Libraries.aspx">Libraries</asp:HyperLink></li>
+            <li><asp:HyperLink runat="server" NavigateUrl="~/Librarians.aspx">Librarians</asp:HyperLink></li>
         </ul>
         
         <asp:ContentPlaceHolder ID="Main" runat="server">
