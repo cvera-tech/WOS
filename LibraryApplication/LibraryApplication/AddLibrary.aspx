@@ -1,16 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddLibrary.aspx.cs" Inherits="LibraryApplication.AddLibrary" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
-    <script>
-        function StateValidation(sender, arguments) {
-            var selectedAuthor = $('#<%= StateDropDown.DropDownListClientId %>').val();
-            if (selectedAuthor === '') {
-                arguments.IsValid = false;
-            }
-        }
-    </script>
-</asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <asp:ValidationSummary runat="server" ValidationGroup="AddLibrary" />
     <fieldset>
@@ -33,14 +22,10 @@
             ValidationGroup="AddLibrary" />
         <uc:DropDownList ID="StateDropDown" runat="server" 
             Label="State: " 
-            PrependEmptyItem="true" />
-        <asp:CustomValidator runat="server"
-            ValidationGroup="AddLibrary"
-            EnableClientScript="true"
-            ClientValidationFunction="StateValidation"
-            ErrorMessage="State required."
-            Display="None"
-            Text="*" />
+            PrependEmptyItem="true" 
+            Required="true"
+            RequiredErrorMessage="State required." 
+            ValidationGroup="AddLibrary" />
         <uc:TextBox ID="PostalCodeTextBox" runat="server" 
             Label="Postal Code: " 
             Required="true" 

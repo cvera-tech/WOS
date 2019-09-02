@@ -22,7 +22,7 @@ namespace LibraryApplication
             )
         ";
         private string GetStatesQuery = @"
-            SELECT *
+            SELECT Id, Abbreviation
             FROM State
         ";
 
@@ -39,24 +39,13 @@ namespace LibraryApplication
             }
         }
 
-        private int GetStateId()
-        {
-            return 0;
-        }
-
         protected void AddButton_Command(object sender, CommandEventArgs e)
         {
             if (Page.IsValid)
             {
                 string name = NameTextBox.Text;
                 string addressLine1 = AddressLine1TextBox.Text;
-
-                // AddressLine2 is nullable in the database
                 string addressLine2 = AddressLine2TextBox.Text;
-                if (string.IsNullOrWhiteSpace(addressLine2))
-                {
-                    addressLine2 = null;
-                }
                 string city = CityTextBox.Text;
                 int stateId = int.Parse(StateDropDown.SelectedValue);
                 string postalCode = PostalCodeTextBox.Text;

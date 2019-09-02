@@ -1,16 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddBook.aspx.cs" Inherits="LibraryApplication.AddBook" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
-    <script>
-        function AuthorValidation(sender, arguments) {
-            var selectedAuthor = $('#<%= AuthorDropDown.DropDownListClientId %>').val();
-            if (selectedAuthor === '') {
-                arguments.IsValid = false;
-            }
-        }
-    </script>
-</asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <fieldset>
         <asp:ValidationSummary runat="server"
@@ -25,14 +14,9 @@
         <uc:DropDownList ID="AuthorDropDown" runat="server"
             Label="Author: "
             PrependEmptyItem="true" 
-            ValidationGroup="AddBook" />
-        <asp:CustomValidator runat="server"
             ValidationGroup="AddBook"
-            EnableClientScript="true"
-            ClientValidationFunction="AuthorValidation"
-            ErrorMessage="Author required."
-            Display="None"
-            Text="*" />
+            Required="true" 
+            RequiredErrorMessage="Author required."/>
         <uc:TextBox ID="ISBN" runat="server"
             Label="ISBN" />
         <div>

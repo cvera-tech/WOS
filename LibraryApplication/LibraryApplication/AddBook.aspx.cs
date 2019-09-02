@@ -38,13 +38,7 @@ namespace LibraryApplication
             {
                 string title = TitleTextBox.Text;
                 int authorId = int.Parse(AuthorDropDown.SelectedValue);
-
-                // Isbn is nullable in the database
                 string isbn = ISBN.Text;
-                if (string.IsNullOrWhiteSpace(isbn))
-                {
-                    isbn = null;
-                }
 
                 // TODO Exception handling
                 DatabaseHelper.ExecuteNonQuery(

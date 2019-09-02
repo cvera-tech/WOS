@@ -21,6 +21,36 @@ namespace LibraryApplication.Controls
                 ControlLabel.Text = value;
             }
         }
+        public string DropDownListClientId
+        {
+            get
+            {
+                return ControlDropDownList.ClientID;
+            }
+        }
+        public Func<DataTable> ListDataSource { get; set; }
+        public bool Required
+        {
+            get
+            {
+                return ControlValidator.Enabled;
+            }
+            set
+            {
+                ControlValidator.Enabled = value;
+            }
+        }
+        public string RequiredErrorMessage
+        {
+            get
+            {
+                return ControlValidator.ErrorMessage;
+            }
+            set
+            {
+                ControlValidator.ErrorMessage = value;
+            }
+        }
         public string ValidationGroup
         {
             get
@@ -30,24 +60,9 @@ namespace LibraryApplication.Controls
             set
             {
                 ControlDropDownList.ValidationGroup = value;
+                ControlValidator.ValidationGroup = value;
             }
         }
-        public string DropDownListClientId
-        {
-            get
-            {
-                return ControlDropDownList.ClientID;
-            }
-        }
-        //public DropDownList ListControl
-        //{
-        //    get
-        //    {
-        //        return ControlDropDownList;
-        //    }
-        //}
-
-        public Func<DataTable> ListDataSource { get; set; }
         public bool PrependEmptyItem { get; set; } = false;
         public string SelectedValue
         {
@@ -65,16 +80,8 @@ namespace LibraryApplication.Controls
         {
             if (!IsPostBack)
             {
-                if (PrependEmptyItem)
-                {
-                    ControlEmptyItem.Enabled = true;
-                    ControlDropDownList.AppendDataBoundItems = true;
-                }
-                else
-                {
-                    ControlEmptyItem.Enabled = false;
-                    ControlDropDownList.AppendDataBoundItems = false;
-                }
+                ControlEmptyItem.Enabled = PrependEmptyItem;
+                ControlDropDownList.AppendDataBoundItems = PrependEmptyItem;
             }
         }
 

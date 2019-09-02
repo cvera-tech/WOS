@@ -6,4 +6,11 @@
     <asp:DropDownList ID="ControlDropDownList" runat="server">
         <asp:ListItem ID="ControlEmptyItem" runat="server"></asp:ListItem>
     </asp:DropDownList>
+    <asp:RequiredFieldValidator ID="ControlValidator" runat="server"
+        ControlToValidate="ControlDropDownList"
+        EnableClientScript="true"
+        Display="Dynamic"
+        ErrorMessage="Field required."
+        Text="*"
+        Enabled="false" />
 </div>

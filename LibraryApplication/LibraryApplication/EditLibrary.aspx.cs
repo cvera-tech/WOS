@@ -1,11 +1,8 @@
 ﻿using Library.Data;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,7 +12,7 @@ namespace LibraryApplication
     {
         private const string LibrariesUrl = "~/Libraries.aspx";
         private const string GetStatesQuery = @"
-            SELECT *
+            SELECT Id, Abbreviation
             FROM State
         ";
         private const string GetLibraryQuery = @"
@@ -103,13 +100,7 @@ namespace LibraryApplication
             {
                 string name = NewNameTextBox.Text;
                 string addressLine1 = NewAddressLine1TextBox.Text;
-
-                // AddressLine2 is nullable in the database
                 string addressLine2 = NewAddressLine2TextBox.Text;
-                if (string.IsNullOrWhiteSpace(addressLine2))
-                {
-                    addressLine2 = null;
-                }
                 string city = NewCityTextBox.Text;
                 int stateId = int.Parse(NewStateDropDown.SelectedValue);
                 string postalCode = NewPostalCodeTextBox.Text;
