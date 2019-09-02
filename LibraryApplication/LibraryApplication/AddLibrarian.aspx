@@ -2,6 +2,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <fieldset>
+        <asp:ValidationSummary runat="server"
+            ValidationGroup="AddLibrarian"
+            EnableClientScript="true" />
         <uc:TextBox ID="FirstNameTextBox" runat="server"
             Label="First Name: "
             Required="true"
