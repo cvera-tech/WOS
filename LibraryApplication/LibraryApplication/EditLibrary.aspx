@@ -31,14 +31,9 @@
             ValidationGroup="EditLibrary" />
         <uc:DropDownList ID="NewStateDropDown" runat="server" 
             Label="State: " 
-            PrependEmptyItem="true" />
-        <asp:CustomValidator runat="server"
-            ValidationGroup="EditLibrary"
-            EnableClientScript="true"
-            ClientValidationFunction="StateValidation"
-            ErrorMessage="State required."
-            Display="None"
-            Text="*" />
+            Required="true" 
+            RequiredErrorMessage="State required."
+            ValidationGroup="EditLibrary" />
         <uc:TextBox ID="NewPostalCodeTextBox" runat="server" 
             Label="Postal Code: " 
             Required="true" 

@@ -14,6 +14,7 @@ namespace LibraryApplication
         private const string AddLibrarianUrl = "~/AddLibrarian.aspx";
         private const string GetLibrariansQuery = @"
             SELECT 
+                L1.Id,
 	            E.FirstName,
 	            E.LastName,
 	            L2.Name AS LibraryName,
@@ -31,6 +32,7 @@ namespace LibraryApplication
 		            ON E.LibraryId = L2.Id
 	            JOIN State s
 		            ON E.StateId = S.Id
+            ORDER BY E.LastName, E.FirstName, L1.Id
         ";
         protected void Page_Load(object sender, EventArgs e)
         {

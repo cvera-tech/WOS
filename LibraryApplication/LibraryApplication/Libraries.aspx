@@ -11,6 +11,7 @@
                     <tr>
                         <th>Branch Name</th>
                         <th>Address</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
         </HeaderTemplate>

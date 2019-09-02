@@ -39,7 +39,7 @@
             RequiredErrorMessage="City required."
             ValidationGroup="AddLibrarian" />
         <uc:DropDownList ID="StateDropDownList" runat="server"
-            Label="State: " 
+            Label="State: "
             Required="true"
             RequiredErrorMessage="State required."
             ValidationGroup="AddLibrarian"
@@ -50,9 +50,9 @@
             RequiredErrorMessage="Postal code required."
             ValidationGroup="AddLibrarian" />
         <div>
-            <asp:Button ID="AddButton" runat="server" 
+            <asp:Button ID="AddButton" runat="server"
                 OnCommand="AddButton_Command"
-                Text="Add librarian" 
+                Text="Add librarian"
                 ValidationGroup="AddLibrarian" />
             <asp:Button ID="CancelButton" runat="server"
                 OnCommand="CancelButton_Command"

@@ -12,6 +12,7 @@ namespace LibraryApplication
         private const string GetLibrariesQuery = @"
             SELECT Id, Name
             FROM Library
+            ORDER BY Name ASC
         ";
         private const string GetStatesQuery = @"
             SELECT Id, Abbreviation

@@ -13,6 +13,7 @@
                         <th>Library</th>
                         <th>Address</th>
                         <th>Email Address</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
         </HeaderTemplate>
@@ -23,6 +24,9 @@
                 <td><%# Item.Field<string>("LibraryName") %></td>
                 <td><%# Item.Field<string>("Address") %></td>
                 <td><%# Item.Field<string>("EmailAddress") %></td>
+                <td><asp:HyperLink runat="server" 
+                    NavigateUrl='<%# $"~/EditLibrarian.aspx?ID={Item.Field<int>("Id")}"%>' 
+                    Text="Edit" /></td>
             </tr>
         </ItemTemplate>
         <FooterTemplate>

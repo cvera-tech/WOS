@@ -19,6 +19,7 @@ namespace LibraryApplication
                 AddressLine1 + ISNULL(' ' + AddressLine2, '') + ', ' + City + ', ' + State.Name +  ' ' + PostalCode AS Address
             FROM Library JOIN State
             ON Library.StateId = State.Id
+            ORDER BY Library.Name
         ";
         protected void Page_Load(object sender, EventArgs e)
         {
