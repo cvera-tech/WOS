@@ -1,12 +1,8 @@
 ﻿using Library.Data;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace LibraryApplication
@@ -128,8 +124,6 @@ namespace LibraryApplication
                     NewStateDropDownList.SelectedValue = oldStateId.ToString();
                     NewPostalCodeTextBox.Text = oldPostalCode;
                 }
-
-
             }
         }
 
@@ -144,20 +138,7 @@ namespace LibraryApplication
             string city = NewCityTextBox.Text;
             int stateId = int.Parse(NewStateDropDownList.SelectedValue);
             string postalCode = NewPostalCodeTextBox.Text;
-
-            //FirstName = @FirstName,
-            //    LastName = @LastName,
-            //    LibraryId = @LibraryId,
-            //    AddressLine1 = @AddressLine1,
-            //    AddressLine2 = @AddressLine2,
-            //    City = @City,
-            //    StateId = @StateId,
-            //    PostalCode = @PostalCode,
-            //    EmailAddress = @EmailAddress
-            //FROM Employee E JOIN Librarian L
-            //ON E.Id = L.EmployeeId
-            //WHERE L.Id = @Id
-
+            
             DatabaseHelper.ExecuteNonQuery(EditEmployeeQuery,
                 new SqlParameter("@FirstName", firstName),
                 new SqlParameter("@LastName", lastName),

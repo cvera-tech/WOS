@@ -11,6 +11,8 @@
                     <th>Title</th>
                     <th>Author</th>
                     <th>ISBN</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
                 </tr>
         </HeaderTemplate>
         <ItemTemplate>
@@ -22,6 +24,11 @@
                     <asp:HyperLink runat="server"
                         NavigateUrl='<%# $"~/EditBook.aspx?ID={Item.Field<int>("Id")}" %>'
                         Text="Edit" />
+                </td>
+                <td>
+                    <asp:HyperLink runat="server"
+                        NavigateUrl='<%# $"~/BookCopies.aspx?ID={Item.Field<int>("Id")}" %>'
+                        Text="View Copies" />
                 </td>
             </tr>
         </ItemTemplate>
