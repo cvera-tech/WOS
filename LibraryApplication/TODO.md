@@ -2,7 +2,7 @@
 
 ## Required
 * ~~Librarian pages~~
-* Book copy (possibly separate pages from Book pages)
+* ~~Book copy (possibly separate pages from Book pages)~~
 * Patron pages
 * Borrow book pages
 
