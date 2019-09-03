@@ -19,6 +19,13 @@ namespace LibraryApplication
                     ON B.AuthorId = A.Id
             WHERE B.Id = @BookId
         ";
+        private const string GetLibrariesQuery = @"
+            SELECT
+                Name,
+                Id
+            FROM
+                Library
+        ";
         private const string GetBookCopiesQuery = @"
             SELECT
                 BC.Id,
@@ -33,11 +40,16 @@ namespace LibraryApplication
 	            JOIN Author A ON B.AuthorId = A.Id
 	            JOIN Library L ON BC.LibraryId = L.Id
             WHERE B.Id = @BookId
+            ORDER BY LibraryName ASC, BC.Available DESC
         ";
         private const string UpdateAvailableQuery = @"
             UPDATE BookCopy
             SET Available = @Available
             WHERE Id = @Id
+        ";
+        private const string AddBookCopyQuery = @"
+            INSERT INTO BookCopy (BookId, LibraryId, Available)
+            VALUES (@BookId, @LibraryId, @Available)
         ";
 
         private int bookId;
@@ -59,6 +71,12 @@ namespace LibraryApplication
                     AuthorLabel.Text = bookRow.Field<string>("AuthorName");
                     IsbnLabel.Text = bookRow.Field<string>("Isbn");
                 }
+                
+                LibrariesDropDownList.ListDataSource = () => {
+                    DataTable librariesTable = DatabaseHelper.Retrieve(GetLibrariesQuery);
+                    LibrariesDropDownList.SetTextAndValueFields("Name", "Id");
+                    return librariesTable;
+                };
             }
         }
 
@@ -80,6 +98,17 @@ namespace LibraryApplication
             DatabaseHelper.ExecuteNonQuery(UpdateAvailableQuery,
                 new SqlParameter("@Available", available),
                 new SqlParameter("@Id", bookCopyId));
+        }
+
+        protected void AddButton_Command(object sender, CommandEventArgs e)
+        {
+            int libraryId = int.Parse(LibrariesDropDownList.SelectedValue);
+            bool available = AvailableCheckBox.Checked;
+
+            DatabaseHelper.Insert(AddBookCopyQuery,
+                new SqlParameter("@BookId", bookId),
+                new SqlParameter("@LibraryId", libraryId),
+                new SqlParameter("@Available", available));
         }
     }
 }

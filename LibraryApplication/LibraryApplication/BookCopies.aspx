@@ -51,4 +51,25 @@
             </FooterTemplate>
         </asp:Repeater>
     </div>
+    <div>
+        <div>
+            <h3>Add Book Copy</h3>
+        </div>
+        <fieldset>
+            <uc:DropDownList ID="LibrariesDropDownList" runat="server"
+                Label="Library: "
+                PrependEmptyItem="true"
+                Required="true"
+                RequiredErrorMessage="Library required."
+                ValidationGroup="AddBookCopy" />
+            <%-- TODO LabeledCheckBox user control --%>
+            <div>
+                <asp:Label runat="server" Text="Available: " />
+                <asp:CheckBox ID="AvailableCheckBox" runat="server" />
+            </div>
+            <asp:Button ID="AddButton" runat="server"
+                OnCommand="AddButton_Command"
+                Text="Add" />
+        </fieldset>
+    </div>
 </asp:Content>
