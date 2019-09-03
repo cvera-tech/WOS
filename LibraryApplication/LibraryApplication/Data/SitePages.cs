@@ -8,6 +8,7 @@ namespace LibraryApplication.Data
     public enum LibraryPage
     {
         Home,
+        Login,
         Authors,
         AddAuthor,
         EditAuthor,
@@ -31,6 +32,8 @@ namespace LibraryApplication.Data
         {
             switch(page)
             {
+                case LibraryPage.Login:
+                    return "~/Login.aspx";
                 case LibraryPage.Authors:
                     return "~/Authors.aspx";
                 case LibraryPage.AddAuthor:
@@ -55,6 +58,12 @@ namespace LibraryApplication.Data
                     return "~/AddLibrarian.aspx";
                 case LibraryPage.EditLibrarian:
                     return "~/EditLibrarian.aspx";
+                case LibraryPage.Patrons:
+                    return "~/Patrons/List.aspx";
+                case LibraryPage.AddPatron:
+                    return "~/Patrons/Add.aspx";
+                case LibraryPage.EditPatron:
+                    return "~/Patrons/Edit.aspx";
                 default:
                     return "~/";
             }

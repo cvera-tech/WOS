@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LibraryApplication.Site" %>
 
 <!DOCTYPE html>
+<%@ Import Namespace="LibraryApplication.Data" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -18,6 +19,19 @@
             <li><asp:HyperLink runat="server" NavigateUrl="~/Libraries.aspx">Libraries</asp:HyperLink></li>
             <li><asp:HyperLink runat="server" NavigateUrl="~/Librarians.aspx">Librarians</asp:HyperLink></li>
         </ul>
+        <asp:LoginView runat="server">
+            <LoggedInTemplate>
+                <h3>Hello, <asp:LoginName runat="server" />.</h3>
+                <asp:Button ID="LogoutButton" runat="server" 
+                    Text="Log out"
+                    OnCommand="LogoutButton_Command" />
+            </LoggedInTemplate>
+            <AnonymousTemplate>
+                <asp:HyperLink runat="server" 
+                    Text="Log In"
+                    NavigateUrl="~/Login.aspx" />
+            </AnonymousTemplate>
+        </asp:LoginView>
         
         <asp:ContentPlaceHolder ID="Main" runat="server">
         

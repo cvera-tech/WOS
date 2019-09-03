@@ -65,6 +65,17 @@ namespace LibraryApplication.Controls
                 ControlValidator.ErrorMessage = value;
             }
         }
+        public TextBoxMode TextMode
+        {
+            get
+            {
+                return ControlTextBox.TextMode;
+            }
+            set
+            {
+                ControlTextBox.TextMode = value;
+            }
+        }
 
         protected void Page_Init(object sender, EventArgs e)
         {
