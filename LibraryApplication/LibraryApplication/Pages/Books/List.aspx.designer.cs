@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LibraryApplication {
+namespace LibraryApplication.Pages.Books {
     
     
-    public partial class Books {
+    public partial class List {
         
         /// <summary>
         /// BooksRepeater control.

@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LibraryApplication.Site" %>
 
-<!DOCTYPE html>
 <%@ Import Namespace="LibraryApplication.Data" %>
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -14,10 +14,10 @@
     <div>
         <h1>Library</h1>
         <ul>
-            <li><asp:HyperLink runat="server" NavigateUrl="~/Authors.aspx">Authors</asp:HyperLink></li>
-            <li><asp:HyperLink runat="server" NavigateUrl="~/Books.aspx">Books</asp:HyperLink></li>
-            <li><asp:HyperLink runat="server" NavigateUrl="~/Libraries.aspx">Libraries</asp:HyperLink></li>
-            <li><asp:HyperLink runat="server" NavigateUrl="~/Pages/Librarians/List.aspx">Librarians</asp:HyperLink></li>
+            <li><asp:HyperLink ID="AuthorsLink" runat="server">Authors</asp:HyperLink></li>
+            <li><asp:HyperLink ID="BooksLink" runat="server">Books</asp:HyperLink></li>
+            <li><asp:HyperLink ID="LibrariesLink" runat="server">Libraries</asp:HyperLink></li>
+            <li><asp:HyperLink ID="LibrariansLink" runat="server">Librarians</asp:HyperLink></li>
         </ul>
         <%--<asp:Panel ID="LoggedInPanel" runat="server"></asp:Panel>
         <asp:Panel ID="AnonymousPanel" runat="server"></asp:Panel>

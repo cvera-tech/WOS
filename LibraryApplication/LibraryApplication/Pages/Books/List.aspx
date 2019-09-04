@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Books.aspx.cs" Inherits="LibraryApplication.Books" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="LibraryApplication.Pages.Books.List" %>
 
 <%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="LibraryApplication.Data" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <asp:Repeater ID="BooksRepeater" runat="server"
@@ -22,12 +23,12 @@
                 <td><%# Item.Field<string>("Isbn") %></td>
                 <td>
                     <asp:HyperLink runat="server"
-                        NavigateUrl='<%# $"~/EditBook.aspx?ID={Item.Field<int>("Id")}" %>'
+                        NavigateUrl='<%# $"{SitePages.GetUrl(LibraryPage.EditBook)}?ID={Item.Field<int>("Id")}" %>'
                         Text="Edit" />
                 </td>
                 <td>
                     <asp:HyperLink runat="server"
-                        NavigateUrl='<%# $"~/BookCopies.aspx?ID={Item.Field<int>("Id")}" %>'
+                        NavigateUrl='<%# $"{SitePages.GetUrl(LibraryPage.BookCopies)}?ID={Item.Field<int>("Id")}" %>'
                         Text="View Copies" />
                 </td>
             </tr>

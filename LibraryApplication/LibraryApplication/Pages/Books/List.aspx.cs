@@ -1,17 +1,14 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Books
 {
-    public partial class Books : System.Web.UI.Page
+    public partial class List : System.Web.UI.Page
     {
-        private const string AddBooksUrl = "~/AddBook.aspx";
+        private string AddBookUrl = SitePages.GetUrl(LibraryPage.AddBook);
         private const string SqlQuery = @"
             SELECT 
                 Book.Id, 
@@ -36,7 +33,7 @@ namespace LibraryApplication
 
         protected void AddButton_Command(object sender, CommandEventArgs e)
         {
-            Response.Redirect(AddBooksUrl);
+            Response.Redirect(AddBookUrl);
         }
     }
 }

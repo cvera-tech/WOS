@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LibraryApplication {
+namespace LibraryApplication.Pages.Books {
     
     
-    public partial class EditBook {
+    public partial class Edit {
         
         /// <summary>
         /// OldTitle control.

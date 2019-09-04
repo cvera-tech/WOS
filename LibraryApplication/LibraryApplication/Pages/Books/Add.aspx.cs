@@ -1,14 +1,15 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Books
 {
     public partial class AddBook : System.Web.UI.Page
     {
-        private const string BooksUrl = "~/Books.aspx";
+        private string BooksUrl = SitePages.GetUrl(LibraryPage.Books);
         private const string GetAuthorsQuery = @"
             SELECT Id, LastName + ', ' + FirstName AS AuthorName
             FROM Author

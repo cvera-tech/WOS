@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace LibraryApplication.Data
+﻿namespace LibraryApplication.Data
 {
     public enum LibraryPage
     {
@@ -41,11 +36,13 @@ namespace LibraryApplication.Data
                 case LibraryPage.EditAuthor:
                     return "~/EditAuthor.aspx";
                 case LibraryPage.Books:
-                    return "~/Books.aspx";
+                    return "~/Pages/Books/List.aspx";
                 case LibraryPage.AddBook:
-                    return "~/AddBook.aspx";
+                    return "~/Pages/Books/Add.aspx";
                 case LibraryPage.EditBook:
-                    return "~/EditBook.aspx";
+                    return "~/Pages/Books/Edit.aspx";
+                case LibraryPage.BookCopies:
+                    return "~/Pages/Books/Copies.aspx";
                 case LibraryPage.Libraries:
                     return "~/Libraries.aspx";
                 case LibraryPage.AddLibrary:
