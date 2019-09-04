@@ -6,6 +6,7 @@
 * Patron pages
 * Borrow book pages
 * Add existing patron as librarian
+* Edit Author validation bug
 
 ## Quality of life
 * Exception handling!!!

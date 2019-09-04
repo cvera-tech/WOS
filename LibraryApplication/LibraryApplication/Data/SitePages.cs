@@ -30,11 +30,11 @@
                 case LibraryPage.Login:
                     return "~/Login.aspx";
                 case LibraryPage.Authors:
-                    return "~/Authors.aspx";
+                    return "~/Pages/Authors/List.aspx";
                 case LibraryPage.AddAuthor:
-                    return "~/AddAuthor.aspx";
+                    return "~/Pages/Authors/Add.aspx";
                 case LibraryPage.EditAuthor:
-                    return "~/EditAuthor.aspx";
+                    return "~/Pages/Authors/Edit.aspx";
                 case LibraryPage.Books:
                     return "~/Pages/Books/List.aspx";
                 case LibraryPage.AddBook:
