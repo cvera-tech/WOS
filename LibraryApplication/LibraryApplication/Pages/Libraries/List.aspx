@@ -20,9 +20,13 @@
             <tr>
                 <td><%# Item.Field<string>("Name") %></td>
                 <td><%# Item.Field<string>("Address") %></td>
-                <td><asp:HyperLink runat="server" 
-                    NavigateUrl='<%# $"{SitePages.GetUrl(LibraryPage.EditLibrary)}?ID={Item.Field<int>("Id")}"%>' 
-                    Text="Edit" /></td>
+                <asp:Panel runat="server" Visible='<%# User.IsInRole("Librarian") %>'>
+                    <td>
+                        <asp:HyperLink runat="server"
+                            NavigateUrl='<%# $"{SitePages.GetUrl(LibraryPage.EditLibrary)}?ID={Item.Field<int>("Id")}"%>'
+                            Text="Edit" />
+                    </td>
+                </asp:Panel>
             </tr>
         </ItemTemplate>
         <FooterTemplate>

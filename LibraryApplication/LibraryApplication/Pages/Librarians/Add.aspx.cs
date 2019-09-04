@@ -9,7 +9,7 @@ namespace LibraryApplication.Pages.Librarians
 {
     public partial class Add : System.Web.UI.Page
     {
-        private const string LibrariansUrl = "~/Librarians.aspx";
+        private string LibrariansUrl = SitePages.GetUrl(LibraryPage.Librarians);
         private const string GetLibrariesQuery = @"
             SELECT Id, Name
             FROM Library
@@ -49,6 +49,10 @@ namespace LibraryApplication.Pages.Librarians
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!User.IsInRole("Librarian"))
+            {
+                Response.Redirect(SitePages.GetUrl(LibraryPage.NotAuthorized));
+            }
             if (!IsPostBack)
             {
                 // Bind libraries list

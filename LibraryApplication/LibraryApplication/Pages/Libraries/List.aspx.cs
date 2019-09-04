@@ -20,12 +20,15 @@ namespace LibraryApplication.Pages.Libraries
         ";
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 DataTable dt = DatabaseHelper.Retrieve(GetLibrariesQuery);
 
                 LibrariesRepeater.DataSource = dt.Rows;
                 LibrariesRepeater.DataBind();
+
+                AddButton.Visible = User.IsInRole("Librarian");
             }
         }
 
