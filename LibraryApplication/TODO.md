@@ -6,7 +6,7 @@
 * Patron pages
 * Borrow book pages
 * Add existing patron as librarian
-* Edit Author validation bug
+* Account details page
 
 ## Quality of life
 * Exception handling!!!
@@ -17,3 +17,7 @@
     * Have a static class with urls for every other page
 * Bootstrap styling
 * LabeledCheckBox user control (see BookCopies page)
+* Better authorization (replace hard-coded checks in page behind)
+
+## BUGS
+* Edit Author validation
