@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LibraryApplication {
+namespace LibraryApplication.Pages.Books {
     
     
-    public partial class BookCopies {
+    public partial class Copies {
         
         /// <summary>
         /// BookTitleLabel control.

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BookCopies.aspx.cs" Inherits="LibraryApplication.BookCopies" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Copies.aspx.cs" Inherits="LibraryApplication.Pages.Books.Copies" %>
 
 <%@ Import Namespace="System.Data" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
