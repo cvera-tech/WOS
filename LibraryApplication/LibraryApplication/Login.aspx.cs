@@ -28,6 +28,7 @@ namespace LibraryApplication
             {
                 DataRow userRow = userTable.Rows[0];
                 string hashedPassword = userRow.Field<string>("HashedPassword");
+                string hashbrown = BCrypt.Net.BCrypt.HashPassword(password);
                 if (BCrypt.Net.BCrypt.Verify(password, hashedPassword))
                 {
                     FormsAuthentication.RedirectFromLoginPage(username, false);

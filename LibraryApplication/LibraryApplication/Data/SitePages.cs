@@ -4,6 +4,7 @@
     {
         Home,
         Login,
+        NotAuthorized,
         Authors,
         AddAuthor,
         EditAuthor,
@@ -27,6 +28,10 @@
         {
             switch(page)
             {
+                case LibraryPage.Home:
+                    return "~/";
+                case LibraryPage.NotAuthorized:
+                    return "~/NotAuthorized.aspx";
                 case LibraryPage.Login:
                     return "~/Login.aspx";
                 case LibraryPage.Authors:

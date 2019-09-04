@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,7 @@ namespace LibraryApplication.Pages.Librarians
 {
     public partial class List : System.Web.UI.Page
     {
-        private const string AddLibrarianUrl = "~/AddLibrarian.aspx";
+        private string AddLibrarianUrl = SitePages.GetUrl(LibraryPage.AddLibrarian);
         private const string GetLibrariansQuery = @"
             SELECT
                 L1.Id,
@@ -29,6 +30,11 @@ namespace LibraryApplication.Pages.Librarians
         ";
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!User.IsInRole("Librarian"))
+            {
+                Response.Redirect(SitePages.GetUrl(LibraryPage.NotAuthorized));
+            }
+
             if (!IsPostBack)
             {
                 DataTable librariansTable = DatabaseHelper.Retrieve(GetLibrariansQuery);
