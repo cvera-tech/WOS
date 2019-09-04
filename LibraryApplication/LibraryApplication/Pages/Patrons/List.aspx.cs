@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication.Patrons
+namespace LibraryApplication.Pages.Patrons
 {
     public partial class List : System.Web.UI.Page
     {

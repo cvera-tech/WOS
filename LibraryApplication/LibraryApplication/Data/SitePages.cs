@@ -20,7 +20,8 @@
         BookCopies,
         Patrons,
         AddPatron,
-        EditPatron
+        EditPatron,
+        AccountSettings
     }
     public static class SitePages
     {
@@ -66,6 +67,9 @@
                     return "~/Pages/Patrons/Add.aspx";
                 case LibraryPage.EditPatron:
                     return "~/Pages/Patrons/Edit.aspx";
+                case LibraryPage.AccountSettings:
+                    // Placeholder
+                    return "~/Pages/Account/ChangePassword.aspx";
                 default:
                     return "~/";
             }

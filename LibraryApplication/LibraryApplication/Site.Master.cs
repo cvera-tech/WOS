@@ -17,16 +17,6 @@ namespace LibraryApplication
             if (!IsPostBack)
             {
                 SetNavLinks();
-                //    DataTable userTable = DatabaseHelper.Retrieve(GetNameQuery,
-                //        new SqlParameter("@Username", LoginName));
-                //    if (userTable.Rows.Count == 1)
-                //    {
-                //        DataRow userRow = userTable.Rows[0];
-                //        string name = userRow.Field<string>("Name");
-                //        (LoginViewThings.FindControl("NameLabel") as Label).Text = name;
-                //    }
-
-                //}
             }
         }
 
@@ -47,6 +37,7 @@ namespace LibraryApplication
             BooksLink.NavigateUrl = SitePages.GetUrl(LibraryPage.Books);
             LibrariesLink.NavigateUrl = SitePages.GetUrl(LibraryPage.Libraries);
             LibrariansLink.NavigateUrl = SitePages.GetUrl(LibraryPage.Librarians);
+            AccountSettingsLink.NavigateUrl = SitePages.GetUrl(LibraryPage.AccountSettings);
         }
     }
 }

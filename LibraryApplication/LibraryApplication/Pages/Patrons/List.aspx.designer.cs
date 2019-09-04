@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LibraryApplication.Patrons {
+namespace LibraryApplication.Pages.Patrons {
     
     
     public partial class List {
