@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Libraries.aspx.cs" Inherits="LibraryApplication.Libraries" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="LibraryApplication.Pages.Libraries.List" %>
 
 <%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="LibraryApplication.Data" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
@@ -20,7 +21,7 @@
                 <td><%# Item.Field<string>("Name") %></td>
                 <td><%# Item.Field<string>("Address") %></td>
                 <td><asp:HyperLink runat="server" 
-                    NavigateUrl='<%# $"~/EditLibrary.aspx?ID={Item.Field<int>("Id")}"%>' 
+                    NavigateUrl='<%# $"{SitePages.GetUrl(LibraryPage.EditLibrary)}?ID={Item.Field<int>("Id")}"%>' 
                     Text="Edit" /></td>
             </tr>
         </ItemTemplate>

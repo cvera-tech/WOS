@@ -1,17 +1,14 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Libraries
 {
-    public partial class Libraries : System.Web.UI.Page
+    public partial class List : System.Web.UI.Page
     {
-        private const string AddLibraryUrl = "~/AddLibrary.aspx";
+        private string AddLibraryUrl = SitePages.GetUrl(LibraryPage.AddLibrary);
         private const string GetLibrariesQuery = @"
             SELECT
                 Library.Id,

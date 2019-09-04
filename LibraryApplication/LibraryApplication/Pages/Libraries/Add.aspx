@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddLibrary.aspx.cs" Inherits="LibraryApplication.AddLibrary" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Add.aspx.cs" Inherits="LibraryApplication.Pages.Libraries.Add" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <asp:ValidationSummary runat="server" ValidationGroup="AddLibrary" />

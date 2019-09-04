@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,11 +7,11 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Libraries
 {
-    public partial class EditLibrary : System.Web.UI.Page
+    public partial class Edit : System.Web.UI.Page
     {
-        private const string LibrariesUrl = "~/Libraries.aspx";
+        private string LibrariesUrl = SitePages.GetUrl(LibraryPage.Libraries);
         private const string GetStatesQuery = @"
             SELECT Id, Abbreviation
             FROM State

@@ -1,15 +1,16 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Libraries
 {
-    public partial class AddLibrary : System.Web.UI.Page
+    public partial class Add : System.Web.UI.Page
     {
-        private const string LibrariesUrl = "~/Libraries.aspx";
+        private string LibrariesUrl = SitePages.GetUrl(LibraryPage.Libraries);
         private const string AddLibraryQuery = @"
             INSERT INTO Library (Name, AddressLine1, AddressLine2, City, StateId, PostalCode)
             VALUES (

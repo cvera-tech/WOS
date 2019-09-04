@@ -44,11 +44,11 @@
                 case LibraryPage.BookCopies:
                     return "~/Pages/Books/Copies.aspx";
                 case LibraryPage.Libraries:
-                    return "~/Libraries.aspx";
+                    return "~/Pages/Libraries/List.aspx";
                 case LibraryPage.AddLibrary:
-                    return "~/AddLibrary.aspx";
+                    return "~/Pages/Libraries/Add.aspx";
                 case LibraryPage.EditLibrary:
-                    return "~/EditLibrary.aspx";
+                    return "~/Pages/Libraries/Edit.aspx";
                 case LibraryPage.Librarians:
                     return "~/Pages/Librarians/List.aspx";
                 case LibraryPage.AddLibrarian:
