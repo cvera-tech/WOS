@@ -5,6 +5,7 @@
 * ~~Book copy (possibly separate pages from Book pages)~~
 * Patron pages
 * Borrow book pages
+* Add existing patron as librarian
 
 ## Quality of life
 * Exception handling!!!

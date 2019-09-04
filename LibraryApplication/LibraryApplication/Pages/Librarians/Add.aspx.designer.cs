@@ -7,136 +7,100 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LibraryApplication {
+namespace LibraryApplication.Pages.Librarians {
     
     
-    public partial class EditLibrarian {
+    public partial class Add {
         
         /// <summary>
-        /// OldName control.
+        /// FirstNameTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OldName;
+        protected global::LibraryApplication.Controls.LabeledTextBox FirstNameTextBox;
         
         /// <summary>
-        /// OldEmailAddress control.
+        /// LastNameTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OldEmailAddress;
+        protected global::LibraryApplication.Controls.LabeledTextBox LastNameTextBox;
         
         /// <summary>
-        /// OldLibrary control.
+        /// EmailAddressTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OldLibrary;
+        protected global::LibraryApplication.Controls.LabeledTextBox EmailAddressTextBox;
         
         /// <summary>
-        /// OldAddress control.
+        /// LibraryDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OldAddress;
+        protected global::LibraryApplication.Controls.LabeledDropDownList LibraryDropDownList;
         
         /// <summary>
-        /// NewFirstNameTextBox control.
+        /// AddressLine1TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox NewFirstNameTextBox;
+        protected global::LibraryApplication.Controls.LabeledTextBox AddressLine1TextBox;
         
         /// <summary>
-        /// NewLastNameTextBox control.
+        /// AddressLine2TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox NewLastNameTextBox;
+        protected global::LibraryApplication.Controls.LabeledTextBox AddressLine2TextBox;
         
         /// <summary>
-        /// NewEmailAddressTextBox control.
+        /// CityTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox NewEmailAddressTextBox;
+        protected global::LibraryApplication.Controls.LabeledTextBox CityTextBox;
         
         /// <summary>
-        /// NewLibraryDropDownList control.
+        /// StateDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledDropDownList NewLibraryDropDownList;
+        protected global::LibraryApplication.Controls.LabeledDropDownList StateDropDownList;
         
         /// <summary>
-        /// NewAddressLine1TextBox control.
+        /// PostalCodeTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox NewAddressLine1TextBox;
+        protected global::LibraryApplication.Controls.LabeledTextBox PostalCodeTextBox;
         
         /// <summary>
-        /// NewAddressLine2TextBox control.
+        /// AddButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox NewAddressLine2TextBox;
-        
-        /// <summary>
-        /// NewCityTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox NewCityTextBox;
-        
-        /// <summary>
-        /// NewStateDropDownList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledDropDownList NewStateDropDownList;
-        
-        /// <summary>
-        /// NewPostalCodeTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::LibraryApplication.Controls.LabeledTextBox NewPostalCodeTextBox;
-        
-        /// <summary>
-        /// SaveButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveButton;
+        protected global::System.Web.UI.WebControls.Button AddButton;
         
         /// <summary>
         /// CancelButton control.

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditLibrarian.aspx.cs" Inherits="LibraryApplication.EditLibrarian" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Edit.aspx.cs" Inherits="LibraryApplication.Pages.Librarians.Edit" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <div>

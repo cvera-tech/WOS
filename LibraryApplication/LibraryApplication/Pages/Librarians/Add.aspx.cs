@@ -1,12 +1,13 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Librarians
 {
-    public partial class AddLibrarian : System.Web.UI.Page
+    public partial class Add : System.Web.UI.Page
     {
         private const string LibrariansUrl = "~/Librarians.aspx";
         private const string GetLibrariesQuery = @"
@@ -98,12 +99,12 @@ namespace LibraryApplication
                     new SqlParameter("@EmployeeId", employeeId));
             }
 
-            Response.Redirect(LibrariansUrl);
+            Response.Redirect(SitePages.GetUrl(LibraryPage.Librarians));
         }
 
         protected void CancelButton_Command(object sender, CommandEventArgs e)
         {
-            Response.Redirect(LibrariansUrl);
+            Response.Redirect(SitePages.GetUrl(LibraryPage.Librarians));
         }
     }
 }

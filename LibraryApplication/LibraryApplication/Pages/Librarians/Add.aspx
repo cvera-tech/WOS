@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddLibrarian.aspx.cs" Inherits="LibraryApplication.AddLibrarian" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Add.aspx.cs" Inherits="LibraryApplication.Pages.Librarians.Add" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <fieldset>

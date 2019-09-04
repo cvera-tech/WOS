@@ -53,17 +53,17 @@ namespace LibraryApplication.Data
                 case LibraryPage.EditLibrary:
                     return "~/EditLibrary.aspx";
                 case LibraryPage.Librarians:
-                    return "~/Librarians.aspx";
+                    return "~/Pages/Librarians/List.aspx";
                 case LibraryPage.AddLibrarian:
-                    return "~/AddLibrarian.aspx";
+                    return "~/Pages/Librarians/Add.aspx";
                 case LibraryPage.EditLibrarian:
-                    return "~/EditLibrarian.aspx";
+                    return "~/Pages/Librarians/Edit.aspx";
                 case LibraryPage.Patrons:
-                    return "~/Patrons/List.aspx";
+                    return "~/Pages/Patrons/List.aspx";
                 case LibraryPage.AddPatron:
-                    return "~/Patrons/Add.aspx";
+                    return "~/Pages/Patrons/Add.aspx";
                 case LibraryPage.EditPatron:
-                    return "~/Patrons/Edit.aspx";
+                    return "~/Pages/Patrons/Edit.aspx";
                 default:
                     return "~/";
             }

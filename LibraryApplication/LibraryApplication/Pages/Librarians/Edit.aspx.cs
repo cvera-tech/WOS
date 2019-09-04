@@ -1,13 +1,14 @@
 ﻿using Library.Data;
+using LibraryApplication.Data;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Librarians
 {
-    public partial class EditLibrarian : System.Web.UI.Page
+    public partial class Edit : System.Web.UI.Page
     {
         private const string LibrariansUrl = "~/Librarians.aspx";
         private const string GetLibrariesQuery = @"
@@ -21,41 +22,47 @@ namespace LibraryApplication
         ";
         private const string GetLibrarianQuery = @"
             SELECT
-                FirstName,
-                LastName,
-                LibraryId,
-                L2.Name AS LibraryName,
-                E.AddressLine1,
-                E.AddressLine2,
-                E.City,
-                E.StateId,
-                S.Abbreviation AS StateAbbreviation,
-                E.PostalCode,
-                EmailAddress
+	            UA.FirstName,
+	            UA.LastName,
+	            E.LibraryId,
+	            L2.Name AS LibraryName,
+	            UA.AddressLine1,
+	            UA.AddressLine2,
+	            UA.City,
+	            UA.StateId,
+	            S.Abbreviation AS StateAbbreviation,
+	            UA.PostalCode,
+	            UA.EmailAddress
             FROM Librarian L1
-                JOIN Employee E
-                    ON L1.EmployeeId = E.Id
-                JOIN State S
-                    On E.StateId = S.Id
-                JOIN Library L2
-                    ON E.LibraryId = L2.Id
-            WHERE L1.Id = @Id
+	            JOIN Employee E ON L1.EmployeeId = E.Id
+	            JOIN Library L2 ON E.LibraryId = L2.Id
+	            JOIN UserAccount UA ON E.UserAccountId = UA.Id
+	            JOIN State S ON UA.StateId = S.Id
+            WHERE L1.Id = @LibrarianId
         ";
-        private const string EditEmployeeQuery = @"
-            UPDATE Employee
+        private const string UpdateUserAccountQuery = @"
+            UPDATE UserAccount
             SET 
                 FirstName = @FirstName,
                 LastName = @LastName,
-                LibraryId = @LibraryId,
                 AddressLine1 = @AddressLine1,
                 AddressLine2 = @AddressLine2,
                 City = @City,
                 StateId = @StateId,
                 PostalCode = @PostalCode,
                 EmailAddress = @EmailAddress
-            FROM Employee E JOIN Librarian L
-            ON E.Id = L.EmployeeId
-            WHERE L.Id = @Id
+            FROM Librarian L
+                JOIN Employee E ON L.EmployeeId = E.Id
+                JOIN UserAccount UA ON E.UserAccountId = UA.Id
+            WHERE L.Id = @LibrarianId
+        ";
+        private const string UpdateEmployeeQuery = @"
+            UPDATE Employee
+            SET 
+                LibraryId = @LibraryId
+            FROM Librarian L
+                JOIN Employee E ON L.EmployeeId = E.Id
+            WHERE L.Id = @LibrarianId
         ";
 
         private int librarianId;
@@ -70,7 +77,7 @@ namespace LibraryApplication
             if (!IsPostBack)
             {
                 DataTable librarianTable = DatabaseHelper.Retrieve(GetLibrarianQuery,
-                    new SqlParameter("@Id", librarianId));
+                    new SqlParameter("@LibrarianId", librarianId));
                 if (librarianTable.Rows.Count == 1)
                 {
                     DataRow librarianRow = librarianTable.Rows[0];
@@ -138,26 +145,31 @@ namespace LibraryApplication
             string city = NewCityTextBox.Text;
             int stateId = int.Parse(NewStateDropDownList.SelectedValue);
             string postalCode = NewPostalCodeTextBox.Text;
-            
-            DatabaseHelper.ExecuteNonQuery(EditEmployeeQuery,
+
+            DatabaseHelper.ExecuteNonQuery(
+                UpdateUserAccountQuery,
                 new SqlParameter("@FirstName", firstName),
                 new SqlParameter("@LastName", lastName),
-                new SqlParameter("@LibraryId", libraryId),
                 new SqlParameter("@AddressLine1", addressLine1),
                 DatabaseHelper.GetNullableStringSqlParameter("@AddressLine2", addressLine2),
                 new SqlParameter("@City", city),
                 new SqlParameter("@StateId", stateId),
                 new SqlParameter("@PostalCode", postalCode),
                 new SqlParameter("@EmailAddress", emailAddress),
-                new SqlParameter("@Id", librarianId)
+                new SqlParameter("@LibrarianId", librarianId)
+            );
+            DatabaseHelper.ExecuteNonQuery(
+                UpdateEmployeeQuery,
+                new SqlParameter("@LibraryId", libraryId),
+                new SqlParameter("@LibrarianId", librarianId)
             );
 
-            Response.Redirect(LibrariansUrl);
+            Response.Redirect(SitePages.GetUrl(LibraryPage.Librarians));
         }
 
         protected void CancelButton_Command(object sender, CommandEventArgs e)
         {
-            Response.Redirect(LibrariansUrl);
+            Response.Redirect(SitePages.GetUrl(LibraryPage.Librarians));
         }
     }
 }

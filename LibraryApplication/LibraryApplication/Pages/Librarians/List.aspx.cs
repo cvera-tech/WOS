@@ -7,32 +7,25 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LibraryApplication
+namespace LibraryApplication.Pages.Librarians
 {
-    public partial class Librarians : System.Web.UI.Page
+    public partial class List : System.Web.UI.Page
     {
         private const string AddLibrarianUrl = "~/AddLibrarian.aspx";
         private const string GetLibrariansQuery = @"
-            SELECT 
+            SELECT
                 L1.Id,
-	            E.FirstName,
-	            E.LastName,
+	            UA.FirstName,
+	            UA.LastName,
+	            UA.EmailAddress,
 	            L2.Name AS LibraryName,
-	            E.AddressLine1 + 
-		            ISNULL(' ' + E.AddressLine2, '') + 
-		            ', ' + E.City +
-		            ', ' + S.Name +
-		            ' ' + E.PostalCode
-		            AS Address,
-	            E.EmailAddress
-            FROM Librarian L1
-	            JOIN Employee E
-		            ON L1.EmployeeId = E.Id
-	            JOIN Library L2
-		            ON E.LibraryId = L2.Id
-	            JOIN State s
-		            ON E.StateId = S.Id
-            ORDER BY E.LastName, E.FirstName, L1.Id
+	            UA.AddressLine1 + ISNULL(' ' + UA.AddressLine2, '') + ', ' + UA.City + ', ' + S.Abbreviation + ' ' + UA.PostalCode AS StreetAddress
+            FROM Librarian L1 
+	            JOIN Employee E ON L1.EmployeeId = E.Id
+	            JOIN Library L2 ON E.LibraryId = L2.Id
+	            JOIN UserAccount UA ON E.UserAccountId = UA.Id
+	            JOIN State S ON UA.StateId = S.Id
+            ORDER BY UA.LastName ASC, UA.FirstName ASC, LibraryName ASC, L1.Id ASC
         ";
         protected void Page_Load(object sender, EventArgs e)
         {

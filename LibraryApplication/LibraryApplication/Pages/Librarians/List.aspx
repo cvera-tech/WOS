@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Librarians.aspx.cs" Inherits="LibraryApplication.Librarians" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="LibraryApplication.Pages.Librarians.List" %>
 
 <%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="LibraryApplication.Data" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="Main" runat="server">
     <asp:Repeater ID="LibrariansRepeater" runat="server"
         ItemType="DataRow">
@@ -22,10 +23,10 @@
                 <td><%# Item.Field<string>("FirstName") %></td>
                 <td><%# Item.Field<string>("LastName") %></td>
                 <td><%# Item.Field<string>("LibraryName") %></td>
-                <td><%# Item.Field<string>("Address") %></td>
+                <td><%# Item.Field<string>("StreetAddress") %></td>
                 <td><%# Item.Field<string>("EmailAddress") %></td>
                 <td><asp:HyperLink runat="server" 
-                    NavigateUrl='<%# $"~/EditLibrarian.aspx?ID={Item.Field<int>("Id")}"%>' 
+                    NavigateUrl='<%# $"{SitePages.GetUrl(LibraryPage.EditLibrarian)}?ID={Item.Field<int>("Id")}"%>' 
                     Text="Edit" /></td>
             </tr>
         </ItemTemplate>
