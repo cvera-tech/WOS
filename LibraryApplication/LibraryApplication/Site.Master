@@ -11,34 +11,30 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <h1>Library</h1>
-        <ul>
-            <li><asp:HyperLink ID="AuthorsLink" runat="server">Authors</asp:HyperLink></li>
-            <li><asp:HyperLink ID="BooksLink" runat="server">Books</asp:HyperLink></li>
-            <li><asp:HyperLink ID="LibrariesLink" runat="server">Libraries</asp:HyperLink></li>
-            <li><asp:HyperLink ID="LibrariansLink" runat="server">Librarians</asp:HyperLink></li>
-        </ul>
-        <%--<asp:Panel ID="LoggedInPanel" runat="server"></asp:Panel>
-        <asp:Panel ID="AnonymousPanel" runat="server"></asp:Panel>
-        <asp:LoginView ID="LoginViewThings" runat="server">
-            <LoggedInTemplate>
-                <h3>Hello, <asp:Label ID="NameLabel" runat="server" />.</h3>
-                <asp:Button ID="LogoutButton" runat="server" 
-                    Text="Log out"
-                    OnCommand="LogoutButton_Command" />
-            </LoggedInTemplate>
-            <AnonymousTemplate>
-                <asp:HyperLink runat="server" 
-                    Text="Log In"
-                    NavigateUrl="~/Login.aspx" />
-            </AnonymousTemplate>
-        </asp:LoginView>--%>
-        
-        <asp:ContentPlaceHolder ID="Main" runat="server">
-        
-        </asp:ContentPlaceHolder>
-    </div>
+        <div>
+            <h1>Library</h1>
+            <ul>
+                <li>
+                    <asp:HyperLink ID="AuthorsLink" runat="server">Authors</asp:HyperLink></li>
+                <li>
+                    <asp:HyperLink ID="BooksLink" runat="server">Books</asp:HyperLink></li>
+                <li>
+                    <asp:HyperLink ID="LibrariesLink" runat="server">Libraries</asp:HyperLink></li>
+                <li>
+                    <asp:HyperLink ID="LibrariansLink" runat="server">Librarians</asp:HyperLink></li>
+            </ul>
+            <asp:LoginView ID="LoginViewThings" runat="server">
+                <LoggedInTemplate>
+                    <h3>Hello, <asp:LoginName runat="server" />.</h3>
+                    <asp:Button ID="LogoutButton" runat="server"
+                        Text="Log out"
+                        OnCommand="LogoutButton_Command" />
+                </LoggedInTemplate>
+            </asp:LoginView>
+
+            <asp:ContentPlaceHolder ID="Main" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
     </form>
 </body>
 </html>
