@@ -28,6 +28,8 @@ namespace LibraryApplication.Pages.Books
 
                 BooksRepeater.DataSource = dt.Rows;
                 BooksRepeater.DataBind();
+
+                AddButton.Visible = User.IsInRole("Library");
             }
         }
 

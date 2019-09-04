@@ -38,7 +38,8 @@
                         <asp:CheckBox runat="server"
                             AutoPostBack="true"
                             Checked='<%# Item.Field<bool>("Available") %>'
-                            OnCheckedChanged="Available_CheckedChanged" />
+                            OnCheckedChanged="Available_CheckedChanged" 
+                            Enabled='<%# User.IsInRole("Librarian") %>'/>
                     </td>
                     <td hidden="hidden">
                         <asp:Label ID="BookCopyId" runat="server" Text='<%# Item.Field<int>("Id") %>' />
@@ -51,7 +52,7 @@
             </FooterTemplate>
         </asp:Repeater>
     </div>
-    <div>
+    <asp:Panel ID="AddBookCopyPanel" runat="server">
         <div>
             <h3>Add Book Copy</h3>
         </div>
@@ -71,5 +72,5 @@
                 OnCommand="AddButton_Command"
                 Text="Add" />
         </fieldset>
-    </div>
+    </asp:Panel>
 </asp:Content>

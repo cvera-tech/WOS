@@ -49,6 +49,15 @@ namespace LibraryApplication.Pages.Books {
         protected global::System.Web.UI.WebControls.Repeater BookCopiesRepeater;
         
         /// <summary>
+        /// AddBookCopyPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AddBookCopyPanel;
+        
+        /// <summary>
         /// LibrariesDropDownList control.
         /// </summary>
         /// <remarks>

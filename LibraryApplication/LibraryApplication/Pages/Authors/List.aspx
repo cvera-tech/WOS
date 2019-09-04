@@ -20,7 +20,8 @@
                 <td>
                     <asp:HyperLink runat="server"
                         NavigateUrl='<%# $"{SitePages.GetUrl(LibraryPage.EditAuthor)}?ID={Item.Field<int>("Id")}" %>'
-                        Text="Edit" />
+                        Text="Edit" 
+                        Visible='<%# User.IsInRole("Librarian") %>'/>
                 </td>
             </tr>
         </ItemTemplate>

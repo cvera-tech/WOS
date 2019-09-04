@@ -22,6 +22,10 @@ namespace LibraryApplication.Pages.Books
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!User.IsInRole("Librarian"))
+            {
+                Response.Redirect(SitePages.GetUrl(LibraryPage.NotAuthorized));
+            }
             if (!IsPostBack)
             {
                 AuthorDropDown.ListDataSource = () =>

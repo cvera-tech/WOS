@@ -71,13 +71,13 @@ namespace LibraryApplication.Pages.Books
                     BookTitleLabel.Text = bookRow.Field<string>("Title");
                     AuthorLabel.Text = bookRow.Field<string>("AuthorName");
                     IsbnLabel.Text = bookRow.Field<string>("Isbn");
+                    LibrariesDropDownList.ListDataSource = () => {
+                        DataTable librariesTable = DatabaseHelper.Retrieve(GetLibrariesQuery);
+                        LibrariesDropDownList.SetTextAndValueFields("Name", "Id");
+                        return librariesTable;
+                    };
                 }
-                
-                LibrariesDropDownList.ListDataSource = () => {
-                    DataTable librariesTable = DatabaseHelper.Retrieve(GetLibrariesQuery);
-                    LibrariesDropDownList.SetTextAndValueFields("Name", "Id");
-                    return librariesTable;
-                };
+                AddBookCopyPanel.Visible = User.IsInRole("Librarian");
             }
         }
 

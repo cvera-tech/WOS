@@ -16,7 +16,10 @@ namespace LibraryApplication.Pages.Authors
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!User.IsInRole("Librarian"))
+            {
+                Response.Redirect(SitePages.GetUrl(LibraryPage.NotAuthorized));
+            }
         }
 
         protected void AddButton_Command(object sender, CommandEventArgs e)

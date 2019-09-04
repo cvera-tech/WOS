@@ -22,6 +22,8 @@ namespace LibraryApplication.Pages.Authors
 
                 AuthorsRepeater.DataSource = dt.Rows;
                 AuthorsRepeater.DataBind();
+
+                AddButton.Visible = User.IsInRole("Librarian");
             }
         }
 
