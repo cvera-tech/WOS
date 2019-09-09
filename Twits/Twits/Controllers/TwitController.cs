@@ -103,20 +103,25 @@ namespace Twits.Controllers
         //    return View();
         //}
 
-        //// POST: Twit/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
+        // POST: Twit/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                string sql = @"
+                    DELETE FROM Twits
+                    WHERE Id=@Id
+                ";
+                DatabaseHelper.ExecuteNonQuery(sql,
+                    new SqlParameter("@Id", id));
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
