@@ -17,7 +17,7 @@
             <tr>
                 <td>@twit.CreatedOn</td>
                 <td>@twit.Text</td>
-                <td>@Html.ActionLink("Edit", "Edit", new { Id=twit.Id }, new { Class = "btn btn-warning" })</td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = twit.Id }, new { Class = "btn btn-warning" })</td>
                 <td>
                     @using (Html.BeginRouteForm("Default", new { action = "Delete", controller = "Twit" }))
                     {

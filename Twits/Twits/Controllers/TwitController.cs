@@ -45,7 +45,8 @@ namespace Twits.Controllers
         // GET: Twit/Create
         public ActionResult Create()
         {
-            return View();
+            Twit twit = new Twit();
+            return View(twit);
         }
 
         // POST: Twit/Create
@@ -70,7 +71,7 @@ namespace Twits.Controllers
             }
             catch
             {
-                return View();
+                return View(twit);
             }
         }
 
@@ -85,23 +86,17 @@ namespace Twits.Controllers
 
             try
             {
-                DataTable twitTable = DatabaseHelper.Retrieve(sql,
-                new SqlParameter("@Id", id));
-
-                if (twitTable.Rows.Count == 1)
-                {
-                    Twit twit = new Twit()
-                    {
-                        Id = twitTable.Rows[0].Field<int>("Id"),
-                        Text = twitTable.Rows[0].Field<string>("Text"),
-                        CreatedOn = twitTable.Rows[0].Field<DateTimeOffset>("CreatedOn")
-                    };
-                    return View(twit);
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
+                Twit twit = DatabaseHelper.Retrieve<Twit>(sql, 
+                    (SqlDataReader reader) => {
+                        reader.Read();
+                        Twit output = new Twit();
+                        output.Id = id;
+                        output.Text = reader.GetString(1);
+                        output.CreatedOn = reader.GetDateTimeOffset(2);
+                        return output;
+                    },
+                    new SqlParameter("@Id", id));
+                return View(twit);
             }
             catch
             {
