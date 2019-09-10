@@ -3,7 +3,6 @@
 <p>There are @Model.Count twits to read.</p>
 <div>
     @Html.ActionLink("Create Twit", "Create", new { }, new { Class = "btn btn-default" })
-    @*<input type="button" value="Create Twit" class="btn btn-default" onclick="" />*@
 </div>
 <table class="table">
     <thead>
@@ -22,7 +21,6 @@
                 <td>
                     @using (Html.BeginRouteForm("Default", new { action = "Delete", controller = "Twit" }))
                     {
-                        @Html.Hidden("Id", twit.Id)
                         <input type="submit" value="Delete" class="btn btn-danger" />
                     }
                 </td>
