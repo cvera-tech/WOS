@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Blahgger.Data;
+using Blahgger.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,18 +30,18 @@ namespace Blahgger.Controllers
 
         // POST: Accounts/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(User user)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                BlahggerData data = BlahggerData.GetInstance();
+                if (data.AddUser(user))
+                {
+                    return RedirectToAction("Index", "Posts");
+                }
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(user);
         }
 
         // GET: Accounts/Edit/5
