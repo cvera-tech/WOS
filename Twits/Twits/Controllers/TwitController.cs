@@ -45,8 +45,7 @@ namespace Twits.Controllers
         // GET: Twit/Create
         public ActionResult Create()
         {
-            Twit twit = new Twit();
-            return View(twit);
+            return View();
         }
 
         // POST: Twit/Create
@@ -71,7 +70,7 @@ namespace Twits.Controllers
             }
             catch
             {
-                return View(twit);
+                return View();
             }
         }
 
@@ -83,20 +82,28 @@ namespace Twits.Controllers
                 FROM Twits
                 WHERE Id=@Id
             ";
-            DataTable twitTable = DatabaseHelper.Retrieve(sql,
+
+            try
+            {
+                DataTable twitTable = DatabaseHelper.Retrieve(sql,
                 new SqlParameter("@Id", id));
 
-            if (twitTable.Rows.Count == 1)
-            {
-                Twit twit = new Twit()
+                if (twitTable.Rows.Count == 1)
                 {
-                    Id = twitTable.Rows[0].Field<int>("Id"),
-                    Text = twitTable.Rows[0].Field<string>("Text"),
-                    CreatedOn = twitTable.Rows[0].Field<DateTimeOffset>("CreatedOn")
-                };
-                return View(twit);
+                    Twit twit = new Twit()
+                    {
+                        Id = twitTable.Rows[0].Field<int>("Id"),
+                        Text = twitTable.Rows[0].Field<string>("Text"),
+                        CreatedOn = twitTable.Rows[0].Field<DateTimeOffset>("CreatedOn")
+                    };
+                    return View(twit);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            else
+            catch
             {
                 return RedirectToAction("Index");
             }
@@ -123,7 +130,7 @@ namespace Twits.Controllers
             }
             catch
             {
-                return View();
+                return View(new Twit() { Id = id, Text = newText });
             }
         }
 
