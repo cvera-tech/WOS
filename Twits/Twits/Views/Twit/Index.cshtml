@@ -2,7 +2,7 @@
 
 <p>There are @Model.Count twits to read.</p>
 <div>
-    @Html.ActionLink("Create Twit", "Create", new { }, new { Class="btn btn-default" })
+    @Html.ActionLink("Create Twit", "Create", new { }, new { Class = "btn btn-default" })
     @*<input type="button" value="Create Twit" class="btn btn-default" onclick="" />*@
 </div>
 <table class="table">
@@ -18,7 +18,8 @@
             <tr>
                 <td>@twit.CreatedOn</td>
                 <td>@twit.Text</td>
-                <td class="form-group">
+                <td>@Html.ActionLink("Edit", "Edit", new { Id=twit.Id }, new { Class = "btn btn-warning" })</td>
+                <td>
                     @using (Html.BeginRouteForm("Default", new { action = "Delete", controller = "Twit" }))
                     {
                         @Html.Hidden("Id", twit.Id)

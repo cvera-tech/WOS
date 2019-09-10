@@ -75,33 +75,64 @@ namespace Twits.Controllers
             }
         }
 
-        //// GET: Twit/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+        // GET: Twit/Edit/5
+        public ActionResult Edit(int id)
+        {
+            string sql = @"
+                SELECT Id, Text, CreatedOn
+                FROM Twits
+                WHERE Id=@Id
+            ";
+            DataTable twitTable = DatabaseHelper.Retrieve(sql,
+                new SqlParameter("@Id", id));
 
-        //// POST: Twit/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
+            if (twitTable.Rows.Count == 1)
+            {
+                Twit twit = new Twit()
+                {
+                    Id = twitTable.Rows[0].Field<int>("Id"),
+                    Text = twitTable.Rows[0].Field<string>("Text"),
+                    CreatedOn = twitTable.Rows[0].Field<DateTimeOffset>("CreatedOn")
+                };
+                return View(twit);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        // POST: Twit/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            string sql = @"
+                UPDATE Twits
+                SET Text=@Text
+                WHERE Id=@Id
+            ";
+            string newText = collection.Get("Text");
 
-        //// GET: Twit/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+            try
+            {
+                DatabaseHelper.ExecuteNonQuery(sql,
+                    new SqlParameter("@Text", newText),
+                    new SqlParameter("@Id", id));
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Twit/Delete/5
+        public ActionResult Delete(int id)
+        {
+            // Possibly we can create a View to confirm deletion
+            return RedirectToAction("Index");
+        }
 
         // POST: Twit/Delete/5
         [HttpPost]
