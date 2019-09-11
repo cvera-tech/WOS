@@ -10,6 +10,7 @@ namespace CommunityShedMVC.ViewModels
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "Email Address")]
         public string EmailAddress { get; set; }
 
         [Required]

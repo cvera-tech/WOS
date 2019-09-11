@@ -8,6 +8,7 @@ using System.Web;
 namespace CommunityShedMVC.Data
 {
     using BCrypt.Net;
+    using System.Web.Security;
     using ViewModels;
 
     /// <summary>
@@ -45,6 +46,21 @@ namespace CommunityShedMVC.Data
             //string hashbrown = BCrypt.HashPassword(viewModel.Password);
             Person person = GetPerson(viewModel.EmailAddress);
             return BCrypt.Verify(viewModel.Password, person.HashedPassword);
+        }
+
+        public void RegisterUser(RegisterViewModel viewModel)
+        {
+            string sql = @"
+                INSERT INTO Person (FirstName, LastName, EmailAddress, HashedPassword)
+                VALUES (@FirstName, @LastName, @EmailAddress, @HashedPassword)
+            ";
+            string hashedPassword = BCrypt.HashPassword(viewModel.Password);
+
+            DatabaseHelper.Insert(sql,
+                new SqlParameter("@FirstName", viewModel.FirstName),
+                new SqlParameter("@LastName", viewModel.LastName),
+                new SqlParameter("@EmailAddress", viewModel.EmailAddress),
+                new SqlParameter("@HashedPassword", hashedPassword));
         }
     }
 }

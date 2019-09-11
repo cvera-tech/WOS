@@ -53,5 +53,23 @@ namespace CommunityShedMVC.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            RegisterViewModel viewModel = new RegisterViewModel();
+            return View(viewModel);
+        }
+
+        [HttpPost, AllowAnonymous]
+        public ActionResult Register(RegisterViewModel viewModel)
+        {
+            // TODO Check if email exists in database
+
+            CommunityShedData data = CommunityShedData.Instance();
+            data.RegisterUser(viewModel);
+            FormsAuthentication.SetAuthCookie(viewModel.EmailAddress, false);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
