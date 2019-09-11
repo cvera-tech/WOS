@@ -32,5 +32,12 @@ namespace CommunityShedMVC.Controllers
             }
             return View(viewModel);
         }
+
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

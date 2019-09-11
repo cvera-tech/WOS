@@ -21,10 +21,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
-                @if (User.Identity.IsAuthenticated)
+                @if (Request.IsAuthenticated)
                 {
                     <div class="navbar-text navbar-right ">
-                        Welcome @User.Identity.Name
+                        <span>Welcome @User.Identity.Name</span>
+                        @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { style = "display: inline" }))
+                        {
+                            <input class="btn btn-warning" type="submit" value="Logout" />
+                        }
                     </div>
                 }
             </div>
