@@ -8,6 +8,8 @@ using System.Web.Mvc;
 namespace CommunityShedMVC.Controllers
 {
     using BCrypt.Net;
+    using Data;
+    using Models;
     using System.Web.Security;
 
     public class AccountController : Controller
@@ -27,8 +29,20 @@ namespace CommunityShedMVC.Controllers
             {
                 // TODO Password hashing
                 // TODO Compare input with database record
-                FormsAuthentication.SetAuthCookie(viewModel.EmailAddress, false);
-                return RedirectToAction("Index", "Home");
+                if (ModelState.IsValidField("EmailAddress") && ModelState.IsValidField("Password"))
+                {
+                    CommunityShedData data = CommunityShedData.Instance();
+                    if (!data.AuthenticateUser(viewModel))
+                    {
+                        ModelState.AddModelError("", "Invalid username or password.");
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    FormsAuthentication.SetAuthCookie(viewModel.EmailAddress, false);
+                    return RedirectToAction("Index", "Home");
+                }
             }
             return View(viewModel);
         }
