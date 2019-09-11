@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace CommunityShedMVC.Controllers
 {
+    using BCrypt.Net;
+    using System.Web.Security;
+
     public class AccountController : Controller
     {
         // GET: Account
@@ -20,6 +23,13 @@ namespace CommunityShedMVC.Controllers
         [HttpPost, AllowAnonymous]
         public ActionResult Login(LoginViewModel viewModel)
         {
+            if (ModelState.IsValid)
+            {
+                // TODO Password hashing
+                // TODO Compare input with database record
+                FormsAuthentication.SetAuthCookie(viewModel.EmailAddress, false);
+                return RedirectToAction("Index", "Home");
+            }
             return View(viewModel);
         }
     }
