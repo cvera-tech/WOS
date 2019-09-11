@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Blahgger.Data;
+using Blahgger.Models;
+using Blahgger.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +14,11 @@ namespace Blahgger.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            return View();
+            BlahggerData data = BlahggerData.GetInstance();
+            List<Post> posts = data.GetPosts();
+            PostsViewModel postsViewModel = new PostsViewModel() { Posts = posts };
+            
+            return View(postsViewModel);
         }
 
         // GET: Posts/Details/5
@@ -23,67 +30,73 @@ namespace Blahgger.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            return View();
+            Post post = new Post();
+            return View(post);
         }
 
         // POST: Posts/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Post post)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                BlahggerData data = BlahggerData.GetInstance();
+
+                string username = User.Identity.Name;
+                int usersId = data.GetUsersId(username);
+                post.UsersId = usersId;
+                post.CreatedOn = DateTimeOffset.Now;
+
+                data.AddPost(post);
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(post);
         }
 
-        // GET: Posts/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //// GET: Posts/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: Posts/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        //// POST: Posts/Edit/5
+        //[HttpPost]
+        //public ActionResult Edit(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // GET: Posts/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //// GET: Posts/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: Posts/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //// POST: Posts/Delete/5
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

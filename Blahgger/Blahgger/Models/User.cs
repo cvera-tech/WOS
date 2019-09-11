@@ -5,6 +5,8 @@ namespace Blahgger.Models
 {
     public class User
     {
+        public int UsersId { get; set; }
+
         [Required]
         public string Username { get; set; }
 

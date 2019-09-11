@@ -104,30 +104,6 @@ namespace Blahgger.Data
         }
 
         /// <summary>
-        /// This doesn't work because the connection is closed upon return
-        /// </summary>
-        public static SqlDataReader ExecuteReader(string sql, params SqlParameter[] parameters)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[DatabaseName].ConnectionString;
-            SqlDataReader dataReader;
-
-            using (var connection = new SqlConnection(connectionString))
-            {
-                var command = new SqlCommand(sql, connection);
-
-                foreach (var parameter in parameters)
-                {
-                    command.Parameters.Add(parameter);
-                }
-
-                // This is where the work is happening.
-                command.Connection.Open();
-                dataReader = command.ExecuteReader();
-            }
-            return dataReader;
-        }
-
-        /// <summary>
         /// Creates and returns an instance of T from a table retrieved using the input SQL query.
         /// </summary>
         /// <typeparam name="T">The return object type.</typeparam>
