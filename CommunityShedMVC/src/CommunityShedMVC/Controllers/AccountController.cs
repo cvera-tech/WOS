@@ -10,13 +10,14 @@ namespace CommunityShedMVC.Controllers
     public class AccountController : Controller
     {
         // GET: Account
+        [AllowAnonymous]
         public ActionResult Login()
         {
             var viewModel = new LoginViewModel();
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public ActionResult Login(LoginViewModel viewModel)
         {
             return View(viewModel);
