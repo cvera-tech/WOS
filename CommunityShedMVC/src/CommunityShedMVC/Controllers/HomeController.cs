@@ -16,12 +16,11 @@ namespace CommunityShedMVC.Controllers
         public ActionResult Index()
         {
             CustomPrincipal customUser = (CustomPrincipal)User;
-            CommunityShedData data = CommunityShedData.Instance();
             HomeViewModel viewModel = new HomeViewModel
             {
                 BorrowedItems = new List<Item>(),
                 UserItems = new List<Item>(),
-                Communities = data.GetCommunities(customUser.Person.Id)
+                Communities = CommunityShedData.GetCommunities(customUser.Person.Id)
             };
             return View(viewModel);
         }

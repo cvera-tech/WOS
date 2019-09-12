@@ -30,12 +30,11 @@ namespace CommunityShedMVC
                 FormsIdentity formsIdentity = (FormsIdentity)user.Identity;
                 FormsAuthenticationTicket ticket = formsIdentity.Ticket;
                 CustomIdentity customIdentity = new CustomIdentity(ticket);
-
-                CommunityShedData data = CommunityShedData.Instance();
-                Person person = data.GetPrincipalPerson(ticket.Name);
+                
+                Person person = CommunityShedData.GetPrincipalPerson(ticket.Name);
 
                 // Can incorporate this into CommunityShedData.GetPrincipalPerson()
-                person.Roles = data.GetCommunityRoles(person.Id);
+                person.Roles = CommunityShedData.GetCommunityRoles(person.Id);
 
                 CustomPrincipal customPrincipal = new Security.CustomPrincipal(customIdentity, person);
 

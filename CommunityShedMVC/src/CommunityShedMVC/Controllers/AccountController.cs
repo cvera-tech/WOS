@@ -22,8 +22,7 @@ namespace CommunityShedMVC.Controllers
             {
                 if (ModelState.IsValidField("EmailAddress") && ModelState.IsValidField("Password"))
                 {
-                    CommunityShedData data = CommunityShedData.Instance();
-                    if (!data.AuthenticateUser(viewModel))
+                    if (!CommunityShedData.AuthenticateUser(viewModel))
                     {
                         ModelState.AddModelError("", "Invalid username or password.");
                     }
@@ -57,8 +56,7 @@ namespace CommunityShedMVC.Controllers
         {
             // TODO Check if email exists in database
 
-            CommunityShedData data = CommunityShedData.Instance();
-            data.RegisterUser(viewModel);
+            CommunityShedData.RegisterUser(viewModel);
             FormsAuthentication.SetAuthCookie(viewModel.EmailAddress, false);
             return RedirectToAction("Index", "Home");
         }

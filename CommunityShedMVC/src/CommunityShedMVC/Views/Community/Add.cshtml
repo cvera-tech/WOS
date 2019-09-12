@@ -1,0 +1,25 @@
+﻿@model CommunityShedMVC.Models.Community
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsOpen)
+        @Html.CheckBoxFor(model => model.IsOpen)
+    </div>
+    
+    <input type="submit" value="Submit" />
+}
