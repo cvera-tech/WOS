@@ -1,17 +1,10 @@
-﻿using CommunityShedMVC.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using CommunityShedMVC.Data;
+using CommunityShedMVC.ViewModels;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace CommunityShedMVC.Controllers
 {
-    using BCrypt.Net;
-    using Data;
-    using Models;
-    using System.Web.Security;
-
     public class AccountController : Controller
     {
         // GET: Account
@@ -27,8 +20,6 @@ namespace CommunityShedMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO Password hashing
-                // TODO Compare input with database record
                 if (ModelState.IsValidField("EmailAddress") && ModelState.IsValidField("Password"))
                 {
                     CommunityShedData data = CommunityShedData.Instance();

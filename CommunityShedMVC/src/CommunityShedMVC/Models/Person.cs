@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace CommunityShedMVC.Models
 {
@@ -12,5 +9,12 @@ namespace CommunityShedMVC.Models
         public string LastName { get; set; } 
         public string EmailAddress { get; set; }
         public string HashedPassword { get; set; }
+        public List<CommunityRole> Roles { get; set; }
+        public string Name { get { return $"{FirstName} {LastName}"; } }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}({EmailAddress})";
+        }
     }
 }
