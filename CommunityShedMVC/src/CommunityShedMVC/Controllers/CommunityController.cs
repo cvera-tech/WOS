@@ -40,5 +40,19 @@ namespace CommunityShedMVC.Controllers
             };
             return View(viewModel);
         }
+
+        public ActionResult Details(int Id)
+        {
+            // There is surely a better way to populate this view model.
+            // Querying the database for each property can get expensive, but 
+            // my brain is too fried to engineer a more efficient solution.
+            CommunityDetailsViewModel viewModel = new CommunityDetailsViewModel
+            {
+                Community = CommunityShedData.GetCommunity(Id),
+                PersonRoles = CommunityShedData.GetCommunityPersonRoles(Id),
+                Members = CommunityShedData.GetCommunityMembers(Id)
+            };
+            return View(viewModel);
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model CommunityShedMVC.ViewModels.CommunityDetailsViewModel
+
+@{
+    ViewBag.Title = "Community Details";
+}
+
+<h2>@Model.Community.Name</h2>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Roles</th>
+    </tr>
+
+@foreach (var member in Model.Members) {
+    <tr>
+        <td>@member.Name</td>
+        <td>@Model.BuildRolesString(member.Id)</td>
+    </tr>
+}
+
+</table>

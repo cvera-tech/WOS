@@ -77,6 +77,21 @@ namespace CommunityShedMVC.Data
             return roles;
         }
 
+        public static Community GetCommunity(int id)
+        {
+            string sql = @"
+                SELECT
+                    Id,
+                    Name,
+                    IsOpen
+                FROM Community
+                WHERE Id = @Id
+            ";
+            Community community = DatabaseHelper.RetrieveSingle<Community>(sql,
+                new SqlParameter("@Id", id));
+            return community;
+        }
+
         /// <summary>
         /// This method queries the database and returns a list of all communities.
         /// </summary>
@@ -120,6 +135,45 @@ namespace CommunityShedMVC.Data
             return communities;
         }
 
+        public static List<PersonRole> GetCommunityPersonRoles(int communityId)
+        {
+            string sql = @"
+                SELECT
+                    CPR.PersonId,
+                    P.FirstName,
+                    P.LastName,
+                    R.Name AS RoleName
+                FROM CommunityPersonRole CPR
+                    JOIN Person P ON CPR.PersonId = P.Id
+                    JOIN Role R ON CPR.RoleId = R.Id
+                WHERE CPR.CommunityId = @CommunityId
+            ";
+
+            List<PersonRole> personRoles = DatabaseHelper.Retrieve<PersonRole>(sql,
+                new SqlParameter("@CommunityId", communityId));
+            return personRoles;
+        }
+
+        public static List<Person> GetCommunityMembers(int communityId)
+        {
+            string sql = @"
+                SELECT
+                    P.Id,
+                    P.FirstName,
+                    P.LastName
+                FROM CommunityPersonRole CPR
+                    JOIN Person P ON CPR.PersonId = P.Id
+                WHERE CPR.CommunityId = @CommunityId
+                GROUP BY
+                    P.Id,
+                    P.FirstName,
+                    P.LastName
+            ";
+            List<Person> members = DatabaseHelper.Retrieve<Person>(sql,
+                new SqlParameter("@CommunityId", communityId));
+            return members;
+        }
+
         /// <summary>
         /// This method calls BCrypt.Verify to compare the password in the LoginViewModel
         /// to the corresponding hashed password in the database.
@@ -153,6 +207,12 @@ namespace CommunityShedMVC.Data
                 new SqlParameter("@HashedPassword", hashedPassword));
         }
 
+        /// <summary>
+        /// This method inserts a new Community into the database and gives the its 
+        /// creator all the roles.
+        /// </summary>
+        /// <param name="community">The Community to insert into the database.</param>
+        /// <param name="userId">The Id of the community's creator.</param>
         public static void AddCommunity(Community community, int userId)
         {
             string sql = @"
