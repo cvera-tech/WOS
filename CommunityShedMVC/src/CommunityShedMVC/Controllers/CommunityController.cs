@@ -1,6 +1,7 @@
 ﻿using CommunityShedMVC.Data;
 using CommunityShedMVC.Models;
 using CommunityShedMVC.Security;
+using CommunityShedMVC.ViewModels;
 using System.Web.Mvc;
 
 namespace CommunityShedMVC.Controllers
@@ -29,6 +30,15 @@ namespace CommunityShedMVC.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return View(community);
+        }
+
+        public ActionResult List()
+        {
+            CommunityListViewModel viewModel = new CommunityListViewModel
+            {
+                Communities = CommunityShedData.GetCommunities()
+            };
+            return View(viewModel);
         }
     }
 }

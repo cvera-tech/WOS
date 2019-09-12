@@ -78,6 +78,23 @@ namespace CommunityShedMVC.Data
         }
 
         /// <summary>
+        /// This method queries the database and returns a list of all communities.
+        /// </summary>
+        /// <returns>A list of Community objects.</returns>
+        public static List<Community> GetCommunities()
+        {
+            string sql = @"
+                SELECT
+                    Id,
+                    Name,
+                    IsOpen
+                FROM Community C";
+            List<Community> communities = DatabaseHelper.Retrieve<Community>(sql);
+            return communities;
+        }
+
+
+        /// <summary>
         /// This method queries the database and returns a list of Community objects 
         /// for a person with a given user Id.
         /// </summary>

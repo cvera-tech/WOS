@@ -1,0 +1,34 @@
+﻿@model CommunityShedMVC.ViewModels.CommunityListViewModel
+
+@{
+    ViewBag.Title = "All Communities";
+}
+
+<h2>All Communities</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Open</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var community in Model.Communities)
+        {
+            <tr>
+                <td>@community.Name</td>
+                <td><input type="checkbox" checked="@community.IsOpen" disabled /></td>
+                <td>
+                    @if (community.IsOpen)
+                    {
+                        @Html.ActionLink("Join", "Join", "Community")
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
