@@ -1,4 +1,7 @@
-﻿using CommunityShedMVC.Security;
+﻿using CommunityShedMVC.Data;
+using CommunityShedMVC.Models;
+using CommunityShedMVC.Security;
+using CommunityShedMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +16,14 @@ namespace CommunityShedMVC.Controllers
         public ActionResult Index()
         {
             CustomPrincipal customUser = (CustomPrincipal)User;
-
-            return View();
+            CommunityShedData data = CommunityShedData.Instance();
+            HomeViewModel viewModel = new HomeViewModel
+            {
+                BorrowedItems = new List<Item>(),
+                UserItems = new List<Item>(),
+                Communities = data.GetCommunities(customUser.Person.Id)
+            };
+            return View(viewModel);
         }
     }
 }

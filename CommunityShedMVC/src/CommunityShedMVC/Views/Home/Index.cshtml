@@ -1,7 +1,58 @@
-﻿
+﻿@model CommunityShedMVC.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home";
 }
 
 <h2>Home</h2>
 
+<div>
+    <h3>Your Borrowed Items</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Community</th>
+                <th>Borrowed On</th>
+                <th>Due On</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div>
+    <h3>Your Items</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Community</th>
+                <th>Available</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div>
+    <h3>Your Communities</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Open</th>
+                <th>Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var community in Model.Communities)
+            {
+                <tr>
+                    <td>@community.Name</td>
+                    <td>@community.IsOpen</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

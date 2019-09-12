@@ -1,15 +1,11 @@
 ﻿using CommunityShedMVC.Models;
-using System;
+using CommunityShedMVC.ViewModels;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace CommunityShedMVC.Data
 {
     using BCrypt.Net;
-    using System.Web.Security;
-    using ViewModels;
 
     /// <summary>
     /// This class handles all interactions between the controller and the database.
@@ -87,7 +83,7 @@ namespace CommunityShedMVC.Data
                 WHERE CPR.PersonId = @UserId
             ";
 
-            List<CommunityRole> roles = DatabaseHelper.Retrieve<CommunityRole>(sql, 
+            List<CommunityRole> roles = DatabaseHelper.Retrieve<CommunityRole>(sql,
                 new SqlParameter("@UserId", userId));
 
             return roles;
@@ -124,6 +120,26 @@ namespace CommunityShedMVC.Data
                 new SqlParameter("@LastName", viewModel.LastName),
                 new SqlParameter("@EmailAddress", viewModel.EmailAddress),
                 new SqlParameter("@HashedPassword", hashedPassword));
+        }
+
+        public List<Community> GetCommunities(int userId)
+        {
+            string sql = @"
+                SELECT
+                    C.Id,
+                    C.Name,
+                    C.IsOpen
+                FROM Community C 
+                    JOIN CommunityPersonRole CPR ON C.Id = CPR.CommunityId
+                WHERE
+                    CPR.PersonId=@UserId
+				GROUP BY 
+                    C.Id, 
+                    C.Name, 
+                    C.IsOpen";
+            List<Community> communities = DatabaseHelper.Retrieve<Community>(sql,
+                new SqlParameter("@UserId", userId));
+            return communities;
         }
     }
 }
