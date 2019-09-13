@@ -1,7 +1,5 @@
 ﻿using CommunityShedMVC.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CommunityShedMVC.ViewModels
 {
@@ -18,17 +16,13 @@ namespace CommunityShedMVC.ViewModels
         /// <returns>A string with all the person's roles.</returns>
         public string BuildRolesString(int personId)
         {
-            StringBuilder rolesStringBuilder = new StringBuilder();
             List<PersonRole> roles = PersonRoles.FindAll(pr => pr.PersonId == personId);
-            foreach (var role in roles)
+            List<string> roleNames = new List<string>();
+            foreach (var pr in roles)
             {
-                if (rolesStringBuilder.Length != 0)
-                {
-                    rolesStringBuilder.Append(", ");
-                }
-                rolesStringBuilder.Append(role.RoleName);
+                roleNames.Add(pr.RoleName);
             }
-            return rolesStringBuilder.ToString();
+            return string.Join(", ", roleNames);
         }
     }
 }

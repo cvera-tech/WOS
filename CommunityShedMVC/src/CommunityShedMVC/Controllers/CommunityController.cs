@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CommunityShedMVC.Controllers
 {
-    public class CommunityController : Controller
+    public class CommunityController : BaseController
     {
         // GET: Community
         public ActionResult Index()
@@ -26,7 +26,7 @@ namespace CommunityShedMVC.Controllers
             if (ModelState.IsValid)
             {
                 // TODO redirect to details page
-                CommunityShedData.AddCommunity(community, ((CustomPrincipal)User).Person.Id);
+                CommunityShedData.AddCommunity(community, CustomUser.Person.Id);
                 return RedirectToAction("Index", "Home");
             }
             return View(community);
@@ -36,8 +36,7 @@ namespace CommunityShedMVC.Controllers
         {
             CommunityListViewModel viewModel = new CommunityListViewModel
             {
-                Communities = CommunityShedData.GetCommunities(),
-                JoinedCommunities = CommunityShedData.GetCommunities(((CustomPrincipal)User).Person.Id)
+                Communities = CommunityShedData.GetCommunityListItems(CustomUser.Person.Id)
             };
             return View(viewModel);
         }
@@ -69,7 +68,7 @@ namespace CommunityShedMVC.Controllers
             CommunityJoinViewModel viewModel = new CommunityJoinViewModel()
             {
                 CommunityName = CommunityShedData.GetCommunity(communityId).Name,
-                Success = CommunityShedData.JoinCommunity(communityId, ((CustomPrincipal)User).Person.Id)
+                Success = CommunityShedData.JoinCommunity(communityId, CustomUser.Person.Id)
             };
             return View(viewModel);
         }

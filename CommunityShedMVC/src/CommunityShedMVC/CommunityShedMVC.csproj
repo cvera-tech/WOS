@@ -119,6 +119,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Community.cs" />
+    <Compile Include="Models\CommunityListItem.cs" />
     <Compile Include="Models\CommunityRole.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Person.cs" />

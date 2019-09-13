@@ -136,6 +136,30 @@ namespace CommunityShedMVC.Data
             return communities;
         }
 
+        public static List<CommunityListItem> GetCommunityListItems(int userId)
+        {
+            string sql = @"
+                SELECT
+                    C.Id, 
+                    C.Name, 
+                    C.IsOpen, 
+                    CASE 
+                        WHEN CPR.CommunityId IS NULL
+                            THEN CAST(0 as bit)
+                            ELSE CAST(1 as bit)
+                    END AS IsMember
+                FROM Community C
+                    LEFT JOIN CommunityPersonRole CPR 
+                        ON C.Id = CPR.CommunityId AND CPR.PersonId = @UserId
+                GROUP BY
+                    C.Id, C.Name, C.IsOpen, CPR.CommunityId
+            ";
+
+            List<CommunityListItem> communityListItems = DatabaseHelper.Retrieve<CommunityListItem>(sql,
+                new SqlParameter("@UserId", userId));
+            return communityListItems;
+        }
+
         public static List<PersonRole> GetCommunityPersonRoles(int communityId)
         {
             string sql = @"

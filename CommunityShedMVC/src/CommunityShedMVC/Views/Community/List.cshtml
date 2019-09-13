@@ -21,7 +21,7 @@
                 <td>@community.Name</td>
                 <td><input type="checkbox" @(community.IsOpen ? "checked" : string.Empty) disabled /></td>
                 <td>
-                    @if (!Model.UserIsMember(community))
+                    @if (!community.IsMember)
                     {
                         if (community.IsOpen)
                         {
@@ -37,6 +37,10 @@
                                 <input type="submit" value="Apply to Join" class="btn btn-primary" />
                             }
                         }
+                    }
+                    else
+                    {
+                        <span>Already joined</span>
                     }
                 </td>
             </tr>

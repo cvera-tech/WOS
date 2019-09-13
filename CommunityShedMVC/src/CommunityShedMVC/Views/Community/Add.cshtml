@@ -21,5 +21,6 @@
         @Html.CheckBoxFor(model => model.IsOpen)
     </div>
     
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+    @Html.ActionLink("Cancel", "Index", "Home", routeValues: new { }, htmlAttributes: new { @class = "btn btn-default" })
 }
