@@ -1,4 +1,5 @@
 ﻿@model CommunityShedMVC.ViewModels.CommunityListViewModel
+@using System.Linq
 
 @{
     ViewBag.Title = "All Communities";
@@ -19,11 +20,24 @@
         {
             <tr>
                 <td>@community.Name</td>
-                <td><input type="checkbox" checked="@community.IsOpen" disabled /></td>
+                <td><input type="checkbox" @(community.IsOpen ? "checked" : string.Empty) disabled /></td>
                 <td>
-                    @if (community.IsOpen)
+                    @if (!Model.UserIsMember(community))
                     {
-                        @Html.ActionLink("Join", "Join", "Community")
+                        if (community.IsOpen)
+                        {
+                            using (Html.BeginForm("Join", "Community", new { communityId = community.Id }, FormMethod.Post))
+                            {
+                                <input type="submit" value="Join" class="btn btn-primary" />
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("Apply", "Community", new { communityId = community.Id }, FormMethod.Post))
+                            {
+                                <input type="submit" value="Apply to Join" class="btn btn-primary" />
+                            }
+                        }
                     }
                 </td>
             </tr>

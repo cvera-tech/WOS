@@ -36,21 +36,40 @@ namespace CommunityShedMVC.Controllers
         {
             CommunityListViewModel viewModel = new CommunityListViewModel
             {
-                Communities = CommunityShedData.GetCommunities()
+                Communities = CommunityShedData.GetCommunities(),
+                JoinedCommunities = CommunityShedData.GetCommunities(((CustomPrincipal)User).Person.Id)
             };
             return View(viewModel);
         }
 
-        public ActionResult Details(int Id)
+        public ActionResult Details(int communityId)
         {
             // There is surely a better way to populate this view model.
             // Querying the database for each property can get expensive, but 
             // my brain is too fried to engineer a more efficient solution.
             CommunityDetailsViewModel viewModel = new CommunityDetailsViewModel
             {
-                Community = CommunityShedData.GetCommunity(Id),
-                PersonRoles = CommunityShedData.GetCommunityPersonRoles(Id),
-                Members = CommunityShedData.GetCommunityMembers(Id)
+                Community = CommunityShedData.GetCommunity(communityId),
+                PersonRoles = CommunityShedData.GetCommunityPersonRoles(communityId),
+                Members = CommunityShedData.GetCommunityMembers(communityId)
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Join()
+        {
+            // For now, redirect to home page
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult Join(int communityId)
+        {
+            CommunityJoinViewModel viewModel = new CommunityJoinViewModel()
+            {
+                CommunityName = CommunityShedData.GetCommunity(communityId).Name,
+                Success = CommunityShedData.JoinCommunity(communityId, ((CustomPrincipal)User).Person.Id)
             };
             return View(viewModel);
         }

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 
 namespace CommunityShedMVC.Data
 {
+    using System;
     using BCrypt.Net;
 
     /// <summary>
@@ -238,6 +239,25 @@ namespace CommunityShedMVC.Data
                 new SqlParameter("@CommunityName", community.Name),
                 new SqlParameter("@IsOpen", community.IsOpen),
                 new SqlParameter("@UserId", userId));
+        }
+
+        public static bool JoinCommunity(int communityId, int userId)
+        {
+            string sql = @"
+                INSERT INTO CommunityPersonRole
+                VALUES (@CommunityId, @PersonId, 1) -- member
+            ";
+            try
+            {
+                DatabaseHelper.Execute(sql,
+                    new SqlParameter("@CommunityId", communityId),
+                    new SqlParameter("@PersonId", userId));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

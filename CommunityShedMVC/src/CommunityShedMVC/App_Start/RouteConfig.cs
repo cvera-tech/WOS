@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
 
 namespace CommunityShedMVC
@@ -19,10 +20,18 @@ namespace CommunityShedMVC
             //    defaults: new { controller = "Community", action = "Details", actionid = UrlParameter.Optional },
             //    constraints: new { });
 
+            routes.MapRoute(
+                name: "Community",
+                url: "Community/{communityid}/{action}",
+                defaults: new { controller = "Community", action = "Details" },
+                constraints: new { communityid = new IntRouteConstraint() }
+            );
+
             //routes.MapRoute(
             //    name: "Community",
             //    url: "Community/{communityid}/{controller}/{action}/{id}",
-            //    defaults: new { action = "Index", id = UrlParameter.Optional }
+            //    defaults: new { controller = "Community", action = "Details", id = UrlParameter.Optional },
+            //    constraints: new { communityid = new IntRouteConstraint() }
             //);
 
             routes.MapRoute(
