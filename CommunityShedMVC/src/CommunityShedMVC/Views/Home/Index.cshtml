@@ -7,7 +7,7 @@
 
 <div>
     <h3>Your Borrowed Items</h3>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -22,7 +22,7 @@
 </div>
 <div>
     <h3>Your Items</h3>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -36,7 +36,7 @@
 </div>
 <div>
     <h3>Your Communities</h3>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -49,14 +49,14 @@
             {
                 <tr>
                     <td>@community.Name</td>
-                    <td>@community.IsOpen</td>
-                    <td></td>
+                    <td>@(community.IsOpen ? "Open" : "Closed")</td>
+                    <td>@Model.Roles(community)</td>
                 </tr>
             }
         </tbody>
     </table>
     <div>
-        @Html.ActionLink("Create a Community", "Add", "Community")
-        @Html.ActionLink("Join a Community", "List", "Community")
+        @Html.ActionLink("Create a Community", "Add", "Community", routeValues: new { }, htmlAttributes: new { @class = "btn btn-primary" })
+        @Html.ActionLink("Join a Community", "List", "Community", routeValues: new { }, htmlAttributes: new { @class = "btn btn-primary" })
     </div>
 </div>

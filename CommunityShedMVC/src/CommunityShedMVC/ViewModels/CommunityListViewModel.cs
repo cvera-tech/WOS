@@ -1,7 +1,7 @@
-﻿using CommunityShedMVC.Models;
-using System.Linq;
+﻿using CommunityShedMVC.Data;
+using CommunityShedMVC.Models;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 
 namespace CommunityShedMVC.ViewModels
 {
@@ -13,19 +13,6 @@ namespace CommunityShedMVC.ViewModels
         public bool UserIsMember(Community community)
         {
             return JoinedCommunities.Contains(community, new CommunityComparer());
-        }
-    }
-
-    class CommunityComparer : IEqualityComparer<Community>
-    {
-        public bool Equals(Community x, Community y)
-        {
-            return x.Id == y.Id;
-        }
-
-        public int GetHashCode(Community obj)
-        {
-            return obj.Id;
         }
     }
 }
