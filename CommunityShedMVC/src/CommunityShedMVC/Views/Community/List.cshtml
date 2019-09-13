@@ -6,6 +6,10 @@
 
 <h2>All Communities</h2>
 
+@Html.ActionLink("Create a Community", "Add", "Community", 
+    routeValues: new { }, 
+    htmlAttributes: new { @class = "btn btn-primary" })
+
 <table class="table">
     <thead>
         <tr>
@@ -18,8 +22,21 @@
         @foreach (var community in Model.Communities)
         {
             <tr>
-                <td>@community.Name</td>
-                <td><input type="checkbox" @(community.IsOpen ? "checked" : string.Empty) disabled /></td>
+                <td>
+                    @Html.ActionLink(community.Name, "Details", "Community", 
+                        routeValues: new { communityId = community.Id }, 
+                        htmlAttributes: new { @class = "btn-link"})
+                </td>
+                <td>
+                    @if (community.IsOpen)
+                    {
+                        <p style="color: green">Open</p>
+                    }
+                    else
+                    {
+                        <p style="color: red">Closed</p>
+                    }
+                </td>
                 <td>
                     @if (!community.IsMember)
                     {
