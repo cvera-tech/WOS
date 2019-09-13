@@ -150,6 +150,7 @@
     <Content Include="Views\Community\List.cshtml" />
     <Content Include="Views\Community\Details.cshtml" />
     <Content Include="Views\Community\Join.cshtml" />
+    <Content Include="Views\Community\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

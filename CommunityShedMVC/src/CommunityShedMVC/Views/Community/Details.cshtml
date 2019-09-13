@@ -6,6 +6,15 @@
 
 <h2>@Model.Community.Name</h2>
 
+@if (Model.CanEdit)
+{
+    <div>
+        @Html.ActionLink("Edit Community", "Edit", "Community",
+        routeValues: new { communityId = Model.Community.Id },
+        htmlAttributes: new { @class = "btn btn-primary" })
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>Name</th>

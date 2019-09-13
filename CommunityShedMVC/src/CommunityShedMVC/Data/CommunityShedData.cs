@@ -78,7 +78,7 @@ namespace CommunityShedMVC.Data
             return roles;
         }
 
-        public static Community GetCommunity(int id)
+        public static Community GetCommunity(int communityId)
         {
             string sql = @"
                 SELECT
@@ -89,7 +89,7 @@ namespace CommunityShedMVC.Data
                 WHERE Id = @Id
             ";
             Community community = DatabaseHelper.RetrieveSingle<Community>(sql,
-                new SqlParameter("@Id", id));
+                new SqlParameter("@Id", communityId));
             return community;
         }
 
@@ -282,6 +282,21 @@ namespace CommunityShedMVC.Data
             {
                 return false;
             }
+        }
+
+        public static void UpdateCommunity(Community community)
+        {
+            string sql = @"
+                UPDATE Community
+                SET 
+                    Name = @Name,
+                    IsOpen = @IsOpen
+                WHERE Id = @Id
+            ";
+            DatabaseHelper.Execute(sql,
+                new SqlParameter("@Name", community.Name),
+                new SqlParameter("@IsOpen", community.IsOpen),
+                new SqlParameter("@Id", community.Id));
         }
     }
 }

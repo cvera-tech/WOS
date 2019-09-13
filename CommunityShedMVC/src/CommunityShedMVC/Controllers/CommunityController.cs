@@ -1,6 +1,5 @@
 ﻿using CommunityShedMVC.Data;
 using CommunityShedMVC.Models;
-using CommunityShedMVC.Security;
 using CommunityShedMVC.ViewModels;
 using System.Web.Mvc;
 
@@ -8,7 +7,6 @@ namespace CommunityShedMVC.Controllers
 {
     public class CommunityController : BaseController
     {
-        // GET: Community
         public ActionResult Index()
         {
             return View();
@@ -50,12 +48,17 @@ namespace CommunityShedMVC.Controllers
             {
                 Community = CommunityShedData.GetCommunity(communityId),
                 PersonRoles = CommunityShedData.GetCommunityPersonRoles(communityId),
-                Members = CommunityShedData.GetCommunityMembers(communityId)
+                Members = CommunityShedData.GetCommunityMembers(communityId),
+                CanEdit =
+                (
+                    CustomUser.IsInRole("Approver", communityId) &&
+                    CustomUser.IsInRole("Reviewer", communityId) &&
+                    CustomUser.IsInRole("Enforcer", communityId)
+                )
             };
             return View(viewModel);
         }
 
-        [HttpGet]
         public ActionResult Join()
         {
             // For now, redirect to home page
@@ -71,6 +74,33 @@ namespace CommunityShedMVC.Controllers
                 Success = CommunityShedData.JoinCommunity(communityId, CustomUser.Person.Id)
             };
             return View(viewModel);
+        }
+
+        public ActionResult Edit(int communityId)
+        {
+            if (CustomUser.IsInRole("Approver", communityId) &&
+                CustomUser.IsInRole("Reviewer", communityId) &&
+                CustomUser.IsInRole("Enforcer", communityId))
+            {
+                Community community = CommunityShedData.GetCommunity(communityId);
+                return View(community);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Community community)
+        {
+            if (ModelState.IsValid)
+            {
+                CommunityShedData.UpdateCommunity(community);
+                return RedirectToAction("Details", "Community",
+                    routeValues: new { communityId = community.Id });
+            }
+            return View(community);
         }
     }
 }
