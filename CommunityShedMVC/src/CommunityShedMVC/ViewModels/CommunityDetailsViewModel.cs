@@ -9,6 +9,7 @@ namespace CommunityShedMVC.ViewModels
         public List<PersonRole> PersonRoles { get; set; }
         public List<Person> Members { get; set; }
         public bool CanEdit { get; set; }
+        public bool CanEditMembers { get; set; }
 
         /// <summary>
         /// This method returns a string containing all the roles of a community member.

@@ -10,8 +10,8 @@
 {
     <div>
         @Html.ActionLink("Edit Community", "Edit", "Community",
-        routeValues: new { communityId = Model.Community.Id },
-        htmlAttributes: new { @class = "btn btn-primary" })
+            routeValues: new { communityId = Model.Community.Id },
+            htmlAttributes: new { @class = "btn btn-primary" })
     </div>
 }
 
@@ -19,13 +19,30 @@
     <tr>
         <th>Name</th>
         <th>Roles</th>
+        <th>&nbsp;</th>
     </tr>
 
-@foreach (var member in Model.Members) {
-    <tr>
-        <td>@member.Name</td>
-        <td>@Model.BuildRolesString(member.Id)</td>
-    </tr>
-}
+    @foreach (var member in Model.Members)
+    {
+        <tr>
+            <td>@member.Name</td>
+            <td>@Model.BuildRolesString(member.Id)</td>
+            <td>
+                @if (Model.CanEditMembers)
+                {
+                    @Html.ActionLink("Edit", "EditMember", "Community",
+                        routeValues: new
+                        {
+                            community = Model.Community.Id,
+                            personId = member.Id
+                        },
+                        htmlAttributes: new
+                        {
+                            @class = "btn btn-link"
+                        })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

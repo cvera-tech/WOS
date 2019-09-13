@@ -8,6 +8,7 @@ namespace CommunityShedMVC.Models
     public class CommunityRole
     {
         public int CommunityId { get; set; }
+        public int RoleId { get; set; }
         public string RoleName { get; set; }
 
         public override string ToString()

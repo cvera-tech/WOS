@@ -199,6 +199,23 @@ namespace CommunityShedMVC.Data
             return members;
         }
 
+        public static List<Role> GetRoles(int personId, int communityId)
+        {
+            string sql = @"
+                SELECT
+                    R.Id,
+                    R.Name
+                FROM Role R
+                    JOIN CommunityPersonRole CPR
+                        ON CPR.RoleId = R.Id AND CPR.CommunityId = @CommunityId AND CPR.PersonId = @PersonId
+            ";
+
+            List<Role> roles = DatabaseHelper.Retrieve<Role>(sql,
+                new SqlParameter("@CommunityId", communityId),
+                new SqlParameter("@PersonId", personId));
+            return roles;
+        }
+
         /// <summary>
         /// This method calls BCrypt.Verify to compare the password in the LoginViewModel
         /// to the corresponding hashed password in the database.

@@ -32,5 +32,14 @@ namespace CommunityShedMVC.Security
         {
             return Person.Roles.Exists(r => (r.CommunityId == communityId && r.RoleName == role));
         }
+
+        public bool CanEditCommunity(int communityId)
+        {
+            // Since there is no super user role, just check if
+            // the user has all the avaiable roles.
+            return IsInRole("Approver", communityId) &&
+                   IsInRole("Reviewer", communityId) &&
+                   IsInRole("Enforcer", communityId);
+        }
     }
 }

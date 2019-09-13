@@ -1,6 +1,7 @@
 ﻿using CommunityShedMVC.Data;
 using CommunityShedMVC.Models;
 using CommunityShedMVC.ViewModels;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace CommunityShedMVC.Controllers
@@ -41,20 +42,14 @@ namespace CommunityShedMVC.Controllers
 
         public ActionResult Details(int communityId)
         {
-            // There is surely a better way to populate this view model.
-            // Querying the database for each property can get expensive, but 
-            // my brain is too fried to engineer a more efficient solution.
+            // Querying the database for each property can get expensive.
             CommunityDetailsViewModel viewModel = new CommunityDetailsViewModel
             {
                 Community = CommunityShedData.GetCommunity(communityId),
                 PersonRoles = CommunityShedData.GetCommunityPersonRoles(communityId),
                 Members = CommunityShedData.GetCommunityMembers(communityId),
-                CanEdit =
-                (
-                    CustomUser.IsInRole("Approver", communityId) &&
-                    CustomUser.IsInRole("Reviewer", communityId) &&
-                    CustomUser.IsInRole("Enforcer", communityId)
-                )
+                CanEdit = CustomUser.CanEditCommunity(communityId),
+                CanEditMembers = CustomUser.IsInRole("Enforcer", communityId)
             };
             return View(viewModel);
         }
@@ -78,9 +73,7 @@ namespace CommunityShedMVC.Controllers
 
         public ActionResult Edit(int communityId)
         {
-            if (CustomUser.IsInRole("Approver", communityId) &&
-                CustomUser.IsInRole("Reviewer", communityId) &&
-                CustomUser.IsInRole("Enforcer", communityId))
+            if (CustomUser.CanEditCommunity(communityId))
             {
                 Community community = CommunityShedData.GetCommunity(communityId);
                 return View(community);
@@ -94,13 +87,39 @@ namespace CommunityShedMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Community community)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && CustomUser.CanEditCommunity(community.Id))
             {
                 CommunityShedData.UpdateCommunity(community);
                 return RedirectToAction("Details", "Community",
                     routeValues: new { communityId = community.Id });
             }
             return View(community);
+        }
+
+        public ActionResult EditMember(int communityId, int personId)
+        {
+            List<Role> roles = CommunityShedData.GetRoles(personId, communityId);
+            bool approver = false;
+            bool reviewer = false;
+            bool enforcer = false;
+            foreach(var role in roles)
+            {
+                if (role.Name == "Approver")
+                    approver = true;
+                if (role.Name == "Reviewer")
+                    reviewer = true;
+                if (role.Name == "Enforcer")
+                    enforcer = true;
+            }
+
+            CommunityEditMemberViewModel viewModel = new CommunityEditMemberViewModel
+            {
+                Community = CommunityShedData.GetCommunity(communityId),
+                Approver = approver,
+                Reviewer = reviewer,
+                Enforcer = enforcer
+            };
+            return View(viewModel);
         }
     }
 }

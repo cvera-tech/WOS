@@ -30,5 +30,10 @@ namespace CommunityShedMVC.Models
         {
             return $"{FirstName} {LastName}({EmailAddress})";
         }
+
+        public List<CommunityRole> GetRolesInCommunity(int communityId)
+        {
+            return Roles.FindAll(c => c.CommunityId == communityId);
+        }
     }
 }
