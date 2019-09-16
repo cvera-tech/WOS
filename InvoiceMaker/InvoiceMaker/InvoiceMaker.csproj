@@ -117,6 +117,14 @@
     <Compile Include="InvoiceMakerApplication.cs" />
     <Compile Include="Md5HashHandler.cs" />
     <Compile Include="Md5HashModule.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\FeeLineItem.cs" />
+    <Compile Include="Models\ILineItem.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\InvoiceStatus.cs" />
+    <Compile Include="Models\WorkDone.cs" />
+    <Compile Include="Models\WorkLineItem.cs" />
+    <Compile Include="Models\WorkType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>
