@@ -1,0 +1,24 @@
+﻿@model InvoiceMaker.FormModels.CreateClient
+
+<h1>Create a Client</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div>
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.IsActivated)
+            @Html.CheckBoxFor(model => model.IsActivated)
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </fieldset>
+}
+
