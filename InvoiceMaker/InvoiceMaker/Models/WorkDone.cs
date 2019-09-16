@@ -7,6 +7,7 @@ namespace InvoiceMaker.Models
         private Client _client;
         private WorkType _type;
 
+        public int Id { get; private set; }
         public string ClientName
         {
             get
@@ -23,6 +24,8 @@ namespace InvoiceMaker.Models
                 return _type.Name;
             }
         }
+
+        public WorkDone() { }
 
         public WorkDone(Client client, WorkType workType)
         {
