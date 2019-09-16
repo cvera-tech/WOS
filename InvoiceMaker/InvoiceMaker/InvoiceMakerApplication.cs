@@ -1,6 +1,8 @@
-﻿using System;
+﻿using InvoiceMaker.Initialization;
+using System;
 using System.Diagnostics;
 using System.Web;
+using System.Web.Routing;
 
 namespace InvoiceMaker
 {
@@ -35,6 +37,7 @@ namespace InvoiceMaker
         protected void Application_Start(object sender, EventArgs e)
         {
             Debug.WriteLine("Application_Start");
+            RouteConfiguration.AddRoutes(RouteTable.Routes);
         }
 
         protected void Application_End(object sender, EventArgs e)
