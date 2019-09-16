@@ -6,6 +6,8 @@
         public string Name { get; private set; }
         public decimal Rate { get; private set; }
         
+        public WorkType() { }
+
         public WorkType(string name, decimal rate)
         {
             Name = name;

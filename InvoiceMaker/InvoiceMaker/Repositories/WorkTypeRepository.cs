@@ -1,5 +1,6 @@
 ﻿using InvoiceMaker.Models;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace InvoiceMaker.Repositories
 {
@@ -13,6 +14,18 @@ namespace InvoiceMaker.Repositories
             ";
             List<WorkType> workTypes = DatabaseHelper.Retrieve<WorkType>(sql);
             return workTypes;
+        }
+
+        public void Insert(WorkType workType)
+        {
+            string sql = @"
+                INSERT INTO WorkType (Name, Rate)
+                VALUES (@Name, @Rate)
+            ";
+
+            DatabaseHelper.Execute(sql,
+                new SqlParameter("@Name", workType.Name),
+                new SqlParameter("@Rate", workType.Rate));
         }
     }
 }
