@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="FormModels\CreateWorkType.cs" />
+    <Compile Include="FormModels\EditWorkType.cs" />
     <Compile Include="Repositories\WorkTypeRepository.cs" />
     <Content Include="packages.config" />
     <Content Include="Views\Invoices\Index.cshtml" />
@@ -110,6 +111,7 @@
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\WorkTypes\Index.cshtml" />
     <Content Include="Views\WorkTypes\Create.cshtml" />
+    <Content Include="Views\WorkTypes\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

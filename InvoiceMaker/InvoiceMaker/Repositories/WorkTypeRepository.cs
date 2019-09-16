@@ -27,5 +27,34 @@ namespace InvoiceMaker.Repositories
                 new SqlParameter("@Name", workType.Name),
                 new SqlParameter("@Rate", workType.Rate));
         }
+
+        public WorkType GetById(int Id)
+        {
+            string sql = @"
+                SELECT Id, Name, Rate
+                FROM WorkType
+                WHERE Id = @Id
+            ";
+
+            WorkType workType = DatabaseHelper.RetrieveSingle<WorkType>(sql,
+                new SqlParameter("@Id", Id));
+
+            return workType;
+        }
+
+        public void Update(WorkType workType)
+        {
+            string sql = @"
+                UPDATE WorkType
+                SET Name = @Name,
+                    Rate = @Rate
+                WHERE Id = @Id
+            ";
+
+            DatabaseHelper.Execute(sql,
+                new SqlParameter("@Name", workType.Name),
+                new SqlParameter("@Rate", workType.Rate),
+                new SqlParameter("@Id", workType.Id));
+        }
     }
 }

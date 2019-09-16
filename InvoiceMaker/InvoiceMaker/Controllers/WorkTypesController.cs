@@ -40,5 +40,38 @@ namespace InvoiceMaker.Controllers
             }
             return View(formModel);
         }
+
+        public ActionResult Edit(int id)
+        {
+            var repo = new WorkTypeRepository();
+            var workType = repo.GetById(id);
+            var formModel = new EditWorkType
+            {
+                Id = workType.Id,
+                Name = workType.Name,
+                Rate = workType.Rate
+            };
+            return View(formModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, EditWorkType formModel)
+        {
+            var repo = new WorkTypeRepository();
+            try
+            {
+                var newWorkType = new WorkType(id, formModel.Name, formModel.Rate);
+                repo.Update(newWorkType);
+                return RedirectToAction("Index");
+            }
+            catch (SqlException se)
+            {
+                if (se.Number == 2627)
+                {
+                    ModelState.AddModelError("Name", "That name is already taken.");
+                }
+            }
+            return View(formModel);
+        }
     }
 }
