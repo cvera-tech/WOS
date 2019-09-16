@@ -1,0 +1,29 @@
+﻿@model List<InvoiceMaker.Models.Client>
+
+<h1>Clients</h1>
+
+<p>
+    @Html.ActionLink("Create a client", "Create",
+        routeValues: new { },
+        htmlAttributes: new { })
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Active</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <th>@client.Name</th>
+                <th>@client.IsActive</th>
+                <th>@Html.ActionLink("Edit", "Edit", routeValues: new { Id = client.Id })</th>
+            </tr>
+        }
+    </tbody>
+</table>
