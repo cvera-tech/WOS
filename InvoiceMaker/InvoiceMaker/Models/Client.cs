@@ -13,6 +13,11 @@
             IsActive = isActive;
         }
 
+        public Client(int id, string name, bool isActive) : this(name, isActive) 
+        {
+            Id = id;
+        }
+
         public void Activate()
         {
             IsActive = true;
