@@ -18,5 +18,32 @@ CREATE TABLE WorkDone (
     WorkTypeId INT NOT NULL REFERENCES WorkType (Id),
     StartedOn DATETIMEOFFSET NOT NULL,
     EndedOn DATETIMEOFFSET NULL
-)
+);
+GO
+
+CREATE TABLE InvoiceStatus (
+	Id INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	Name NVARCHAR(16) NOT NULL UNIQUE
+);
+GO
+
+INSERT INTO InvoiceStatus (Name)
+VALUES ('Open'), ('Finalized'), ('Closed');
+GO
+
+CREATE TABLE Invoice (
+	Id INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	InvoiceNumber NVARCHAR (255) NOT NULL UNIQUE,
+	StatusId INT REFERENCES InvoiceStatus (Id) NOT NULL
+);
+GO
+
+CREATE TABLE LineItem (
+	Id INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	InvoiceId INT REFERENCES Invoice (Id) NOT NULL,
+	WorkDoneId INT REFERENCES WorkDone (Id) NULL,	-- Null if FeeLineItem
+	[Description] NVARCHAR(255) NOT NULL,
+	Amount DECIMAL(18, 2) NOT NULL,
+	[When] DATETIMEOFFSET NOT NULL
+);
 GO

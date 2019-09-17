@@ -12,10 +12,10 @@
     * ~~Edit~~
     * Delete
 * Work Done
-    * Index
-    * Create
-    * Edit
-    * Set completion date
+    * ~~Index~~
+    * ~~Create~~
+    * ~~Edit~~
+        * ~~Set completion date~~
 * Work Line Item
 * Fee Line Item
 * Invoice
