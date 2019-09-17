@@ -11,19 +11,19 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <asp:Panel ID="NavMenu" runat="server">
             <h1>Library</h1>
             <ul>
                 <li>
-                    <asp:HyperLink ID="AuthorsLink" runat="server">Authors</asp:HyperLink></li>
+                    <asp:HyperLink ID="AuthorsLink" runat="server" NavigateUrl='<%# SitePages.GetUrl(LibraryPage.Authors)%>'>Authors</asp:HyperLink></li>
                 <li>
-                    <asp:HyperLink ID="BooksLink" runat="server">Books</asp:HyperLink></li>
+                    <asp:HyperLink ID="BooksLink" runat="server" NavigateUrl='<%# SitePages.GetUrl(LibraryPage.Books)%>'>Books</asp:HyperLink></li>
                 <li>
-                    <asp:HyperLink ID="LibrariesLink" runat="server">Libraries</asp:HyperLink></li>
+                    <asp:HyperLink ID="LibrariesLink" runat="server" NavigateUrl='<%# SitePages.GetUrl(LibraryPage.Libraries)%>'>Libraries</asp:HyperLink></li>
                 <li>
-                    <asp:HyperLink ID="LibrariansLink" runat="server">Librarians</asp:HyperLink></li>
+                    <asp:HyperLink ID="LibrariansLink" runat="server" NavigateUrl='<%# SitePages.GetUrl(LibraryPage.Librarians)%>'>Librarians</asp:HyperLink></li>
                 <li>
-                    <asp:HyperLink ID="AccountSettingsLink" runat="server">Account Settings</asp:HyperLink></li>
+                    <asp:HyperLink ID="AccountSettingsLink" runat="server" NavigateUrl='<%# SitePages.GetUrl(LibraryPage.AccountSettings)%>'>Account Settings</asp:HyperLink></li>
             </ul>
             <asp:LoginView ID="LoginViewThings" runat="server">
                 <LoggedInTemplate>
@@ -38,7 +38,7 @@
 
             <asp:ContentPlaceHolder ID="Main" runat="server">
             </asp:ContentPlaceHolder>
-        </div>
+        </asp:Panel>
     </form>
 </body>
 </html>

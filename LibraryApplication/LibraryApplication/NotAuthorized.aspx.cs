@@ -16,7 +16,7 @@ namespace LibraryApplication
         {
             // TODO Attempt to redirect to restricted page after switching accounts
             FormsAuthentication.SignOut();
-            Response.Redirect(SitePages.GetUrl(LibraryPage.Home));
+            Response.Redirect(SitePages.GetUrl(LibraryPage.Login));
         }
 
         protected void HomeButton_Command(object sender, CommandEventArgs e)

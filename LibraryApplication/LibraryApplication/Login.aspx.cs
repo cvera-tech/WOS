@@ -21,23 +21,20 @@ namespace LibraryApplication
         {
             string username = UserNameTextBox.Text;
             string password = PasswordTextBox.Text;
-            
+
             DataTable userTable = DatabaseHelper.Retrieve(GetUserQuery,
                 new SqlParameter("@Username", username));
             if (userTable.Rows.Count == 1)
             {
                 DataRow userRow = userTable.Rows[0];
                 string hashedPassword = userRow.Field<string>("HashedPassword");
-                string hashbrown = BCrypt.Net.BCrypt.HashPassword(password);
+                string dbUsername = userRow.Field<string>("Username");
                 if (BCrypt.Net.BCrypt.Verify(password, hashedPassword))
                 {
-                    FormsAuthentication.RedirectFromLoginPage(username, false);
+                    FormsAuthentication.RedirectFromLoginPage(dbUsername, false);
                 }
             }
-            else
-            {
-                BadLoginMessage.Visible = true;
-            }
+            BadLoginMessage.Visible = true;
         }
     }
 }

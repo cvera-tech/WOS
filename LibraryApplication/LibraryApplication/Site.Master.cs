@@ -7,16 +7,12 @@ namespace LibraryApplication
 {
     public partial class Site : System.Web.UI.MasterPage
     {
-        private const string GetNameQuery = @"
-            SELECT FirstName + ' ' + LastName AS Name
-            FROM Employee
-            WHERE Username = @Username
-        ";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                SetNavLinks();
+                // DataBind must be called to evaluate inline binding expressions
+                NavMenu.DataBind();
             }
         }
 
@@ -24,20 +20,6 @@ namespace LibraryApplication
         {
             FormsAuthentication.SignOut();
             Response.Redirect("~/Default.aspx");
-        }
-
-        /// <summary>
-        /// This function programmatically sets the URLs for the HyperLinks in the navigation menu.
-        /// This would not be necessary if Web Forms wasn't being so difficult and disallowing 
-        /// the use of inline displaying expressions in HyperLink controls.
-        /// </summary>
-        private void SetNavLinks()
-        {
-            AuthorsLink.NavigateUrl = SitePages.GetUrl(LibraryPage.Authors);
-            BooksLink.NavigateUrl = SitePages.GetUrl(LibraryPage.Books);
-            LibrariesLink.NavigateUrl = SitePages.GetUrl(LibraryPage.Libraries);
-            LibrariansLink.NavigateUrl = SitePages.GetUrl(LibraryPage.Librarians);
-            AccountSettingsLink.NavigateUrl = SitePages.GetUrl(LibraryPage.AccountSettings);
         }
     }
 }
