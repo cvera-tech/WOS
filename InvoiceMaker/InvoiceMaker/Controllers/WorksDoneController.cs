@@ -21,32 +21,8 @@ namespace InvoiceMaker.Controllers
 
         public ActionResult Create()
         {
-            var clientRepo = new ClientRepository();
-            List<Client> clients = clientRepo.GetClients();
-            var clientItems = new List<SelectListItem>();
-            foreach (var client in clients)
-            {
-                var item = new SelectListItem
-                {
-                    Text = client.Name,
-                    Value = client.Id.ToString()
-                };
-                clientItems.Add(item);
-            }
-
-            var workTypeRepo = new WorkTypeRepository();
-            List<WorkType> workTypes = workTypeRepo.GetWorkTypes();
-            var workTypeItems = new List<SelectListItem>();
-            foreach (var workType in workTypes)
-            {
-                var item = new SelectListItem
-                {
-                    Text = workType.Name,
-                    Value = workType.Id.ToString()
-                };
-                workTypeItems.Add(item);
-            }
-
+            var clientItems = GetClientListItems();
+            var workTypeItems = GetWorkTypeItems();
             var formModel = new CreateWorkDone
             {
                 ClientItems = clientItems,
@@ -73,6 +49,76 @@ namespace InvoiceMaker.Controllers
                 // TODO handle this
                 throw se;
             }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var repo = new WorkDoneRepository();
+            var workDone = repo.GetById(id);
+            var clientItems = GetClientListItems();
+            var workTypeItems = GetWorkTypeItems();
+            var formModel = new EditWorkDone()
+            {
+                Id = id,
+                ClientId = workDone.ClientId,
+                WorkTypeId = workDone.WorkTypeId,
+                StartedOn = workDone.StartedOn,
+                EndedOn = workDone.EndedOn,
+                ClientItems = clientItems,
+                WorkTypeItems = workTypeItems
+            };
+            return View(formModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, EditWorkDone formModel)
+        {
+            
+            return View();
+        }
+
+        /// <summary>
+        /// Retrieves the clients from the database and wraps them in
+        /// SelectListItems for use with a drop down list.
+        /// </summary>
+        /// <returns>List of SelectListItem-wrapped WorkTypes</returns>
+        private List<SelectListItem> GetClientListItems()
+        {
+            var repo = new ClientRepository();
+            List<Client> clients = repo.GetClients();
+            var clientItems = new List<SelectListItem>();
+            foreach (var client in clients)
+            {
+                var item = new SelectListItem
+                {
+                    Text = client.Name,
+                    Value = client.Id.ToString()
+                };
+                clientItems.Add(item);
+            }
+            return clientItems;
+        }
+
+        /// <summary>
+        /// Retrieves the work types from the database and wraps them in
+        /// SelectListItems for use with a drop down list.
+        /// </summary>
+        /// <returns>List of SelectListItem-wrapped WorkTypes</returns>
+        private List<SelectListItem> GetWorkTypeItems()
+        {
+            var repo = new WorkTypeRepository();
+            List<WorkType> workTypes = repo.GetWorkTypes();
+            var workTypeItems = new List<SelectListItem>();
+            foreach (var workType in workTypes)
+            {
+                var item = new SelectListItem
+                {
+                    Text = workType.Name,
+                    Value = workType.Id.ToString()
+                };
+                workTypeItems.Add(item);
+            }
+            return workTypeItems;
         }
     }
 }

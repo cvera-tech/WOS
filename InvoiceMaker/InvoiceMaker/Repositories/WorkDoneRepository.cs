@@ -25,7 +25,7 @@ namespace InvoiceMaker.Repositories
             {
                 var client = new Client(dto.ClientId, dto.ClientName, dto.IsActivated);
                 var workType = new WorkType(dto.WorkTypeId, dto.WorkTypeName, dto.Rate);
-                var workDone = new WorkDone(client, workType, dto.StartedOn, dto.EndedOn);
+                var workDone = new WorkDone(dto.Id, client, workType, dto.StartedOn, dto.EndedOn);
                 worksDone.Add(workDone);
             }
 
@@ -41,7 +41,7 @@ namespace InvoiceMaker.Repositories
                 FROM WorkDone WD
                     JOIN Client C ON WD.ClientId = C.Id
                     JOIN WorkType WT ON WD.WorkTypeId = WT.Id
-                WHERE Id = @Id
+                WHERE WD.Id = @Id
             ";
             var workDoneDTO = DatabaseHelper.RetrieveSingle<WorkDoneDTO>(sql, 
                 new SqlParameter("@Id", id));
@@ -57,14 +57,15 @@ namespace InvoiceMaker.Repositories
                 INSERT INTO WorkDone (ClientId, WorkTypeId, StartedOn, EndedOn)
                 VALUES (@ClientId, @WorkTypeId, @StartedOn, @EndedOn)
             ";
-            // Convert default DateTimeOffset to DBNull
-            var endedOnParameter = new SqlParameter("@EndedOn", 
-                workDone.EndedOn.EqualsExact(new DateTimeOffset()) ? (object)DBNull.Value : workDone.EndedOn);
+            
+            //// Convert default DateTimeOffset to DBNull
+            //var endedOnParameter = new SqlParameter("@EndedOn", 
+            //    workDone.EndedOn.Value.EqualsExact(new DateTimeOffset()) ? (object)DBNull.Value : workDone.EndedOn);
             DatabaseHelper.Insert(sql,
                 new SqlParameter("@ClientId", workDone.ClientId),
                 new SqlParameter("@WorkTypeId", workDone.WorkTypeId),
                 new SqlParameter("@StartedOn", workDone.StartedOn),
-                endedOnParameter);
+                new SqlParameter("@EndedOn", workDone.EndedOn ?? (object)DBNull.Value));
         }
     }
 }

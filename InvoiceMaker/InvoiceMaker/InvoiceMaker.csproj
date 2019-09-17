@@ -98,6 +98,7 @@
     <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="FormModels\CreateWorkDone.cs" />
     <Compile Include="FormModels\CreateWorkType.cs" />
+    <Compile Include="FormModels\EditWorkDone.cs" />
     <Compile Include="FormModels\EditWorkType.cs" />
     <Compile Include="Models\WorkDoneDTO.cs" />
     <Compile Include="Repositories\WorkDoneRepository.cs" />
@@ -118,6 +119,7 @@
     <Content Include="Views\WorkTypes\Edit.cshtml" />
     <Content Include="Views\WorksDone\Index.cshtml" />
     <Content Include="Views\WorksDone\Create.cshtml" />
+    <Content Include="Views\WorksDone\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -16,7 +16,7 @@ namespace InvoiceMaker.Models
         public int ClientId { get; set; }
         public int WorkTypeId { get; set; }
         public DateTimeOffset StartedOn { get; set; }
-        public DateTimeOffset EndedOn { get; set; }
+        public DateTimeOffset? EndedOn { get; set; }
         public string ClientName { get; set; }
         public bool IsActivated { get; set; }
         public string WorkTypeName { get; set; }
