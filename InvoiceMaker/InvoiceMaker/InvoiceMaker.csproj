@@ -102,6 +102,7 @@
     <Compile Include="FormModels\EditWorkDone.cs" />
     <Compile Include="FormModels\EditWorkType.cs" />
     <Compile Include="Models\InvoiceDTO.cs" />
+    <Compile Include="Models\InvoiceStatusDTO.cs" />
     <Compile Include="Models\WorkDoneDTO.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\WorkDoneRepository.cs" />

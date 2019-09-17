@@ -9,25 +9,12 @@ namespace InvoiceMaker.Models
         Closed
     }
 
-    public class InvoiceStatusDTO
+    public static class InvoiceStatusExtensions
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-
-        public InvoiceStatusDTO() { }
-
-        public InvoiceStatusDTO(int id, string name)
+        public static InvoiceStatus ToInvoiceStatus(this String statusName)
         {
-            Id = id;
-            Name = name;
-        }
-
-        public InvoiceStatus InvoiceStatus
-        {
-            get
-            {
-                return (InvoiceStatus)(Enum.Parse(typeof(InvoiceStatus), Name));
-            }
+            // We want to throw an exception if the string cannot be parsed
+            return (InvoiceStatus)(Enum.Parse(typeof(InvoiceStatus), statusName));
         }
     }
 }

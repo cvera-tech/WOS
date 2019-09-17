@@ -11,6 +11,7 @@ namespace InvoiceMaker.Repositories
             string sql = @"
                 SELECT Id, Name, Rate
                 FROM WorkType
+                ORDER BY Name
             ";
             List<WorkType> workTypes = DatabaseHelper.Retrieve<WorkType>(sql);
             return workTypes;

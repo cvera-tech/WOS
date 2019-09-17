@@ -19,12 +19,13 @@ namespace InvoiceMaker.Repositories
                     S.Name AS StatusName
                 FROM Invoice I
                     JOIN InvoiceStatus S ON S.Id = I.StatusId
+                ORDER BY I.InvoiceNumber
             ";
             var invoiceDTOs = DatabaseHelper.Retrieve<InvoiceDTO>(sql);
             var invoices = new List<Invoice>();
             foreach (var dto in invoiceDTOs)
             {
-                var invoice = new Invoice(dto.Id, dto.InvoiceNumber, ToInvoiceStatus(dto.StatusName));
+                var invoice = new Invoice(dto.Id, dto.InvoiceNumber, dto.StatusName.ToInvoiceStatus());
                 invoices.Add(invoice);
             }
             return invoices;
@@ -44,10 +45,6 @@ namespace InvoiceMaker.Repositories
                 new SqlParameter("@Id", id));
             return invoice;
         }
-        //FROM Invoice I
-        //            JOIN InvoiceStatus IS ON IS.Id = I.StatusId
-        //            LEFT JOIN LineItem LI ON LI.InvoiceId = I.Id    -- Also get invoices without line items
-        //            LEFT JOIN WorkDone WD ON LI.WorkDoneId = WD.Id  -- Fee line items have no WorkDoneId
 
         public void Insert(Invoice invoice)
         {
@@ -57,21 +54,22 @@ namespace InvoiceMaker.Repositories
             ";
             DatabaseHelper.Insert(sql,
                 new SqlParameter("@InvoiceNumber", invoice.InvoiceNumber),
-                new SqlParameter("@StatusId", invoice.Status));
+                new SqlParameter("@StatusId", invoice.StatusId));
         }
 
-        public List<SelectListItem> GetInvoiceStatusItems()
+        public List<InvoiceStatusDTO> GetInvoiceStatusDTOs()
         {
             string sql = @"
                 SELECT 
+                    Id, Name
+                FROM
+                    InvoiceStatus
+                ORDER BY
+                    Id
             ";
-            return null;
-        }
 
-        private InvoiceStatus ToInvoiceStatus(string statusName)
-        {
-            // We want an exception to be thrown if parsing fails
-            return (InvoiceStatus)(Enum.Parse(typeof(InvoiceStatus), statusName));
+            var statusDTOs = DatabaseHelper.Retrieve<InvoiceStatusDTO>(sql);
+            return statusDTOs;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace InvoiceMaker.Repositories
                 FROM WorkDone WD
                     JOIN Client C ON WD.ClientId = C.Id
                     JOIN WorkType WT ON WD.WorkTypeId = WT.Id
+                ORDER BY WorkTypeName
             ";
             List<WorkDoneDTO> workDoneDTOs = DatabaseHelper.Retrieve<WorkDoneDTO>(sql);
             List<WorkDone> worksDone = new List<WorkDone>();
