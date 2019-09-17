@@ -36,18 +36,19 @@ namespace InvoiceMaker.Controllers
         public ActionResult Create(CreateWorkDone formModel)
         {
             var repo = new WorkDoneRepository();
+            var client = new Client(formModel.ClientId);
+            var workType = new WorkType(formModel.WorkTypeId);
+            var workDone = new WorkDone(client, workType, formModel.StartedOn, formModel.EndedOn);
             try
             {
-                var client = new Client(formModel.ClientId);
-                var workType = new WorkType(formModel.WorkTypeId);
-                var workDone = new WorkDone(client, workType, formModel.StartedOn, formModel.EndedOn);
                 repo.Insert(workDone);
                 return RedirectToAction("Index");
             }
             catch (SqlException se)
             {
                 // TODO handle this
-                throw se;
+                ModelState.AddModelError("Create", "Unable to add new work done");
+                return View(formModel);
             }
         }
 
@@ -73,8 +74,20 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, EditWorkDone formModel)
         {
-            
-            return View();
+            var repo = new WorkDoneRepository();
+            var client = new Client(formModel.ClientId);
+            var workType = new WorkType(formModel.WorkTypeId);
+            var workDone = new WorkDone(id, client, workType, formModel.StartedOn, formModel.EndedOn);
+            try
+            {
+                repo.Update(workDone);
+                return RedirectToAction("Index");
+            }
+            catch (SqlException se)
+            {
+                ModelState.AddModelError("Edit", "Unable to update work done");
+                return View(formModel);
+            }
         }
 
         /// <summary>

@@ -58,14 +58,32 @@ namespace InvoiceMaker.Repositories
                 VALUES (@ClientId, @WorkTypeId, @StartedOn, @EndedOn)
             ";
             
-            //// Convert default DateTimeOffset to DBNull
-            //var endedOnParameter = new SqlParameter("@EndedOn", 
-            //    workDone.EndedOn.Value.EqualsExact(new DateTimeOffset()) ? (object)DBNull.Value : workDone.EndedOn);
             DatabaseHelper.Insert(sql,
                 new SqlParameter("@ClientId", workDone.ClientId),
                 new SqlParameter("@WorkTypeId", workDone.WorkTypeId),
                 new SqlParameter("@StartedOn", workDone.StartedOn),
                 new SqlParameter("@EndedOn", workDone.EndedOn ?? (object)DBNull.Value));
+        }
+
+        public void Update (WorkDone workDone)
+        {
+            string sql = @"
+                UPDATE 
+                    WorkDone
+                SET 
+                    ClientId = @ClientId,
+                    WorkTypeId = @WorkTypeId,
+                    StartedOn = @StartedOn,
+                    EndedOn = @EndedOn
+                WHERE 
+                    Id = @Id
+            ";
+            DatabaseHelper.Update(sql,
+                new SqlParameter("@ClientId", workDone.ClientId),
+                new SqlParameter("@WorkTypeId", workDone.WorkTypeId),
+                new SqlParameter("@StartedOn", workDone.StartedOn),
+                new SqlParameter("@EndedOn", workDone.EndedOn ?? (object)DBNull.Value),
+                new SqlParameter("@Id", workDone.Id));
         }
     }
 }
