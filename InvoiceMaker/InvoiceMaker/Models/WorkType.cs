@@ -8,6 +8,11 @@
         
         public WorkType() { }
 
+        public WorkType(int id)
+        {
+            Id = id;
+        }
+
         public WorkType(string name, decimal rate)
         {
             Name = name;

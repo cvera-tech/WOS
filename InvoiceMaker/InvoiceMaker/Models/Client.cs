@@ -8,13 +8,18 @@
 
         public Client() { }
 
+        public Client(int id)
+        {
+            Id = id;
+        }
+
         public Client(string name, bool isActive)
         {
             Name = name;
             IsActive = isActive;
         }
 
-        public Client(int id, string name, bool isActive) : this(name, isActive) 
+        public Client(int id, string name, bool isActive) : this(name, isActive)
         {
             Id = id;
         }

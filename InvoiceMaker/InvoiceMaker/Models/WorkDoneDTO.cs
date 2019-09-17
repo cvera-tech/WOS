@@ -6,11 +6,11 @@ using System.Web;
 namespace InvoiceMaker.Models
 {
     /// <summary>
-    /// This class acts as a temporary holder for the data that is required to 
-    /// construct a WorkDone object. This is mostly due to how the
-    /// DatabaseHelper class cannot set non-SQL data type properties.
+    /// This class acts as a data transfer object for the data that is required 
+    /// to construct a WorkDone object. This is because the DatabaseHelper 
+    /// class cannot set non-SQL data type properties.
     /// </summary>
-    public class WorkDoneRaw
+    public class WorkDoneDTO
     {
         public int Id { get; set; }
         public int ClientId { get; set; }

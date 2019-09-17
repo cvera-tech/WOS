@@ -1,10 +1,37 @@
 ﻿using InvoiceMaker.Models;
+using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace InvoiceMaker.Repositories
 {
     public class WorkDoneRepository
     {
+        // Grammar is important.
+        public List<WorkDone> GetWorksDone()
+        {
+            string sql = @"
+                SELECT WD.Id, WD.ClientId, WD.WorkTypeId, WD.StartedOn,
+                    WD.EndedOn, C.ClientName, C.IsActivated,
+                    WT.Name AS WorkTypeName, WT.Rate
+                FROM WorkDone WD
+                    JOIN Client C ON WD.ClientId = C.Id
+                    JOIN WorkType WT ON WD.WorkTypeId = WT.Id
+            ";
+            List<WorkDoneDTO> workDoneDTOs = DatabaseHelper.Retrieve<WorkDoneDTO>(sql);
+            List<WorkDone> worksDone = new List<WorkDone>();
+
+            foreach(var dto in workDoneDTOs)
+            {
+                var client = new Client(dto.ClientId, dto.ClientName, dto.IsActivated);
+                var workType = new WorkType(dto.WorkTypeId, dto.WorkTypeName, dto.Rate);
+                var workDone = new WorkDone(client, workType, dto.StartedOn, dto.EndedOn);
+                worksDone.Add(workDone);
+            }
+
+            return worksDone;
+        }
+
         public WorkDone GetById(int id)
         {
             string sql = @"
@@ -16,12 +43,28 @@ namespace InvoiceMaker.Repositories
                     JOIN WorkType WT ON WD.WorkTypeId = WT.Id
                 WHERE Id = @Id
             ";
-            var workDoneRaw = DatabaseHelper.RetrieveSingle<WorkDoneRaw>(sql, 
+            var workDoneDTO = DatabaseHelper.RetrieveSingle<WorkDoneDTO>(sql, 
                 new SqlParameter("@Id", id));
-            var client = new Client(workDoneRaw.ClientId, workDoneRaw.ClientName, workDoneRaw.IsActivated);
-            var workType = new WorkType(workDoneRaw.WorkTypeId, workDoneRaw.WorkTypeName, workDoneRaw.Rate);
-            var workDone = new WorkDone(client, workType, workDoneRaw.StartedOn, workDoneRaw.EndedOn);
+            var client = new Client(workDoneDTO.ClientId, workDoneDTO.ClientName, workDoneDTO.IsActivated);
+            var workType = new WorkType(workDoneDTO.WorkTypeId, workDoneDTO.WorkTypeName, workDoneDTO.Rate);
+            var workDone = new WorkDone(client, workType, workDoneDTO.StartedOn, workDoneDTO.EndedOn);
             return workDone;
+        }
+
+        public void Insert (WorkDone workDone)
+        {
+            string sql = @"
+                INSERT INTO WorkDone (ClientId, WorkTypeId, StartedOn, EndedOn)
+                VALUES (@ClientId, @WorkTypeId, @StartedOn, @EndedOn)
+            ";
+            // Convert default DateTimeOffset to DBNull
+            var endedOnParameter = new SqlParameter("@EndedOn", 
+                workDone.EndedOn.EqualsExact(new DateTimeOffset()) ? (object)DBNull.Value : workDone.EndedOn);
+            DatabaseHelper.Insert(sql,
+                new SqlParameter("@ClientId", workDone.ClientId),
+                new SqlParameter("@WorkTypeId", workDone.WorkTypeId),
+                new SqlParameter("@StartedOn", workDone.StartedOn),
+                endedOnParameter);
         }
     }
 }

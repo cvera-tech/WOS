@@ -1,0 +1,36 @@
+﻿@model InvoiceMaker.FormModels.CreateWorkDone
+
+<h1>Create Work Done</h1>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+
+        <div>
+            @Html.LabelFor(model => model.ClientId)
+            @Html.DropDownListFor(model => model.ClientId, Model.ClientItems)
+            @Html.ValidationMessageFor(model => model.ClientId)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.WorkTypeId)
+            @Html.DropDownListFor(model => model.WorkTypeId, Model.WorkTypeItems)
+            @Html.ValidationMessageFor(model => model.WorkTypeId)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.StartedOn)
+            <input name="StartedOn" type="datetime-local" />
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.EndedOn) (Optional)
+            <input name="EndedOn" type="datetime-local" />
+        </div>
+
+        <div>
+            <input type="submit" value="Submit" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
+    </fieldset>
+}

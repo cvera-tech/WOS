@@ -8,6 +8,13 @@ namespace InvoiceMaker.Models
         private WorkType _type;
 
         public int Id { get; private set; }
+        public int ClientId
+        {
+            get
+            {
+                return _client.Id;
+            }
+        }
         public string ClientName
         {
             get
@@ -17,6 +24,13 @@ namespace InvoiceMaker.Models
         }
         public DateTimeOffset EndedOn { get; private set; }
         public DateTimeOffset StartedOn { get; private set; }
+        public int WorkTypeId
+        {
+            get
+            {
+                return _type.Id;
+            }
+        }
         public string WorkTypeName
         {
             get
