@@ -5,9 +5,20 @@ namespace InvoiceMaker.Models
 {
     public class Invoice
     {
+        public int Id { get; private set; }
         public string InvoiceNumber { get; private set; }
         public List<ILineItem> LineItems { get; private set; }
         public InvoiceStatus Status { get; private set; }
+
+        public Invoice(int id)
+        {
+            Id = id;
+        }
+
+        public Invoice(int id, string invoiceNumber, InvoiceStatus status) : this (invoiceNumber, status)
+        {
+            Id = id;
+        }
 
         public Invoice(string invoiceNumber)
         {

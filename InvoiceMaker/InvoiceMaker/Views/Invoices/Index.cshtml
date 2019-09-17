@@ -1,1 +1,29 @@
-﻿<h1>Welcome to Index!</h1>
+﻿@model List<InvoiceMaker.Models.Invoice>
+
+<h1>Welcome to Invoice Maker!</h1>
+
+<p>
+    @Html.ActionLink("Create an invoice", "Create",
+        routeValues: new { },
+        htmlAttributes: new { })
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Invoice Number</th>
+            <th>Status</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invoice in Model)
+        {
+            <tr>
+                <th>@invoice.InvoiceNumber</th>
+                <th>@invoice.Status</th>
+                <th>@Html.ActionLink("Edit", "Edit", routeValues: new { Id = invoice.Id })</th>
+            </tr>
+        }
+    </tbody>
+</table>

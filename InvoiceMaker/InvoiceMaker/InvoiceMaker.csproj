@@ -96,11 +96,14 @@
   <ItemGroup>
     <Compile Include="Controllers\WorksDoneController.cs" />
     <Compile Include="Controllers\WorkTypesController.cs" />
+    <Compile Include="FormModels\CreateInvoice.cs" />
     <Compile Include="FormModels\CreateWorkDone.cs" />
     <Compile Include="FormModels\CreateWorkType.cs" />
     <Compile Include="FormModels\EditWorkDone.cs" />
     <Compile Include="FormModels\EditWorkType.cs" />
+    <Compile Include="Models\InvoiceDTO.cs" />
     <Compile Include="Models\WorkDoneDTO.cs" />
+    <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\WorkDoneRepository.cs" />
     <Compile Include="Repositories\WorkTypeRepository.cs" />
     <Content Include="packages.config" />
@@ -120,6 +123,7 @@
     <Content Include="Views\WorksDone\Index.cshtml" />
     <Content Include="Views\WorksDone\Create.cshtml" />
     <Content Include="Views\WorksDone\Edit.cshtml" />
+    <Content Include="Views\Invoices\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

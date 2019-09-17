@@ -1,0 +1,26 @@
+﻿@model InvoiceMaker.FormModels.CreateInvoice
+
+<h1>Create an Invoice</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div>
+            @Html.LabelFor(model => model.InvoiceNumber)
+            @Html.TextBoxFor(model => model.InvoiceNumber)
+            @Html.ValidationMessageFor(model => model.InvoiceNumber)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Status)
+            @Html.DropDownListFor(model => model.Status, Model.StatusItems)
+        </div>
+
+        <div>
+            <input type="submit" value="Submit" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
+    </fieldset>
+}

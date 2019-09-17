@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using InvoiceMaker.FormModels;
+using InvoiceMaker.Repositories;
+using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
@@ -6,7 +8,15 @@ namespace InvoiceMaker.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var repo = new InvoiceRepository();
+            var invoices = repo.GetInvoices();
+            return View(invoices);
+        }
+
+        public ActionResult Create()
+        {
+            var formModel = new CreateInvoice();
+            return View(formModel);
         }
     }
 }
