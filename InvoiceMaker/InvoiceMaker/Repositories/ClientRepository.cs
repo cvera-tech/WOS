@@ -19,7 +19,8 @@ namespace InvoiceMaker.Repositories
         public List<Client> GetClients()
         {
             var clients = _context.Clients
-                .OrderBy(c => c.Name)
+                .OrderByDescending(c => c.IsActive)
+                .ThenBy(c => c.Name)
                 .ToList();
             return clients;
         }
