@@ -24,10 +24,10 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Create(CreateWorkType formModel)
         {
-            var repo = new WorkTypeRepository();
+            var repo = new WorkTypeRepository(_context);
+            WorkType workType = new WorkType(formModel.Name, formModel.Rate);
             try
             {
-                WorkType workType = new WorkType(formModel.Name, formModel.Rate);
                 repo.Insert(workType);
                 return RedirectToAction("Index");
             }
