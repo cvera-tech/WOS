@@ -1,0 +1,30 @@
+﻿@model IList<Twits.Models.Twit>
+
+<p>There are @Model.Count twits to read.</p>
+<div>
+    @Html.ActionLink("Create Twit", "Create", new { }, new { Class = "btn btn-default" })
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Twit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var twit in Model)
+        {
+            <tr>
+                <td>@twit.CreatedOn</td>
+                <td>@twit.Text</td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = twit.Id }, new { Class = "btn btn-warning" })</td>
+                <td>
+                    @using (Html.BeginRouteForm("Default", new { action = "Delete", controller = "Twit" }))
+                    {
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
