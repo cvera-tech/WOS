@@ -70,10 +70,10 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, EditClient formModel)
         {
-            var repo = new ClientRepository();
+            var repo = new ClientRepository(_context);
             try
             {
-                Client newClient = new Models.Client(id, formModel.Name, formModel.IsActivated);
+                var newClient = new Client(id, formModel.Name, formModel.IsActivated);
                 repo.Update(newClient);
                 return RedirectToAction("Index");
             }

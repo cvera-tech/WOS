@@ -43,17 +43,12 @@ namespace InvoiceMaker.Repositories
 
         public void Update(Client client)
         {
-            string sql = @"
-                UPDATE Client
-                SET ClientName = @ClientName,
-                    IsActivated = @IsActivated
-                WHERE Id = @Id
-            ";
+            //int id = client.Id;
+            //string name = client.Name;
+            //bool isActive = client.IsActive;
+            //_context.UpdateById<Client>(client.Id, "Name", name, "IsActive", isActive);
 
-            DatabaseHelper.Execute(sql,
-                new SqlParameter("@ClientName", client.Name),
-                new SqlParameter("@IsActivated", client.IsActive),
-                new SqlParameter("@Id", client.Id));
+            _context.UpdateEntity<Client>(client);
         }
     }
 }
