@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace EntityFrameworkDemo.Models
 {
-    class Person
+    internal class Person
     {
         // Id, ID, PersonId, PersonID
         // Automatically set as primary key and 
         // identity column if `int` or `guid`
         public int Id { get; set; }
-        [Required]
+        [Required, MaxLength(100)]
         public string Name { get; set; }
-        public DateTime? BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public decimal Weight { get; set; }
         public bool IsStarWarsFan { get; set; }
 
@@ -27,5 +27,9 @@ namespace EntityFrameworkDemo.Models
             }
         }
 
+        public override string ToString()
+        {
+            return $"Name: {Name}\nBirthDate: {BirthDate.ToShortDateString()}\nWeight: {Weight}\nIsStarWarsFan: {IsStarWarsFan}";
+        }
     }
 }
