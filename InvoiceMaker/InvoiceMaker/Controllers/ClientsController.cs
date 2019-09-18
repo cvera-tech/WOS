@@ -21,7 +21,7 @@ namespace InvoiceMaker.Controllers
 
         public ActionResult Index()
         {
-            var repo = new ClientRepository();
+            var repo = new ClientRepository(_context);
             List<Client> clients = repo.GetClients();
             return View(clients);
         }
@@ -56,7 +56,7 @@ namespace InvoiceMaker.Controllers
 
         public ActionResult Edit(int id)
         {
-            var repo = new ClientRepository();
+            var repo = new ClientRepository(_context);
             var client = repo.GetById(id);
             var formModel = new EditClient
             {

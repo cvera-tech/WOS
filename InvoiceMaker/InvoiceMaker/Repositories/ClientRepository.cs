@@ -1,20 +1,25 @@
-﻿using InvoiceMaker.Models;
+﻿using InvoiceMaker.Data;
+using InvoiceMaker.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace InvoiceMaker.Repositories
 {
     public class ClientRepository
     {
+        private Context _context;
+
+        public ClientRepository() { }
+
+        public ClientRepository(Context context)
+        {
+            _context = context;
+        }
+
         public List<Client> GetClients()
         {
-            string sql = @"
-                SELECT Id, ClientName AS Name, IsActivated AS IsActive
-                FROM Client
-                ORDER BY ClientName
-            ";
-
-            List<Client> clients = DatabaseHelper.Retrieve<Client>(sql);
+            var clients = _context.Clients.ToList();
             return clients;
         }
 
@@ -30,17 +35,9 @@ namespace InvoiceMaker.Repositories
                 new SqlParameter("@IsActivated", client.IsActive));
         }
 
-        public Client GetById(int Id)
+        public Client GetById(int id)
         {
-            string sql = @"
-                SELECT Id, ClientName AS Name, IsActivated AS IsActive
-                FROM Client
-                WHERE Id = @Id
-            ";
-
-            Client client = DatabaseHelper.RetrieveSingle<Client>(sql,
-                new SqlParameter("@Id", Id));
-
+            var client = _context.Clients.SingleOrDefault(c => c.Id == id);
             return client;
         }
 
