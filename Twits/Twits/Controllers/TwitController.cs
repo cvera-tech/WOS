@@ -138,7 +138,7 @@ namespace Twits.Controllers
 
         // POST: Twit/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
