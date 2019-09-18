@@ -5,16 +5,9 @@ using System.Linq;
 
 namespace InvoiceMaker.Repositories
 {
-    public class ClientRepository
+    public class ClientRepository : BaseRepository
     {
-        private Context _context;
-
-        public ClientRepository() { }
-
-        public ClientRepository(Context context)
-        {
-            _context = context;
-        }
+        public ClientRepository(Context context) : base(context) { }
 
         public List<Client> GetClients()
         {

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class WorkTypesController : Controller
+    public class WorkTypesController : BaseController
     {
         public ActionResult Index()
         {

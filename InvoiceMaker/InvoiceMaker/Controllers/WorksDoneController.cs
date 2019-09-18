@@ -1,16 +1,13 @@
 ﻿using InvoiceMaker.FormModels;
 using InvoiceMaker.Models;
 using InvoiceMaker.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class WorksDoneController : Controller
+    public class WorksDoneController : BaseController
     {
         public ActionResult Index()
         {
@@ -97,7 +94,7 @@ namespace InvoiceMaker.Controllers
         /// <returns>List of SelectListItem-wrapped WorkTypes</returns>
         private List<SelectListItem> GetClientListItems()
         {
-            var repo = new ClientRepository();
+            var repo = new ClientRepository(_context);
             List<Client> clients = repo.GetClients();
             var clientItems = new List<SelectListItem>();
             foreach (var client in clients)

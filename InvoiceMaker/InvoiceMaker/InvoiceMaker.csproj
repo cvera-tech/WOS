@@ -114,6 +114,7 @@
     <Compile Include="Models\InvoiceDTO.cs" />
     <Compile Include="Models\InvoiceStatusDTO.cs" />
     <Compile Include="Models\WorkDoneDTO.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\WorkDoneRepository.cs" />
     <Compile Include="Repositories\WorkTypeRepository.cs" />
