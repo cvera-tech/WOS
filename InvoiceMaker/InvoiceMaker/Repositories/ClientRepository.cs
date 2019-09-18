@@ -1,7 +1,6 @@
 ﻿using InvoiceMaker.Data;
 using InvoiceMaker.Models;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace InvoiceMaker.Repositories
@@ -19,20 +18,16 @@ namespace InvoiceMaker.Repositories
 
         public List<Client> GetClients()
         {
-            var clients = _context.Clients.ToList();
+            var clients = _context.Clients
+                .OrderBy(c => c.Name)
+                .ToList();
             return clients;
         }
 
         public void Insert(Client client)
         {
-            string sql = @"
-                INSERT INTO Client(ClientName, IsActivated)
-                VALUES (@ClientName, @IsActivated)
-            ";
-
-            DatabaseHelper.Execute(sql,
-                new SqlParameter("@ClientName", client.Name),
-                new SqlParameter("@IsActivated", client.IsActive));
+            _context.Clients.Add(client);
+            _context.SaveChanges();
         }
 
         public Client GetById(int id)
@@ -43,11 +38,7 @@ namespace InvoiceMaker.Repositories
 
         public void Update(Client client)
         {
-            //int id = client.Id;
-            //string name = client.Name;
-            //bool isActive = client.IsActive;
-            //_context.UpdateById<Client>(client.Id, "Name", name, "IsActive", isActive);
-
+            // SaveChanges is called by the extension method
             _context.UpdateEntity<Client>(client);
         }
     }

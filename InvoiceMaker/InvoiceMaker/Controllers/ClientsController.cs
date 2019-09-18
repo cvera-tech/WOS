@@ -36,7 +36,7 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Create(CreateClient formModel)
         {
-            var repo = new ClientRepository();
+            var repo = new ClientRepository(_context);
             try
             {
                 Client newClient = new Client(formModel.Name, formModel.IsActivated);
