@@ -1,19 +1,29 @@
-﻿using InvoiceMaker.Models;
+﻿using InvoiceMaker.Data;
+using InvoiceMaker.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace InvoiceMaker.Repositories
 {
-    public class WorkTypeRepository
+    public class WorkTypeRepository : BaseRepository
     {
+        public WorkTypeRepository() : base(null) { }
+
+        public WorkTypeRepository(Context context) : base(context) { }
+
         public List<WorkType> GetWorkTypes()
         {
-            string sql = @"
-                SELECT Id, Name, Rate
-                FROM WorkType
-                ORDER BY Name
-            ";
-            List<WorkType> workTypes = DatabaseHelper.Retrieve<WorkType>(sql);
+            //string sql = @"
+            //    SELECT Id, Name, Rate
+            //    FROM WorkType
+            //    ORDER BY Name
+            //";
+            //List<WorkType> workTypes = DatabaseHelper.Retrieve<WorkType>(sql);
+            //return workTypes;
+            var workTypes = _context.WorkTypes
+                .OrderBy(wt => wt.Name)
+                .ToList();
             return workTypes;
         }
 

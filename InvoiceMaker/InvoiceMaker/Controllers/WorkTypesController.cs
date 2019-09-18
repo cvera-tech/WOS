@@ -10,7 +10,7 @@ namespace InvoiceMaker.Controllers
     {
         public ActionResult Index()
         {
-            var repo = new WorkTypeRepository();
+            var repo = new WorkTypeRepository(_context);
             var workTypes = repo.GetWorkTypes();
             return View(workTypes);
         }

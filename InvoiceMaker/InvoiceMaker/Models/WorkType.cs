@@ -1,10 +1,15 @@
-﻿namespace InvoiceMaker.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace InvoiceMaker.Models
 {
     public class WorkType
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public decimal Rate { get; private set; }
+        public int Id { get; set; }
+        [Required, MaxLength(255)]
+        public string Name { get; set; }
+        [Required]
+        public decimal Rate { get; set; }
         
         public WorkType() { }
 
