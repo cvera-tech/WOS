@@ -1,5 +1,4 @@
-﻿using InvoiceMaker.Data;
-using InvoiceMaker.FormModels;
+﻿using InvoiceMaker.FormModels;
 using InvoiceMaker.Models;
 using InvoiceMaker.Repositories;
 using System.Collections.Generic;
@@ -8,17 +7,8 @@ using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class ClientsController : Controller
+    public class ClientsController : BaseController
     {
-        private Context _context;
-        private bool _disposed;
-
-        public ClientsController ()
-        {
-            _context = new Context();
-            _disposed = false;
-        }
-
         public ActionResult Index()
         {
             var repo = new ClientRepository(_context);
@@ -85,20 +75,6 @@ namespace InvoiceMaker.Controllers
                 }
             }
             return View(formModel);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
-            _disposed = true;
         }
     }
 }
