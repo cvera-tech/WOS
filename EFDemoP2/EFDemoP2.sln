@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFDemoP2", "EFDemoP2\EFDemoP2.csproj", "{A65E2786-6DE8-4EF1-8113-647143CC5921}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesConsoleApp", "EFDemoP2\MoviesConsoleApp.csproj", "{A65E2786-6DE8-4EF1-8113-647143CC5921}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{72CC6393-0335-4106-9258-463D542E4368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A65E2786-6DE8-4EF1-8113-647143CC5921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A65E2786-6DE8-4EF1-8113-647143CC5921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A65E2786-6DE8-4EF1-8113-647143CC5921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72CC6393-0335-4106-9258-463D542E4368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72CC6393-0335-4106-9258-463D542E4368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72CC6393-0335-4106-9258-463D542E4368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72CC6393-0335-4106-9258-463D542E4368}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
