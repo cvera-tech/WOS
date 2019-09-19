@@ -8,11 +8,6 @@ namespace CommunityShedMVC.Controllers
 {
     public class CommunityController : BaseController
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult Add()
         {
             Community community = new Community();

@@ -15,7 +15,7 @@ namespace CommunityShedMVC.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -51,7 +51,7 @@ namespace CommunityShedMVC.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel viewModel)
         {
             // TODO Check if email exists in database
