@@ -24,6 +24,7 @@ namespace Blahgger.Controllers
         // GET: Posts/Details/5
         public ActionResult Details(int id)
         {
+            //TODO
             return View();
         }
 
@@ -35,7 +36,7 @@ namespace Blahgger.Controllers
         }
 
         // POST: Posts/Create
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(Post post)
         {
             if (ModelState.IsValid)
@@ -54,49 +55,5 @@ namespace Blahgger.Controllers
 
             return View(post);
         }
-
-        //// GET: Posts/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Posts/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: Posts/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Posts/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }

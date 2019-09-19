@@ -10,15 +10,14 @@ namespace Blahgger.Controllers
 {
     public class AccountsController : Controller
     {
-        // GET: Accounts/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             User user = new User();
             return View(user);
         }
-
-        // POST: Accounts/Create
-        [HttpPost]
+        
+        [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
@@ -38,7 +37,7 @@ namespace Blahgger.Controllers
             return View(user);
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
         public ActionResult Login(User user)
         {
             BlahggerData data = BlahggerData.GetInstance();

@@ -10,13 +10,13 @@ namespace Blahgger.Data
     /// <summary>
     /// This class contains methods for binding data from the database to models.
     /// </summary>
-    public class BlahggerData
+    internal class BlahggerData
     {
         private static BlahggerData singleton = null;
 
         private BlahggerData() { }
 
-        public static BlahggerData GetInstance()
+        internal static BlahggerData GetInstance()
         {
             if (singleton == null)
             {
@@ -25,7 +25,7 @@ namespace Blahgger.Data
             return singleton;
         }
         
-        public void AddUser(User user)
+        internal void AddUser(User user)
         {
             string sql = @"
                 INSERT INTO Users (Username, HashedPassword)
@@ -66,6 +66,7 @@ namespace Blahgger.Data
         /// <returns>True if a match is found; false otherwise.</returns>
         internal bool AuthenticateUser(User user)
         {
+            // TODO Separate authentication from HashedPassword retrieval.
             string sql = @"
                 SELECT HashedPassword
                 FROM Users
