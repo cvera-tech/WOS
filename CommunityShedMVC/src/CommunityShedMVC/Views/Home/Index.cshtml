@@ -1,0 +1,79 @@
+﻿@model CommunityShedMVC.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Home</h2>
+
+<div>
+    <h3>Your Borrowed Items</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Community</th>
+                <th>Borrowed On</th>
+                <th>Due On</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div>
+    <h3>Your Items</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Community</th>
+                <th>Available</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div>
+    <h3>Your Communities</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Open</th>
+                <th>Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var community in Model.Communities)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(community.Name, "Details", "Community",
+                            routeValues: new { communityId = community.Id },
+                            htmlAttributes: new { @class = "btn-link" })
+                    </td>
+                    <td>
+                        @if (community.IsOpen)
+                        {
+                            <p style="color: green">Open</p>
+                        }
+                        else
+                        {
+                            <p style="color: red">Closed</p>
+                        }
+                    </td>
+                    <td>
+                        @Model.Roles(community)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        @Html.ActionLink("Create a Community", "Add", "Community", 
+            routeValues: new { }, 
+            htmlAttributes: new { @class = "btn btn-primary" })
+        @Html.ActionLink("View All Communities", "List", "Community", 
+            routeValues: new { }, 
+            htmlAttributes: new { @class = "btn btn-primary" })
+    </div>
+</div>
