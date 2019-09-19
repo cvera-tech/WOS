@@ -1,34 +1,49 @@
-﻿using InvoiceMaker.Models;
+﻿using InvoiceMaker.Data;
+using InvoiceMaker.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Linq;
 
 namespace InvoiceMaker.Repositories
 {
-    public class WorkDoneRepository
+    public class WorkDoneRepository : BaseRepository
     {
+        public WorkDoneRepository() : base(null) { }
+
+        public WorkDoneRepository(Context context) : base(context) { }
+
         // Grammar is important.
         public List<WorkDone> GetWorksDone()
         {
-            string sql = @"
-                SELECT WD.Id, WD.ClientId, WD.WorkTypeId, WD.StartedOn,
-                    WD.EndedOn, C.ClientName, C.IsActivated,
-                    WT.Name AS WorkTypeName, WT.Rate
-                FROM WorkDone WD
-                    JOIN Client C ON WD.ClientId = C.Id
-                    JOIN WorkType WT ON WD.WorkTypeId = WT.Id
-                ORDER BY WorkTypeName
-            ";
-            List<WorkDoneDTO> workDoneDTOs = DatabaseHelper.Retrieve<WorkDoneDTO>(sql);
-            List<WorkDone> worksDone = new List<WorkDone>();
+            //string sql = @"
+            //    SELECT WD.Id, WD.ClientId, WD.WorkTypeId, WD.StartedOn,
+            //        WD.EndedOn, C.ClientName, C.IsActivated,
+            //        WT.Name AS WorkTypeName, WT.Rate
+            //    FROM WorkDone WD
+            //        JOIN Client C ON WD.ClientId = C.Id
+            //        JOIN WorkType WT ON WD.WorkTypeId = WT.Id
+            //    ORDER BY WorkTypeName
+            //";
+            //List<WorkDoneDTO> workDoneDTOs = DatabaseHelper.Retrieve<WorkDoneDTO>(sql);
+            //List<WorkDone> worksDone = new List<WorkDone>();
 
-            foreach(var dto in workDoneDTOs)
-            {
-                var client = new Client(dto.ClientId, dto.ClientName, dto.IsActivated);
-                var workType = new WorkType(dto.WorkTypeId, dto.WorkTypeName, dto.Rate);
-                var workDone = new WorkDone(dto.Id, client, workType, dto.StartedOn, dto.EndedOn);
-                worksDone.Add(workDone);
-            }
+            //foreach(var dto in workDoneDTOs)
+            //{
+            //    var client = new Client(dto.ClientId, dto.ClientName, dto.IsActivated);
+            //    var workType = new WorkType(dto.WorkTypeId, dto.WorkTypeName, dto.Rate);
+            //    var workDone = new WorkDone(dto.Id, client, workType, dto.StartedOn, dto.EndedOn);
+            //    worksDone.Add(workDone);
+            //}
+
+            //return worksDone;
+            _context.Database.Log = m => Debug.WriteLine(m);
+            var worksDone = _context.WorksDone
+                .Include(wd => wd.Client)
+                .Include(wd => wd.WorkType)
+                .ToList();
 
             return worksDone;
         }

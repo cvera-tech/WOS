@@ -11,7 +11,7 @@ namespace InvoiceMaker.Controllers
     {
         public ActionResult Index()
         {
-            var repo = new WorkDoneRepository();
+            var repo = new WorkDoneRepository(_context);
             List<WorkDone> worksDone = repo.GetWorksDone();
             return View(worksDone);
         }

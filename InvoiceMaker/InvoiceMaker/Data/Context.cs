@@ -10,16 +10,25 @@ namespace InvoiceMaker.Data
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<WorkType> WorkTypes { get; set; }
+        public DbSet<WorkDone> WorksDone { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<WorkType>().Property(wt => wt.Rate).HasPrecision(18, 2);
+            modelBuilder.Entity<WorkDone>()
+                .HasRequired(wd => wd.Client)
+                .WithMany()
+                .Map(wd => wd.MapKey("ClientId"));
+            modelBuilder.Entity<WorkDone>()
+                .HasRequired(wd => wd.WorkType)
+                .WithMany()
+                .Map(wd => wd.MapKey("WorkTypeId"));
         }
     }
 
     /// <summary>
-    /// This class contains extension methods for the the application's custom DbContext
+    /// This class contains extension methods for the application's custom DbContext
     /// implementation class. I wrote this to learn how to write extension methods, even
     /// though the methods could easily be included in the Context class.
     /// </summary>
@@ -72,7 +81,7 @@ namespace InvoiceMaker.Data
         /// <summary>
         /// This method updates a row in the database through an input instance of an 
         /// entity. The entity must have a valid Id property, and all other properties
-        /// must pass automatic validation
+        /// must pass automatic validation.
         /// 
         /// </summary>
         /// <typeparam name="EntityType">The type of the entity to update.</typeparam>

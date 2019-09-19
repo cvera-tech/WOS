@@ -14,26 +14,26 @@ namespace InvoiceMaker
         {
             base.Init();
 
-            BeginRequest += HandleBeginRequest;
-            AuthenticateRequest += HandleAuthenticateRequest;
-            PostAuthenticateRequest += HandlePostAuthenticateRequest;
-            AuthorizeRequest += HandleAuthorizeRequest;
-            PostAuthorizeRequest += HandlePostAuthorizeRequest;
-            ResolveRequestCache += HandleResolveRequestCache;
-            PostResolveRequestCache += HandlePostResolveRequestCache;
-            MapRequestHandler += HandleMapRequestHandler;
-            PostMapRequestHandler += HandlePostMapRequestHandler;
-            AcquireRequestState += HandleAcquireRequestState;
-            PostAcquireRequestState += HandlePostAcquireRequestState;
-            PreRequestHandlerExecute += HandlePreRequestHandlerExecute;
-            PostRequestHandlerExecute += HandlePostRequestHandlerExecute;
-            ReleaseRequestState += HandleReleaseRequestState;
-            PostReleaseRequestState += HandlePostReleaseRequestState;
-            UpdateRequestCache += HandleUpdateRequestCache;
-            PostUpdateRequestCache += HandlePostUpdateRequestCache;
-            LogRequest += HandleLogRequest;
-            PostLogRequest += HandlePostLogRequest;
-            EndRequest += HandleEndRequest;
+            //BeginRequest += HandleBeginRequest;
+            //AuthenticateRequest += HandleAuthenticateRequest;
+            //PostAuthenticateRequest += HandlePostAuthenticateRequest;
+            //AuthorizeRequest += HandleAuthorizeRequest;
+            //PostAuthorizeRequest += HandlePostAuthorizeRequest;
+            //ResolveRequestCache += HandleResolveRequestCache;
+            //PostResolveRequestCache += HandlePostResolveRequestCache;
+            //MapRequestHandler += HandleMapRequestHandler;
+            //PostMapRequestHandler += HandlePostMapRequestHandler;
+            //AcquireRequestState += HandleAcquireRequestState;
+            //PostAcquireRequestState += HandlePostAcquireRequestState;
+            //PreRequestHandlerExecute += HandlePreRequestHandlerExecute;
+            //PostRequestHandlerExecute += HandlePostRequestHandlerExecute;
+            //ReleaseRequestState += HandleReleaseRequestState;
+            //PostReleaseRequestState += HandlePostReleaseRequestState;
+            //UpdateRequestCache += HandleUpdateRequestCache;
+            //PostUpdateRequestCache += HandlePostUpdateRequestCache;
+            //LogRequest += HandleLogRequest;
+            //PostLogRequest += HandlePostLogRequest;
+            //EndRequest += HandleEndRequest;
         }
 
         protected void Application_Start(object sender, EventArgs e)
