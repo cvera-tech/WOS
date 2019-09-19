@@ -1,0 +1,23 @@
+﻿@model CommunityShedMVC.ViewModels.CommunityJoinViewModel
+
+@{
+    ViewBag.Title = "Join";
+}
+
+<h2>Join</h2>
+
+@if (Model.Success)
+{
+    <div id="SuccessPanel">
+        <h3>Successfully joined @Model.CommunityName</h3>
+    </div>
+}
+else
+{
+    <div id="FailPanel">
+        <h3>Unable to join @Model.CommunityName</h3>
+    </div>
+}
+<div>
+    @Html.ActionLink("Return Home", "Index", "Home")
+</div>

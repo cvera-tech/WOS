@@ -1,0 +1,68 @@
+﻿@model CommunityShedMVC.ViewModels.CommunityListViewModel
+
+@{
+    ViewBag.Title = "All Communities";
+}
+
+<h2>All Communities</h2>
+
+@Html.ActionLink("Create a Community", "Add", "Community", 
+    routeValues: new { }, 
+    htmlAttributes: new { @class = "btn btn-primary" })
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Open</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var community in Model.Communities)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(community.Name, "Details", "Community", 
+                        routeValues: new { communityId = community.Id }, 
+                        htmlAttributes: new { @class = "btn-link"})
+                </td>
+                <td>
+                    @if (community.IsOpen)
+                    {
+                        <p style="color: green">Open</p>
+                    }
+                    else
+                    {
+                        <p style="color: red">Closed</p>
+                    }
+                </td>
+                <td>
+                    @if (!community.IsMember)
+                    {
+                        if (community.IsOpen)
+                        {
+                            using (Html.BeginForm("Join", "Community", new { communityId = community.Id }, FormMethod.Post))
+                            {
+                                <input type="submit" value="Join" class="btn btn-primary" />
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("Apply", "Community", new { communityId = community.Id }, FormMethod.Post))
+                            {
+                                <input type="submit" value="Apply to Join" class="btn btn-primary" />
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <span>Already joined</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
