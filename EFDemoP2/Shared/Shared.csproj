@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\MoviesInitializer.cs" />
+    <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\Director.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

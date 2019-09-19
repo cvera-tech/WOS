@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Models
 {
@@ -13,9 +14,14 @@ namespace Shared.Models
         // Navigation property
         public Director Director { get; set; }
 
-        public Movie() { }
+        public List<Actor> Actors { get; set; }
 
-        public Movie(string title, Director director)
+        public Movie()
+        {
+            Actors = new List<Actor>();
+        }
+
+        public Movie(string title, Director director) : this()
         {
             Title = title;
         }

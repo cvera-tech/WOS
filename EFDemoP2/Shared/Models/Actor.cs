@@ -3,20 +3,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Models
 {
-    public class Director
+    public class Actor
     {
         public int Id { get; set; }
         [Required, MaxLength(255)]
         public string Name { get; set; }
-        //
+
         public List<Movie> Movies { get; set; }
 
-        public Director()
+        public Actor()
         {
             Movies = new List<Movie>();
         }
 
-        public Director(string name) : this()
+        public Actor(string name)
         {
             Name = name;
         }
