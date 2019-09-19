@@ -39,7 +39,7 @@ namespace InvoiceMaker.Repositories
             //}
 
             //return worksDone;
-            _context.Database.Log = m => Debug.WriteLine(m);
+            //_context.Database.Log = m => Debug.WriteLine(m);
             var worksDone = _context.WorksDone
                 .Include(wd => wd.Client)
                 .Include(wd => wd.WorkType)
@@ -50,56 +50,48 @@ namespace InvoiceMaker.Repositories
 
         public WorkDone GetById(int id)
         {
-            string sql = @"
-                SELECT WD.Id, WD.ClientId, WD.WorkTypeId, WD.StartedOn,
-                    WD.EndedOn, C.ClientName, C.IsActivated,
-                    WT.Name AS WorkTypeName, WT.Rate
-                FROM WorkDone WD
-                    JOIN Client C ON WD.ClientId = C.Id
-                    JOIN WorkType WT ON WD.WorkTypeId = WT.Id
-                WHERE WD.Id = @Id
-            ";
-            var workDoneDTO = DatabaseHelper.RetrieveSingle<WorkDoneDTO>(sql, 
-                new SqlParameter("@Id", id));
-            var client = new Client(workDoneDTO.ClientId, workDoneDTO.ClientName, workDoneDTO.IsActivated);
-            var workType = new WorkType(workDoneDTO.WorkTypeId, workDoneDTO.WorkTypeName, workDoneDTO.Rate);
-            var workDone = new WorkDone(client, workType, workDoneDTO.StartedOn, workDoneDTO.EndedOn);
+            //string sql = @"
+            //    SELECT WD.Id, WD.ClientId, WD.WorkTypeId, WD.StartedOn,
+            //        WD.EndedOn, C.ClientName, C.IsActivated,
+            //        WT.Name AS WorkTypeName, WT.Rate
+            //    FROM WorkDone WD
+            //        JOIN Client C ON WD.ClientId = C.Id
+            //        JOIN WorkType WT ON WD.WorkTypeId = WT.Id
+            //    WHERE WD.Id = @Id
+            //";
+            //var workDoneDTO = DatabaseHelper.RetrieveSingle<WorkDoneDTO>(sql, 
+            //    new SqlParameter("@Id", id));
+            //var client = new Client(workDoneDTO.ClientId, workDoneDTO.ClientName, workDoneDTO.IsActivated);
+            //var workType = new WorkType(workDoneDTO.WorkTypeId, workDoneDTO.WorkTypeName, workDoneDTO.Rate);
+            //var workDone = new WorkDone(client, workType, workDoneDTO.StartedOn, workDoneDTO.EndedOn);
+            //return workDone;
+            var workDone = _context.WorksDone
+                .Include(wd => wd.Client)
+                .Include(wd => wd.WorkType)
+                .SingleOrDefault(wd => wd.Id == id);
+
             return workDone;
         }
 
-        public void Insert (WorkDone workDone)
+        public void Insert(WorkDone workDone)
         {
-            string sql = @"
-                INSERT INTO WorkDone (ClientId, WorkTypeId, StartedOn, EndedOn)
-                VALUES (@ClientId, @WorkTypeId, @StartedOn, @EndedOn)
-            ";
-            
-            DatabaseHelper.Insert(sql,
-                new SqlParameter("@ClientId", workDone.ClientId),
-                new SqlParameter("@WorkTypeId", workDone.WorkTypeId),
-                new SqlParameter("@StartedOn", workDone.StartedOn),
-                new SqlParameter("@EndedOn", workDone.EndedOn ?? (object)DBNull.Value));
+            _context.WorksDone.Add(workDone);
+
+            if (workDone.Client != null && workDone.Client.Id > 0)
+            {
+                _context.Entry(workDone.Client).State = EntityState.Unchanged;
+            }
+            if (workDone.WorkType != null && workDone.WorkType.Id > 0)
+            {
+                _context.Entry(workDone.WorkType).State = EntityState.Unchanged;
+            }
+            _context.SaveChanges();
         }
 
-        public void Update (WorkDone workDone)
+        public void Update(WorkDone workDone)
         {
-            string sql = @"
-                UPDATE 
-                    WorkDone
-                SET 
-                    ClientId = @ClientId,
-                    WorkTypeId = @WorkTypeId,
-                    StartedOn = @StartedOn,
-                    EndedOn = @EndedOn
-                WHERE 
-                    Id = @Id
-            ";
-            DatabaseHelper.Update(sql,
-                new SqlParameter("@ClientId", workDone.ClientId),
-                new SqlParameter("@WorkTypeId", workDone.WorkTypeId),
-                new SqlParameter("@StartedOn", workDone.StartedOn),
-                new SqlParameter("@EndedOn", workDone.EndedOn ?? (object)DBNull.Value),
-                new SqlParameter("@Id", workDone.Id));
+            // SaveChanges is called by the extension method
+            _context.UpdateEntity(workDone);
         }
     }
 }

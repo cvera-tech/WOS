@@ -32,13 +32,17 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Create(CreateWorkDone formModel)
         {
-            var repo = new WorkDoneRepository();
+            var clientRepo = new ClientRepository(_context);
             var client = new Client(formModel.ClientId);
+            //var client = clientRepo.GetById(formModel.ClientId);
+            var workTypeRepo = new WorkTypeRepository(_context);
             var workType = new WorkType(formModel.WorkTypeId);
+            //var workType = workTypeRepo.GetById(formModel.WorkTypeId);
             var workDone = new WorkDone(client, workType, formModel.StartedOn, formModel.EndedOn);
             try
             {
-                repo.Insert(workDone);
+                var workDoneRepo = new WorkDoneRepository(_context);
+                workDoneRepo.Insert(workDone);
                 return RedirectToAction("Index");
             }
             catch (SqlException se)
@@ -51,7 +55,7 @@ namespace InvoiceMaker.Controllers
 
         public ActionResult Edit(int id)
         {
-            var repo = new WorkDoneRepository();
+            var repo = new WorkDoneRepository(_context);
             var workDone = repo.GetById(id);
             var clientItems = GetClientListItems();
             var workTypeItems = GetWorkTypeItems();
@@ -71,7 +75,7 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, EditWorkDone formModel)
         {
-            var repo = new WorkDoneRepository();
+            var repo = new WorkDoneRepository(_context);
             var client = new Client(formModel.ClientId);
             var workType = new WorkType(formModel.WorkTypeId);
             var workDone = new WorkDone(id, client, workType, formModel.StartedOn, formModel.EndedOn);
@@ -116,7 +120,7 @@ namespace InvoiceMaker.Controllers
         /// <returns>List of SelectListItem-wrapped WorkTypes</returns>
         private List<SelectListItem> GetWorkTypeItems()
         {
-            var repo = new WorkTypeRepository();
+            var repo = new WorkTypeRepository(_context);
             List<WorkType> workTypes = repo.GetWorkTypes();
             var workTypeItems = new List<SelectListItem>();
             foreach (var workType in workTypes)

@@ -84,19 +84,20 @@ namespace InvoiceMaker.Data
         /// must pass automatic validation.
         /// 
         /// </summary>
-        /// <typeparam name="EntityType">The type of the entity to update.</typeparam>
+        /// <typeparam name="TEntityType">The type of the entity to update.</typeparam>
         /// <param name="context">The Context object for updating the database.</param>
         /// <param name="entity">The entity to update.</param>
-        public static void UpdateEntity<EntityType>(this Context context, EntityType entity)
+        public static void UpdateEntity<TEntityType>(this Context context, TEntityType entity)
+            where TEntityType : class
         {
-            Type entityType = typeof(EntityType);
+            Type entityType = typeof(TEntityType);
             if (entityType.GetProperty("Id").GetValue(entity) == null)
             {
                 throw new ArgumentException("Entity does not have an ID");
             }
-            var dbSet = context.Set(entityType);
+            var dbSet = context.Set<TEntityType>();
             dbSet.Attach(entity);
-            context.Entry((object)entity).State = EntityState.Modified;
+            context.Entry<TEntityType>(entity).State = EntityState.Modified;
             context.SaveChanges();
         }
     }

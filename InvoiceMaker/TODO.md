@@ -38,3 +38,4 @@
 ## Nice to Have
 * CSS
 * Rename Client table column names
+* Entity interface
