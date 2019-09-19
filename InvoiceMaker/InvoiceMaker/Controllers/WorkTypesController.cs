@@ -43,7 +43,7 @@ namespace InvoiceMaker.Controllers
 
         public ActionResult Edit(int id)
         {
-            var repo = new WorkTypeRepository();
+            var repo = new WorkTypeRepository(_context);
             var workType = repo.GetById(id);
             var formModel = new EditWorkType
             {
@@ -57,7 +57,7 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, EditWorkType formModel)
         {
-            var repo = new WorkTypeRepository();
+            var repo = new WorkTypeRepository(_context);
             try
             {
                 var newWorkType = new WorkType(id, formModel.Name, formModel.Rate);

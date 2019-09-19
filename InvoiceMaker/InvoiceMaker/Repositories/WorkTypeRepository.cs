@@ -26,17 +26,10 @@ namespace InvoiceMaker.Repositories
             _context.SaveChanges();
         }
 
-        public WorkType GetById(int Id)
+        public WorkType GetById(int id)
         {
-            string sql = @"
-                SELECT Id, Name, Rate
-                FROM WorkType
-                WHERE Id = @Id
-            ";
-
-            WorkType workType = DatabaseHelper.RetrieveSingle<WorkType>(sql,
-                new SqlParameter("@Id", Id));
-
+            var workType = _context.WorkTypes
+                .SingleOrDefault(wt => wt.Id == id);
             return workType;
         }
 
