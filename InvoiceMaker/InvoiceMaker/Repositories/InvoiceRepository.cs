@@ -32,19 +32,10 @@ namespace InvoiceMaker.Repositories
             _context.SaveChanges();
         }
 
-        //public List<InvoiceStatusDTO> GetInvoiceStatusDTOs()
-        //{
-        //    string sql = @"
-        //        SELECT 
-        //            Id, Name
-        //        FROM
-        //            InvoiceStatus
-        //        ORDER BY
-        //            Id
-        //    ";
-
-        //    var statusDTOs = DatabaseHelper.Retrieve<InvoiceStatusDTO>(sql);
-        //    return statusDTOs;
-        //}
+        public void Update(Invoice invoice)
+        {
+            // SaveChanges is called by the extension method
+            _context.UpdateEntity(invoice);
+        }
     }
 }

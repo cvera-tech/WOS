@@ -43,11 +43,12 @@ namespace InvoiceMaker.Repositories
             var selectListItems = new List<SelectListItem>();
             clients.ForEach(c =>
             {
-                selectListItems.Add(new SelectListItem()
+                var item = new SelectListItem()
                 {
                     Text = c.Name,
                     Value = c.Id.ToString()
-                });
+                };
+                selectListItems.Add(item);
             });
             return selectListItems;
         }

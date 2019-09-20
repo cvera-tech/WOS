@@ -8,6 +8,8 @@ namespace InvoiceMaker.Models
         public int Id { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTimeOffset DateOpened { get; set; }
+        public DateTimeOffset? DateFinalized { get; set; }
+        public DateTimeOffset? DateClosed { get; set; } 
 
         // Foreign key properties
         public int ClientId { get; set; }
