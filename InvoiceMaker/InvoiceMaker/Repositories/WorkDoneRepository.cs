@@ -8,8 +8,6 @@ namespace InvoiceMaker.Repositories
 {
     public class WorkDoneRepository : BaseRepository
     {
-        public WorkDoneRepository() : base(null) { }
-
         public WorkDoneRepository(Context context) : base(context) { }
 
         // Grammar is important.

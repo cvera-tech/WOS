@@ -1,15 +1,13 @@
 ﻿using InvoiceMaker.Data;
 using InvoiceMaker.Models;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace InvoiceMaker.Repositories
 {
     public class WorkTypeRepository : BaseRepository
     {
-        public WorkTypeRepository() : base(null) { }
-
         public WorkTypeRepository(Context context) : base(context) { }
 
         public List<WorkType> GetWorkTypes()
@@ -37,6 +35,21 @@ namespace InvoiceMaker.Repositories
         {
             // SaveChanges is called by the extension method
             _context.UpdateEntity<WorkType>(workType);
+        }
+
+        public List<SelectListItem> GetSelectListItems()
+        {
+            var workTypes = GetWorkTypes();
+            var selectListItems = new List<SelectListItem>();
+            workTypes.ForEach(c =>
+            {
+                selectListItems.Add(new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
+            });
+            return selectListItems;
         }
     }
 }

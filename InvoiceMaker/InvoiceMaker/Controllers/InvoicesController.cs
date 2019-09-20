@@ -23,14 +23,11 @@ namespace InvoiceMaker.Controllers
             return View(invoice);
         }
 
-        //public ActionResult Create()
-        //{
-        //    var formModel = new CreateInvoice()
-        //    {
-        //        StatusItems = GetStatusItems()
-        //    };
-        //    return View(formModel);
-        //}
+        public ActionResult Create()
+        {
+            var formModel = new CreateInvoice();
+            return View(formModel);
+        }
 
         //[HttpPost]
         //public ActionResult Create(CreateInvoice formModel)

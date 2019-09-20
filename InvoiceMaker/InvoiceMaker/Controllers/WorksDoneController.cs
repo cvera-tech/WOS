@@ -18,8 +18,10 @@ namespace InvoiceMaker.Controllers
 
         public ActionResult Create()
         {
-            var clientItems = GetClientListItems();
-            var workTypeItems = GetWorkTypeItems();
+            var clientRepo = new ClientRepository(_context);
+            var clientItems = clientRepo.GetSelectListItems();
+            var workTypeRepo = new WorkTypeRepository(_context);
+            var workTypeItems = workTypeRepo.GetSelectListItems();
             var formModel = new CreateWorkDone
             {
                 ClientItems = clientItems,
@@ -96,50 +98,6 @@ namespace InvoiceMaker.Controllers
                 ModelState.AddModelError("Edit", "Unable to update work done");
                 return View(formModel);
             }
-        }
-
-        /// <summary>
-        /// Retrieves the clients from the database and wraps them in
-        /// SelectListItems for use with a drop down list.
-        /// </summary>
-        /// <returns>List of SelectListItem-wrapped WorkTypes</returns>
-        private List<SelectListItem> GetClientListItems()
-        {
-            var repo = new ClientRepository(_context);
-            List<Client> clients = repo.GetClients();
-            var clientItems = new List<SelectListItem>();
-            foreach (var client in clients)
-            {
-                var item = new SelectListItem
-                {
-                    Text = client.Name,
-                    Value = client.Id.ToString()
-                };
-                clientItems.Add(item);
-            }
-            return clientItems;
-        }
-
-        /// <summary>
-        /// Retrieves the work types from the database and wraps them in
-        /// SelectListItems for use with a drop down list.
-        /// </summary>
-        /// <returns>List of SelectListItem-wrapped WorkTypes</returns>
-        private List<SelectListItem> GetWorkTypeItems()
-        {
-            var repo = new WorkTypeRepository(_context);
-            List<WorkType> workTypes = repo.GetWorkTypes();
-            var workTypeItems = new List<SelectListItem>();
-            foreach (var workType in workTypes)
-            {
-                var item = new SelectListItem
-                {
-                    Text = workType.Name,
-                    Value = workType.Id.ToString()
-                };
-                workTypeItems.Add(item);
-            }
-            return workTypeItems;
         }
     }
 }

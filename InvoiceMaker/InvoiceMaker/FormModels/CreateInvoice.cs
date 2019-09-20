@@ -8,6 +8,6 @@ namespace InvoiceMaker.FormModels
     {
         public string InvoiceNumber { get; set; }
         public int StatusId { get; set; }
-        public List<SelectListItem> StatusItems { get; set; }
+        //public List<SelectListItem> StatusItems { get; set; }
     }
 }

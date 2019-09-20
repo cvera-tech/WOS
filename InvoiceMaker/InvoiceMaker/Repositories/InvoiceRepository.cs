@@ -25,16 +25,18 @@ namespace InvoiceMaker.Repositories
             return invoice;
         }
 
-        //public void Insert(Invoice invoice)
-        //{
-        //    string sql = @"
-        //        INSERT INTO Invoice (InvoiceNumber, StatusId)
-        //        VALUES (@InvoiceNumber, @StatusId)
-        //    ";
-        //    DatabaseHelper.Insert(sql,
-        //        new SqlParameter("@InvoiceNumber", invoice.InvoiceNumber),
-        //        new SqlParameter("@StatusId", invoice.StatusId));
-        //}
+        public void Insert(Invoice invoice)
+        {
+            //string sql = @"
+            //    INSERT INTO Invoice (InvoiceNumber, StatusId)
+            //    VALUES (@InvoiceNumber, @StatusId)
+            //";
+            //DatabaseHelper.Insert(sql,
+            //    new SqlParameter("@InvoiceNumber", invoice.InvoiceNumber),
+            //    new SqlParameter("@StatusId", invoice.StatusId));
+            _context.Invoices.Add(invoice);
+            _context.SaveChanges();
+        }
 
         //public List<InvoiceStatusDTO> GetInvoiceStatusDTOs()
         //{
