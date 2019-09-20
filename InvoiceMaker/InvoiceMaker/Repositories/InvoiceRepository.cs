@@ -1,6 +1,7 @@
 ﻿using InvoiceMaker.Data;
 using InvoiceMaker.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace InvoiceMaker.Repositories
@@ -16,20 +17,13 @@ namespace InvoiceMaker.Repositories
             return invoices;
         }
 
-        //public Invoice GetById(int id)
-        //{
-        //    string sql = @"
-        //        SELECT
-        //            I.Id,
-        //            I.InvoiceNumber,
-        //            S.Name AS InvoiceStatus
-        //        FROM Invoice I
-        //            JOIN InvoiceStatus S ON S.Id = I.StatusId
-        //    ";
-        //    Invoice invoice = DatabaseHelper.RetrieveSingle<Invoice>(sql,
-        //        new SqlParameter("@Id", id));
-        //    return invoice;
-        //}
+        public Invoice GetById(int id)
+        {
+            var invoice = _context.Invoices
+                .Include(i => i.Client)
+                .SingleOrDefault(i => i.Id == id);
+            return invoice;
+        }
 
         //public void Insert(Invoice invoice)
         //{

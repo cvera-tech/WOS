@@ -16,6 +16,13 @@ namespace InvoiceMaker.Controllers
             return View(invoices);
         }
 
+        public ActionResult Details(int id)
+        {
+            var repo = new InvoiceRepository(_context);
+            var invoice = repo.GetById(id);
+            return View(invoice);
+        }
+
         //public ActionResult Create()
         //{
         //    var formModel = new CreateInvoice()

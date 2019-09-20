@@ -4,7 +4,12 @@ namespace InvoiceMaker.Models
 {
     public class WorkLineItem : ILineItem
     {
+        public int Id { get; set; }
+
+        // Foreign key properties
         public int WorkDoneId { get; set; }
+
+        // Navigation properties
         public WorkDone WorkDone { get; set; }
 
         public decimal Amount

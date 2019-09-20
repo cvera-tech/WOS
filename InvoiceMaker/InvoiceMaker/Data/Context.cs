@@ -20,16 +20,6 @@ namespace InvoiceMaker.Data
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<WorkType>().Property(wt => wt.Rate).HasPrecision(18, 2);
-
-            //// Confiure WorkDone to have a one-to-many relationship with Client and WorkType
-            //modelBuilder.Entity<WorkDone>()
-            //    .HasRequired(wd => wd.Client)       // Set Client property as required and non-nullable
-            //    .WithMany();                        // Don't set a navigation property in Client
-            //    // .Map(wd => wd.MapKey("ClientId"));
-            //modelBuilder.Entity<WorkDone>()
-            //    .HasRequired(wd => wd.WorkType)
-            //    .WithMany();
-            //    //.Map(wd => wd.MapKey("WorkTypeId"));
         }
     }
 

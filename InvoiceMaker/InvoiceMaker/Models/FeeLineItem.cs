@@ -4,15 +4,10 @@ namespace InvoiceMaker.Models
 {
     public class FeeLineItem : ILineItem
     {
-        public decimal Amount { get; private set; }
-        public string Description { get; private set; }
-        public DateTimeOffset When { get; private set; }
+        public int Id { get; set; }
 
-        public FeeLineItem(string description, decimal amount, DateTimeOffset when)
-        {
-            Amount = amount;
-            Description = description;
-            When = when;
-        }
+        public decimal Amount { get; set; }
+        public string Description { get; set; }
+        public DateTimeOffset When { get; set; }
     }
 }

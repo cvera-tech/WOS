@@ -5,33 +5,23 @@ namespace InvoiceMaker.Models
 {
     public class Invoice
     {
-        //private string _invoiceNumber;
-
-        //public int Id { get; private set; }
-        //public string InvoiceNumber
-        //{
-        //    get
-        //    {
-        //        return _invoiceNumber;
-        //    }
-
-        //    private set
-        //    {
-        //        // Enforce uppercase InvoiceNumber rule
-        //        _invoiceNumber = value.ToUpper() ?? null;
-        //    }
-        //}
-        //public List<ILineItem> LineItems { get; private set; }
-        //public InvoiceStatus Status { get; private set; }
-        //public int StatusId { get; private set; }
-
         public int Id { get; set; }
-        public int ClientId { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTimeOffset DateOpened { get; set; }
 
-        public Client Client { get; set; }
+        // Foreign key properties
+        public int ClientId { get; set; }
         public InvoiceStatus Status { get; set; }
+        public List<ILineItem> LineItems { get; set; }
+
+        // Navigation properties
+        public Client Client { get; set; }
+
+        public Invoice()
+        {
+            LineItems = new List<ILineItem>();
+            Status = InvoiceStatus.Open;
+        }
 
         //public Invoice(int id)
         //{
