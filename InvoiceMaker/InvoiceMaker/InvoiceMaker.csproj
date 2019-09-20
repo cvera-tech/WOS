@@ -106,6 +106,7 @@
     <Compile Include="Controllers\WorksDoneController.cs" />
     <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="Data\Context.cs" />
+    <Compile Include="Data\InvoiceInitializer.cs" />
     <Compile Include="FormModels\CreateInvoice.cs" />
     <Compile Include="FormModels\CreateWorkDone.cs" />
     <Compile Include="FormModels\CreateWorkType.cs" />
