@@ -8,14 +8,19 @@
 
     <fieldset>
         <div>
+            @Html.LabelFor(model => model.ClientId)
+            @Html.DropDownListFor(model => model.ClientId, Model.ClientList)
+        </div>
+
+        <div>
             @Html.LabelFor(model => model.InvoiceNumber)
             @Html.TextBoxFor(model => model.InvoiceNumber)
             @Html.ValidationMessageFor(model => model.InvoiceNumber)
         </div>
 
         <div>
-            @Html.LabelFor(model => model.StatusId)
-            @Html.DropDownListFor(model => model.StatusId, Model.StatusItems)
+            @Html.LabelFor(model => model.Status)
+            @Html.EnumDropDownListFor(model => model.Status)
         </div>
 
         <div>

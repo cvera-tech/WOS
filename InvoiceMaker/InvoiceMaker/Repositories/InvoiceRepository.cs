@@ -13,6 +13,7 @@ namespace InvoiceMaker.Repositories
         public List<Invoice> GetInvoices()
         {
             var invoices = _context.Invoices
+                .Include(i => i.Client)
                 .ToList();
             return invoices;
         }
@@ -27,13 +28,6 @@ namespace InvoiceMaker.Repositories
 
         public void Insert(Invoice invoice)
         {
-            //string sql = @"
-            //    INSERT INTO Invoice (InvoiceNumber, StatusId)
-            //    VALUES (@InvoiceNumber, @StatusId)
-            //";
-            //DatabaseHelper.Insert(sql,
-            //    new SqlParameter("@InvoiceNumber", invoice.InvoiceNumber),
-            //    new SqlParameter("@StatusId", invoice.StatusId));
             _context.Invoices.Add(invoice);
             _context.SaveChanges();
         }

@@ -1,6 +1,7 @@
 ﻿using InvoiceMaker.FormModels;
 using InvoiceMaker.Models;
 using InvoiceMaker.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Web.Mvc;
@@ -25,29 +26,37 @@ namespace InvoiceMaker.Controllers
 
         public ActionResult Create()
         {
-            var formModel = new CreateInvoice();
+            var clientRepo = new ClientRepository(_context);
+            var formModel = new CreateInvoice() {
+                ClientList = clientRepo.GetSelectListItems()
+            };
             return View(formModel);
         }
 
-        //[HttpPost]
-        //public ActionResult Create(CreateInvoice formModel)
-        //{
-        //    var repo = new InvoiceRepository();
-        //    var invoice = new Invoice(formModel.InvoiceNumber.ToUpper(), formModel.StatusId);
-        //    try
-        //    {
-        //        repo.Insert(invoice);
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch (SqlException se)
-        //    {
-        //        if (se.Number == 2627)
-        //        {
-        //            ModelState.AddModelError("InvoiceNumber", "That number is already taken.");
-        //        }
-        //    }
-        //    return View(formModel);
-        //}
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Create(CreateInvoice formModel)
+        {
+            var repo = new InvoiceRepository(_context);
+            var invoice = new Invoice() {
+                ClientId = formModel.ClientId,
+                InvoiceNumber = formModel.InvoiceNumber,
+                Status = formModel.Status,
+                DateOpened = DateTimeOffset.Now
+            };
+            try
+            {
+                repo.Insert(invoice);
+                return RedirectToAction("Index");
+            }
+            catch (SqlException se)
+            {
+                if (se.Number == 2627)
+                {
+                    ModelState.AddModelError("InvoiceNumber", "That number is already taken.");
+                }
+            }
+            return View(formModel);
+        }
 
         ///// <summary>
         ///// Retrieves the invoice statuses from the database and wraps them in

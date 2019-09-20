@@ -59,8 +59,10 @@ namespace InvoiceMaker.Controllers
         {
             var repo = new WorkDoneRepository(_context);
             var workDone = repo.GetById(id);
-            var clientItems = GetClientListItems();
-            var workTypeItems = GetWorkTypeItems();
+            var clientRepo = new ClientRepository(_context);
+            var clientItems = clientRepo.GetSelectListItems();
+            var workTypeRepo = new WorkTypeRepository(_context);
+            var workTypeItems = clientRepo.GetSelectListItems();
             var formModel = new EditWorkDone()
             {
                 Id = id,
