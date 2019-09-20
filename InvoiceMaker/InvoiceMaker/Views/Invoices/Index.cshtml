@@ -22,7 +22,11 @@
         {
             <tr>
                 <th>@invoice.Client.Name</th>
-                <th>@invoice.InvoiceNumber</th>
+                <th>
+                    @Html.ActionLink(invoice.InvoiceNumber, "Details", "Invoices",
+                        routeValues: new { id = invoice.Id },
+                        htmlAttributes: new { })
+                </th>
                 <th>@invoice.Status</th>
                 <th>@Html.ActionLink("Edit", "Edit", routeValues: new { Id = invoice.Id })</th>
             </tr>

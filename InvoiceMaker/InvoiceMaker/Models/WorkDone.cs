@@ -62,22 +62,5 @@ namespace InvoiceMaker.Models
             }
             return null;
         }
-
-        //public void Finished()
-        //{
-        //    if (EndedOn.HasValue)
-        //    {
-        //        EndedOn = DateTimeOffset.Now;
-        //    }
-        //}
-
-        //public decimal? GetTotal()
-        //{
-        //    if (EndedOn.HasValue)
-        //    {
-        //        return _type.Rate * (EndedOn - StartedOn).Value.Hours;
-        //    }
-        //    return null;
-        //}
     }
 }

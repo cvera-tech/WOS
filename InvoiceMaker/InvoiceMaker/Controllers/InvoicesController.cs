@@ -98,5 +98,18 @@ namespace InvoiceMaker.Controllers
                 return View(formModel);
             }
         }
+
+        public ActionResult AddLineItem(int id)
+        {
+            var invoiceRepo = new InvoiceRepository(_context);
+            var invoice = invoiceRepo.GetById(id);
+            var workDoneRepo = new WorkDoneRepository(_context);
+            var workDoneList = workDoneRepo.GetClientWorkDone(invoice.Id);
+            var formModel = new AddLineItem()
+            {
+                WorkDoneList = workDoneList
+            };
+            return View(formModel);
+        }
     }
 }

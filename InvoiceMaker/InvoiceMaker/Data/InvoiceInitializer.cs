@@ -29,12 +29,12 @@ namespace InvoiceMaker.Data
                 new WorkType() { Name = "Ritual Chanting", Rate = 42.54m }
             };
 
-            // Navigation propery must be set, not the foreign key!
+            // Navigation property must be set, not just the foreign key!
             // Otherwise EF cannot determine the principal entity in the relationship
             var worksDone = new WorkDone[]
             {
-                new WorkDone() { Client = clients[0], WorkType = workTypes[2], StartedOn = new DateTimeOffset(2019, 9, 20, 14, 0, 0, nyOffset) },
-                new WorkDone() { Client = clients[0], WorkType = workTypes[1], StartedOn = new DateTimeOffset(2019, 9, 21, 16, 45, 0, nyOffset) },
+                new WorkDone() { Client = clients[0], WorkType = workTypes[2], StartedOn = new DateTimeOffset(2019, 9, 20, 14, 0, 0, nyOffset), EndedOn = new DateTimeOffset(2019, 9, 20, 14, 30, 0, nyOffset) },
+                new WorkDone() { Client = clients[0], WorkType = workTypes[1], StartedOn = new DateTimeOffset(2019, 9, 21, 16, 45, 0, nyOffset), EndedOn = new DateTimeOffset(2019, 9, 21, 17, 15, 0, nyOffset) },
                 new WorkDone() { Client = clients[6], WorkType = workTypes[4], StartedOn = new DateTimeOffset(2019, 12, 31, 11, 45, 0, nyOffset) },
                 new WorkDone() { Client = clients[2], WorkType = workTypes[3], StartedOn = new DateTimeOffset(2019, 12, 12, 22, 0, 0, nyOffset) }
             };

@@ -1,37 +1,6 @@
 # TODO
 
 ## Required Functionality
-* ADO
-    * Client
-        * ~~Index~~
-        * ~~Create~~
-        * ~~Edit~~
-        * Toggle Active
-    * Work Type
-        * ~~Index~~
-        * ~~Create~~
-        * ~~Edit~~
-        * Delete
-    * Work Done
-        * ~~Index~~
-        * ~~Create~~
-        * ~~Edit~~
-            * ~~Set completion date~~
-    * Work Line Item
-    * Fee Line Item
-    * Invoice
-        * ~~Index~~
-        * ~~Create~~
-        * Edit
-            * Add work line item
-            * Remove work line item
-            * Add fee line item
-            * Remove fee line item
-        * Change status
-        * Track Dates
-            * ~~DateOpened~~
-            * DateFinalized
-            * DateClosed
 * Entity Framework
     * ~~Client~~
     * ~~Work Type~~
@@ -39,7 +8,8 @@
     * Work Line Item
     * Fee Line Item
     * Invoice
+* Rework Line Items
 ## Nice to Have
+* Cleanup unused DTOs left over
 * CSS
-* Rename Client table column names
 * Entity interface

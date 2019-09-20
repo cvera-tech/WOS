@@ -34,8 +34,9 @@
 <div>
     <h2>Line Items</h2>
     <div>
-        @Html.ActionLink("Add Work Line Item", "AddWork", "Invoices")
-        @Html.ActionLink("Add Fee Line Item", "AddFee", "Invoices")
+        @Html.ActionLink("Add Line Item", "AddLineItem", "Invoices",
+            routeValues: new { id = Model.Id },
+            htmlAttributes: new { })
     </div>
     <table>
         <thead>
