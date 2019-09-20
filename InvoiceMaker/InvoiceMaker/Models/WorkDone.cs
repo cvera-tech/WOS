@@ -14,11 +14,6 @@ namespace InvoiceMaker.Models
         public Client Client { get; set; }  // Navigation Property
         public WorkType WorkType { get; set; }
 
-        //public int ClientId { get { return Client.Id; } }
-        //public string ClientName { get { return Client.Name; } }
-        //public int worktypeid { get { return worktype.id;  } }
-        //public string WorkTypeName { get { return WorkType.Name; } }
-
         public WorkDone() { }
 
         public WorkDone(int id)

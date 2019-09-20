@@ -27,8 +27,10 @@ namespace InvoiceMaker.Models
 
         public int Id { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
         public string InvoiceNumber { get; set; }
+        public DateTimeOffset DateOpened { get; set; }
+
+        public Client Client { get; set; }
         public InvoiceStatus Status { get; set; }
 
         //public Invoice(int id)

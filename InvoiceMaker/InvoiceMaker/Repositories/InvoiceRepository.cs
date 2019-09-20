@@ -1,35 +1,20 @@
-﻿using InvoiceMaker.Models;
-using System;
+﻿using InvoiceMaker.Data;
+using InvoiceMaker.Models;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace InvoiceMaker.Repositories
 {
-    public class InvoiceRepository
+    public class InvoiceRepository : BaseRepository
     {
-        //public List<Invoice> GetInvoices()
-        //{
-        //    string sql = @"
-        //        SELECT
-        //            I.Id,
-        //            I.InvoiceNumber,
-        //            S.Name AS StatusName
-        //        FROM Invoice I
-        //            JOIN InvoiceStatus S ON S.Id = I.StatusId
-        //        ORDER BY I.InvoiceNumber
-        //    ";
-        //    var invoiceDTOs = DatabaseHelper.Retrieve<InvoiceDTO>(sql);
-        //    var invoices = new List<Invoice>();
-        //    foreach (var dto in invoiceDTOs)
-        //    {
-        //        var invoice = new Invoice(dto.Id, dto.InvoiceNumber, dto.StatusName.ToInvoiceStatus());
-        //        invoices.Add(invoice);
-        //    }
-        //    return invoices;
-        //}
+        public InvoiceRepository(Context context) : base(context) { }
+
+        public List<Invoice> GetInvoices()
+        {
+            var invoices = _context.Invoices
+                .ToList();
+            return invoices;
+        }
 
         //public Invoice GetById(int id)
         //{

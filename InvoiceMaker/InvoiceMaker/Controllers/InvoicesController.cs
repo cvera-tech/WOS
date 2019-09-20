@@ -7,14 +7,13 @@ using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class InvoicesController : Controller
+    public class InvoicesController : BaseController
     {
         public ActionResult Index()
         {
-            //var repo = new InvoiceRepository();
-            //var invoices = repo.GetInvoices();
-            //return View(invoices);
-            return View(new List<Invoice>());
+            var repo = new InvoiceRepository(_context);
+            var invoices = repo.GetInvoices();
+            return View(invoices);
         }
 
         //public ActionResult Create()
