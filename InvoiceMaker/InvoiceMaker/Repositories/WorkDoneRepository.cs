@@ -77,14 +77,14 @@ namespace InvoiceMaker.Repositories
         {
             _context.WorksDone.Add(workDone);
 
-            if (workDone.Client != null && workDone.Client.Id > 0)
-            {
-                _context.Entry(workDone.Client).State = EntityState.Unchanged;
-            }
-            if (workDone.WorkType != null && workDone.WorkType.Id > 0)
-            {
-                _context.Entry(workDone.WorkType).State = EntityState.Unchanged;
-            }
+            //if (workDone.Client != null && workDone.Client.Id > 0)
+            //{
+            //    _context.Entry(workDone.Client).State = EntityState.Unchanged;
+            //}
+            //if (workDone.WorkType != null && workDone.WorkType.Id > 0)
+            //{
+            //    _context.Entry(workDone.WorkType).State = EntityState.Unchanged;
+            //}
             _context.SaveChanges();
         }
 

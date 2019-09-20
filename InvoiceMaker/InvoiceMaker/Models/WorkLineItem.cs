@@ -16,7 +16,7 @@ namespace InvoiceMaker.Models
         {
             get
             {
-                return _workDone.WorkTypeName;
+                return _workDone.WorkType.Name;
             }
         }
         public DateTimeOffset When

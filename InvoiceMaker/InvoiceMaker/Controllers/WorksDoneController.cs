@@ -32,13 +32,13 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Create(CreateWorkDone formModel)
         {
-            var clientRepo = new ClientRepository(_context);
-            var client = new Client(formModel.ClientId);
-            //var client = clientRepo.GetById(formModel.ClientId);
-            var workTypeRepo = new WorkTypeRepository(_context);
-            var workType = new WorkType(formModel.WorkTypeId);
-            //var workType = workTypeRepo.GetById(formModel.WorkTypeId);
-            var workDone = new WorkDone(client, workType, formModel.StartedOn, formModel.EndedOn);
+            var workDone = new WorkDone()
+            {
+                ClientId = formModel.ClientId,
+                WorkTypeId = formModel.WorkTypeId,
+                StartedOn = formModel.StartedOn,
+                EndedOn = formModel.EndedOn
+            };
             try
             {
                 var workDoneRepo = new WorkDoneRepository(_context);
@@ -75,12 +75,19 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, EditWorkDone formModel)
         {
-            var repo = new WorkDoneRepository(_context);
             var client = new Client(formModel.ClientId);
             var workType = new WorkType(formModel.WorkTypeId);
-            var workDone = new WorkDone(id, client, workType, formModel.StartedOn, formModel.EndedOn);
+            var workDone = new WorkDone()
+            {
+                Id = id,
+                ClientId = formModel.ClientId,
+                WorkTypeId = formModel.WorkTypeId,
+                StartedOn = formModel.StartedOn,
+                EndedOn = formModel.EndedOn
+            };
             try
             {
+                var repo = new WorkDoneRepository(_context);
                 repo.Update(workDone);
                 return RedirectToAction("Index");
             }

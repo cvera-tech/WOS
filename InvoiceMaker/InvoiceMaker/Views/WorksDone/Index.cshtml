@@ -22,8 +22,8 @@
         @foreach (var workDone in Model)
         {
             <tr>
-                <th>@workDone.ClientName</th>
-                <th>@workDone.WorkTypeName</th>
+                <th>@workDone.Client.Name</th>
+                <th>@workDone.WorkType.Name</th>
                 <th>@workDone.StartedOn</th>
                 <th>@workDone.EndedOn</th>
                 <th>@Html.ActionLink("Edit", "Edit", routeValues: new { Id = workDone.Id })</th>

@@ -6,15 +6,18 @@ namespace InvoiceMaker.Models
     {
         // I'm so sorry, Curtis.
         public int Id { get; set; }
-        public Client Client { get; set; }
-        public WorkType WorkType { get; set; }
+        public int ClientId { get; set; }   // Foreign Key
+        public int WorkTypeId { get; set; }
         public DateTimeOffset StartedOn { get; set; }
         public DateTimeOffset? EndedOn { get; set; }
 
-        public int ClientId { get { return Client.Id; } }
-        public string ClientName { get { return Client.Name; } }
-        public int WorkTypeId { get { return WorkType.Id;  } }
-        public string WorkTypeName { get { return WorkType.Name; } }
+        public Client Client { get; set; }  // Navigation Property
+        public WorkType WorkType { get; set; }
+
+        //public int ClientId { get { return Client.Id; } }
+        //public string ClientName { get { return Client.Name; } }
+        //public int worktypeid { get { return worktype.id;  } }
+        //public string WorkTypeName { get { return WorkType.Name; } }
 
         public WorkDone() { }
 
