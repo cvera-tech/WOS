@@ -1,35 +1,49 @@
 ﻿using InvoiceMaker.FormModels;
 using InvoiceMaker.Models;
 using InvoiceMaker.Repositories;
-using System.Collections.Generic;
+using System;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class InvoicesController : Controller
+    public class InvoicesController : BaseController
     {
         public ActionResult Index()
         {
-            var repo = new InvoiceRepository();
+            var repo = new InvoiceRepository(_context);
             var invoices = repo.GetInvoices();
             return View(invoices);
         }
 
+        public ActionResult Details(int id)
+        {
+            var repo = new InvoiceRepository(_context);
+            var invoice = repo.GetById(id);
+            return View(invoice);
+        }
+
         public ActionResult Create()
         {
+            var clientRepo = new ClientRepository(_context);
             var formModel = new CreateInvoice()
             {
-                StatusItems = GetStatusItems()
+                ClientList = clientRepo.GetSelectListItems()
             };
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(CreateInvoice formModel)
         {
-            var repo = new InvoiceRepository();
-            var invoice = new Invoice(formModel.InvoiceNumber.ToUpper(), formModel.StatusId);
+            var repo = new InvoiceRepository(_context);
+            var invoice = new Invoice()
+            {
+                ClientId = formModel.ClientId,
+                InvoiceNumber = formModel.InvoiceNumber,
+                Status = formModel.Status,
+                DateOpened = DateTimeOffset.Now
+            };
             try
             {
                 repo.Insert(invoice);
@@ -45,24 +59,44 @@ namespace InvoiceMaker.Controllers
             return View(formModel);
         }
 
-        /// <summary>
-        /// Retrieves the invoice statuses from the database and wraps them in
-        /// SelectListItems for use with a drop down list.
-        /// </summary>
-        /// <returns>List of SelectListItem-wrapped InvoiceStatuses</returns>
-        private List<SelectListItem> GetStatusItems()
+        public ActionResult Edit(int id)
         {
-            var repo = new InvoiceRepository();
-            var statusDTOs = repo.GetInvoiceStatusDTOs();
-            var statusItems = new List<SelectListItem>();
-            foreach (var dto in statusDTOs)
+            var repo = new InvoiceRepository(_context);
+            var invoice = repo.GetById(id);
+            var clientRepo = new ClientRepository(_context);
+            var formModel = new EditInvoice()
             {
-                var item = new SelectListItem();
-                item.Value = dto.Id.ToString();
-                item.Text = dto.Name;
-                statusItems.Add(item);
+                Id = id,
+                ClientId = invoice.ClientId,
+                InvoiceNumber = invoice.InvoiceNumber,
+                ClientList = clientRepo.GetSelectListItems(),
+                DateOpened = invoice.DateOpened
+            };
+            return View(formModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, EditInvoice formModel)
+        {
+            var invoice = new Invoice()
+            {
+                Id = id,
+                ClientId = formModel.ClientId,
+                InvoiceNumber = formModel.InvoiceNumber,
+                DateOpened = formModel.DateOpened
+            };
+            var repo = new InvoiceRepository(_context);
+            try
+            {
+                repo.Update(invoice);
+                return RedirectToAction("Details", "Invoices",
+                    routeValues: new { id = id });  // This is so weird
             }
-            return statusItems;
+            catch (Exception e) // Squashing exceptions is never a good idea
+            {
+                // TODO Handle exception
+                return View(formModel);
+            }
         }
     }
 }

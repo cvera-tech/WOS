@@ -1,6 +1,5 @@
-﻿@model InvoiceMaker.FormModels.CreateInvoice
-
-<h1>Create an Invoice</h1>
+﻿@model InvoiceMaker.FormModels.EditInvoice
+<h1>Edit</h1>
 
 @using (Html.BeginForm())
 {
@@ -8,18 +7,22 @@
 
     <fieldset>
         <div>
-            @Html.LabelFor(model => model.ClientId)
+            @Html.HiddenFor(model => model.DateOpened)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.ClientId, "Client")
             @Html.DropDownListFor(model => model.ClientId, Model.ClientList)
         </div>
 
         <div>
-            @Html.LabelFor(model => model.InvoiceNumber)
+            @Html.LabelFor(model => model.InvoiceNumber, "Invoice Number")
             @Html.TextBoxFor(model => model.InvoiceNumber)
             @Html.ValidationMessageFor(model => model.InvoiceNumber)
         </div>
 
         <div>
-            @Html.LabelFor(model => model.Status)
+            @Html.LabelFor(model => model.Status, "Status")
             @Html.EnumDropDownListFor(model => model.Status)
         </div>
 

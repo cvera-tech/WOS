@@ -28,10 +28,14 @@
             * Add fee line item
             * Remove fee line item
         * Change status
+        * Track Dates
+            * ~~DateOpened~~
+            * DateFinalized
+            * DateClosed
 * Entity Framework
     * ~~Client~~
-    * Work Type
-    * Work Done
+    * ~~Work Type~~
+    * ~~Work Done~~
     * Work Line Item
     * Fee Line Item
     * Invoice

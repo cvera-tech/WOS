@@ -1,0 +1,62 @@
+﻿@model InvoiceMaker.Models.Invoice
+
+<h1>Details</h1>
+
+<div>
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.LabelFor(model => model.InvoiceNumber, "Invoice Number")</td>
+                <td>@Html.DisplayFor(model => model.InvoiceNumber)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Client.Name, "Client Name")</td>
+                <td>@Html.DisplayFor(model => model.Client.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.DateOpened, "Date Opened")</td>
+                <td>@Html.DisplayFor(model => model.DateOpened)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Status, "Status")</td>
+                <td>@Html.DisplayFor(model => model.Status)</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        @Html.ActionLink("Edit", "Edit", "Invoices",
+            routeValues: new { id = Model.Id },
+            htmlAttributes: new { })
+    </div>
+</div>
+<div>
+    <h2>Line Items</h2>
+    <div>
+        @Html.ActionLink("Add Work Line Item", "AddWork", "Invoices")
+        @Html.ActionLink("Add Fee Line Item", "AddFee", "Invoices")
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Line Item</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lineItem in Model.LineItems)
+            {
+                <tr>
+                    <td>@lineItem.Description</td>
+                    <td>@lineItem.Amount</td>
+                    <td>@lineItem.When</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    @Html.ActionLink("Home", "Index", "Invoices")
+</div>

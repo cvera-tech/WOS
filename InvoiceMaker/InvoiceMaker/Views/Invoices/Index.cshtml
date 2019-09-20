@@ -11,6 +11,7 @@
 <table>
     <thead>
         <tr>
+            <th>Client</th>
             <th>Invoice Number</th>
             <th>Status</th>
             <th>&nbsp;</th>
@@ -20,6 +21,7 @@
         @foreach (var invoice in Model)
         {
             <tr>
+                <th>@invoice.Client.Name</th>
                 <th>@invoice.InvoiceNumber</th>
                 <th>@invoice.Status</th>
                 <th>@Html.ActionLink("Edit", "Edit", routeValues: new { Id = invoice.Id })</th>

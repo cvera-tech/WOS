@@ -11,19 +11,15 @@ namespace InvoiceMaker.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<WorkType> WorkTypes { get; set; }
         public DbSet<WorkDone> WorksDone { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<WorkLineItem> WorkLineItems { get; set; }
+        public DbSet<FeeLineItem> FeeLineItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<WorkType>().Property(wt => wt.Rate).HasPrecision(18, 2);
-            modelBuilder.Entity<WorkDone>()
-                .HasRequired(wd => wd.Client)
-                .WithMany()
-                .Map(wd => wd.MapKey("ClientId"));
-            modelBuilder.Entity<WorkDone>()
-                .HasRequired(wd => wd.WorkType)
-                .WithMany()
-                .Map(wd => wd.MapKey("WorkTypeId"));
         }
     }
 

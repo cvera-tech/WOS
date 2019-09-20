@@ -106,11 +106,14 @@
     <Compile Include="Controllers\WorksDoneController.cs" />
     <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="Data\Context.cs" />
+    <Compile Include="Data\InvoiceInitializer.cs" />
     <Compile Include="FormModels\CreateInvoice.cs" />
     <Compile Include="FormModels\CreateWorkDone.cs" />
     <Compile Include="FormModels\CreateWorkType.cs" />
+    <Compile Include="FormModels\EditInvoice.cs" />
     <Compile Include="FormModels\EditWorkDone.cs" />
     <Compile Include="FormModels\EditWorkType.cs" />
+    <Compile Include="FormModels\InvoiceDetails.cs" />
     <Compile Include="Models\InvoiceDTO.cs" />
     <Compile Include="Models\InvoiceStatusDTO.cs" />
     <Compile Include="Models\WorkDoneDTO.cs" />
@@ -136,6 +139,8 @@
     <Content Include="Views\WorksDone\Create.cshtml" />
     <Content Include="Views\WorksDone\Edit.cshtml" />
     <Content Include="Views\Invoices\Create.cshtml" />
+    <Content Include="Views\Invoices\Details.cshtml" />
+    <Content Include="Views\Invoices\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -2,6 +2,7 @@
 using InvoiceMaker.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace InvoiceMaker.Repositories
 {
@@ -34,6 +35,22 @@ namespace InvoiceMaker.Repositories
         {
             // SaveChanges is called by the extension method
             _context.UpdateEntity<Client>(client);
+        }
+
+        public List<SelectListItem> GetSelectListItems()
+        {
+            var clients = GetClients();
+            var selectListItems = new List<SelectListItem>();
+            clients.ForEach(c =>
+            {
+                var item = new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                };
+                selectListItems.Add(item);
+            });
+            return selectListItems;
         }
     }
 }
