@@ -1,16 +1,19 @@
 (function () {
     async function getRandomClue() {
         const randomUrl = "https://jservice.io/api/random";
-        let invalid = true;
+        const validateClue = (clue) => {
+            return (clue.invalid_count === null &&
+                clue.question !== null &&
+                clue.value !== null);
+        };
+        let valid = false;
         let clue;
-        while (invalid) {
+        while (!valid) {
             const response = await fetch(randomUrl);
             if (response.ok) {
                 const obj = await response.json();
                 clue = obj["0"];
-                if (clue.invalid_count === null) {
-                    invalid = false;
-                }
+                valid = validateClue(clue);
             }
         }
         return clue;
@@ -28,21 +31,13 @@
         categoryElement.innerHTML = clue.category.title;
         questionElement.innerHTML = clue.question;
         answerElement.removeAttribute('disabled');
+        answerElement.focus();
         correctAnswer = clue.answer;
-        //console.log(correctAnswer);
+        console.log(correctAnswer);
     }
 
     function registerEventHandlers() {
-        answerElement.addEventListener('keyup', () => {
-            const answer = answerElement.value;
-            const matches = answer.match(/\w{2,}/g);
-            if (matches !== null) {
-                submitElement.removeAttribute('disabled');
-            } else {
-                submitElement.setAttribute('disabled', 'disabled');
-            }
-        });
-        submitElement.addEventListener('click', () => {
+        const submitHandler = function() {
             answerElement.setAttribute('disabled', 'disabled');
             submitElement.setAttribute('disabled', 'disabled');
             const answer = answerElement.value;
@@ -55,6 +50,20 @@
             updateScore(answerValue);
             answerElement.value = '';
             buildPage();
+        }
+        answerElement.addEventListener('keyup', () => {
+            const answer = answerElement.value;
+            const matches = answer.match(/\w{2,}/g);
+            if (matches !== null) {
+                submitElement.removeAttribute('disabled');
+            } else {
+                submitElement.setAttribute('disabled', 'disabled');
+            }
+        });
+        submitElement.addEventListener('click', submitHandler);
+        answerElement.addEventListener('keyup', event => {
+            if (event.code === 'Enter') 
+                submitHandler();
         });
     }
 
