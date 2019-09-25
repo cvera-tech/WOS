@@ -10,7 +10,8 @@
             console.error(err);
             return;
         }
-        valueElement.innerHTML = clue.value;
+        clueValue = clue.value;
+        valueElement.innerHTML = clueValue;
         categoryElement.innerHTML = clue.category.title;
         questionElement.innerHTML = clue.question;
         answerElement.removeAttribute('disabled');
@@ -71,17 +72,17 @@
      * Registers event handlers for the page (wow!).
      */
     function registerEventHandlers() {
-        const submitHandler = function() {
+        const submitHandler = function () {
             answerElement.setAttribute('disabled', 'disabled');
             submitElement.setAttribute('disabled', 'disabled');
             const answer = answerElement.value;
             const processedAnswer = processAnswerString(answer);
             const processedCorrectAnswer = processAnswerString(correctAnswer);
-            let answerValue = parseInt(valueElement.innerText);
-            if (processedAnswer !== processedCorrectAnswer) {
-                answerValue = -answerValue;
+            if (processedAnswer === processedCorrectAnswer) {
+                updateScore(clueValue);
+            } else {
+                updateScore(-clueValue);
             }
-            updateScore(answerValue);
             answerElement.value = '';
             buildPage();
         }
@@ -96,11 +97,11 @@
         });
         submitElement.addEventListener('click', submitHandler);
         answerElement.addEventListener('keyup', event => {
-            if (event.code === 'Enter') 
+            if (event.code === 'Enter')
                 submitHandler();
         });
     }
-    
+
     /**
      * Removes HTML tags.
      * @param {string} str 
@@ -119,7 +120,6 @@
      * @param {*} value 
      */
     function updateScore(value) {
-        let score = parseInt(scoreElement.innerText);
         score += value;
         scoreElement.innerHTML = score;
         if (score < 0) {
@@ -138,6 +138,8 @@
     const submitElement = document.getElementById('submit');
     const scoreElement = document.getElementById('score');
     let correctAnswer;
+    let score = 0;
+    let clueValue = 0;
     registerEventHandlers();
     buildPage();
 })();
