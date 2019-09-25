@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trivia</title>
     <link href="index.css" rel="stylesheet">
-    <script src="game.js"></script>
 </head>
 
 <body>
@@ -16,15 +15,15 @@
         <div id="category">&nbsp;</div>
         <div id="question">&nbsp;</div>
         <div id="controls">
-            <input type="text" id="answer">
+            <input type="text" id="answer" disabled>
         </div>
         <div id="actions">
-            <button id="submit">Submit</button>
+            <button id="submit" disabled>Submit</button>
         </div>
     </div>
     <div id="score-panel">
         Score: <span id="score" class="neutral">0</span>
     </div>
 </body>
-
+<script src="game.js"></script>
 </html>
