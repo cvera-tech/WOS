@@ -127,18 +127,15 @@ function createDogList(array) {
     }
 }
 
-function BuildPage() {
-    Promise.all([fetch(breedsUrl), fetch(randomUrl)])
-        .then(async responses => {
-            for (response of responses) {
-                const json = await response.json();
-                if (typeof json.message === "string") {
-                    setDogImage(json.message)
-                } else {
-                    createDogList(json.message)
-                }
-            }
-        });
+async function BuildPage() {
+    const allPromise = Promise.all([fetch(breedsUrl), fetch(randomUrl)]);
+    const allResponse = await allPromise;
+    const breedsResponse = allResponse[0];
+    const breedsObj = await breedsResponse.json();
+    createDogList(breedsObj.message);
+    const urlResponse = allResponse[1];
+    const urlObj = await urlResponse.json();
+    setDogImage(urlObj.message);
 }
 
 BuildPage();
