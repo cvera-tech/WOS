@@ -4,6 +4,7 @@ function setDogImage(url) {
 
 function setErrorMessage(message) {
     document.getElementById("error-message").textContent = message;
+    console.log(message);
 }
 
 function setDogImageFetch(json) {
@@ -61,7 +62,19 @@ function makeRequest(HTTPVerb, url) {
 
 const randomUrl = "https://dog.ceo/api/breeds/image/random";
 
-fetch(randomUrl)
-    .then(response => response.json())
-    .then(responseJSON => setDogImageFetch(responseJSON))
-    .catch(message => setErrorMessage(message));
+// fetch(randomUrl)
+//     .then(response => response.json())
+//     .then(responseJSON => setDogImageFetch(responseJSON))
+//     .catch(message => setErrorMessage(message));
+
+async function asyncDogFetch() {
+    try {
+        const doggo = await fetch(randomUrl);
+        const json = await doggo.json();
+        setDogImageFetch(json);
+    } catch (err) {
+        setErrorMessage(err);
+    }
+}
+
+asyncDogFetch();
