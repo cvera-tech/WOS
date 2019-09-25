@@ -6,6 +6,15 @@ function setErrorMessage(message) {
     document.getElementById("error-message").textContent = message;
 }
 
+function setDogImageFetch(json) {
+    if (json.status === "error") {
+        throw new Error("HTTP Error: " + json.code);
+    }
+    else {
+        setDogImage(json.message);
+    }
+}
+
 function makeDogRequest() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "https://dog.ceo/api/breeds/image/random");
@@ -41,9 +50,18 @@ function makeRequest(HTTPVerb, url) {
     return promise;
 }
 
-makeRequest("POST", "og.ceo/api/breeds/image/xyzzy")
-    .then(response => {
-        setDogImage(response.message);
-        return response;
-    })
-    .catch(message => setErrorMessage(message));//);
+// makeRequest("GET", "https://dog.ceo/api/breeds/image/random")
+//     .then(response => {
+//         setDogImage(response.message);
+//         return response;
+//     })
+//     .catch(message => setErrorMessage(message));
+
+
+
+const randomUrl = "https://dog.ceo/api/breeds/image/random";
+
+fetch(randomUrl)
+    .then(response => response.json())
+    .then(responseJSON => setDogImageFetch(responseJSON))
+    .catch(message => setErrorMessage(message));
