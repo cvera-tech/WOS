@@ -1,3 +1,7 @@
+
+const randomUrl = "https://dog.ceo/api/breeds/image/random";
+const breedsUrl = "https://dog.ceo/api/breeds/list/all";
+
 function setDogImage(url) {
     document.getElementById("dog-image").setAttribute("src", url);
 }
@@ -58,10 +62,6 @@ function makeRequest(HTTPVerb, url) {
 //     })
 //     .catch(message => setErrorMessage(message));
 
-
-
-const randomUrl = "https://dog.ceo/api/breeds/image/random";
-
 // fetch(randomUrl)
 //     .then(response => response.json())
 //     .then(responseJSON => setDogImageFetch(responseJSON))
@@ -77,4 +77,68 @@ async function asyncDogFetch() {
     }
 }
 
-asyncDogFetch();
+// asyncDogFetch();
+
+
+async function fetchAllDogBreeds() {
+    try {
+        const doggoBreeds = await fetch(breedsUrl);
+        const json = await doggoBreeds.json();
+        return json;
+    } catch (err) {
+        setErrorMessage(err);
+    }
+}
+
+async function createDogList() {
+    const dogsList = document.getElementsByClassName("dogs-list").item(0);
+    const json = await fetchAllDogBreeds();
+    const breeds = json.message;
+    for (breed in breeds) {
+        if (breeds[breed].length !== 0) {
+            for (subbreed of breeds[breed]){
+                const listElement = document.createElement("li");
+                listElement.innerHTML = breed + " (" + subbreed + ")";
+                dogsList.append(listElement);
+            }
+        } else {
+            const listElement = document.createElement("li");
+            listElement.innerHTML = breed;
+            dogsList.append(listElement);
+        }
+    }
+}
+// createDogList();
+
+function createDogList(array) {
+    const dogsList = document.getElementsByClassName("dogs-list").item(0);
+    for (breed in array) {
+        if (array[breed].length !== 0) {
+            for (subbreed of array[breed]){
+                const listElement = document.createElement("li");
+                listElement.innerHTML = breed + " (" + subbreed + ")";
+                dogsList.append(listElement);
+            }
+        } else {
+            const listElement = document.createElement("li");
+            listElement.innerHTML = breed;
+            dogsList.append(listElement);
+        }
+    }
+}
+
+function BuildPage() {
+    Promise.all([fetch(breedsUrl), fetch(randomUrl)])
+        .then(async responses => {
+            for (response of responses) {
+                const json = await response.json();
+                if (typeof json.message === "string") {
+                    setDogImage(json.message)
+                } else {
+                    createDogList(json.message)
+                }
+            }
+        });
+}
+
+BuildPage();
