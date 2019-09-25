@@ -1,4 +1,27 @@
 (function () {
+    /**
+     * Calls getRandomClue and sets the page's elements to the clue's values.
+     */
+    async function buildPage() {
+        let clue;
+        try {
+            clue = await getRandomClue();
+        } catch (err) {
+            console.error(err);
+            return;
+        }
+        valueElement.innerHTML = clue.value;
+        categoryElement.innerHTML = clue.category.title;
+        questionElement.innerHTML = clue.question;
+        answerElement.removeAttribute('disabled');
+        answerElement.focus();
+        correctAnswer = clue.answer;
+        console.log(correctAnswer);
+    }
+
+    /**
+     * Makes a GET request for a random clue and returns it if it is valid.
+     */
     async function getRandomClue() {
         const randomUrl = "https://jservice.io/api/random";
         const validateClue = (clue) => {
@@ -19,23 +42,34 @@
         return clue;
     }
 
-    async function buildPage() {
-        let clue;
-        try {
-            clue = await getRandomClue();
-        } catch (err) {
-            console.error(err);
-            return;
+    /**
+     * Processes an input string to remove extraneous words and characters.
+     * @param {*} answer 
+     */
+    // TODO Add support for alternative answers
+    // TODO Add removal of extraneous parenthesized information
+    function processAnswerString(answer) {
+        const answerArray = answer.toLowerCase().split(' ');
+        const prunedArray = [];
+        for (word of answerArray) {
+            if (word !== 'the' && word !== 'a' &&
+                word !== 'an' && word !== 'she' &&
+                word !== 'he' && word !== 'her' &&
+                word !== 'him' && word !== 'and' &&
+                word !== 'but' && word !== 'or') {
+                prunedArray.push(word);
+            }
         }
-        valueElement.innerHTML = clue.value;
-        categoryElement.innerHTML = clue.category.title;
-        questionElement.innerHTML = clue.question;
-        answerElement.removeAttribute('disabled');
-        answerElement.focus();
-        correctAnswer = clue.answer;
-        console.log(correctAnswer);
+
+        // Remove escape characters and quotes
+        const noEscapeString = prunedArray.join(' ').split('\\').join('')
+        const noQuotes = noEscapeString.split('"').join('').split("'").join('');
+        return removeTags(noQuotes);
     }
 
+    /**
+     * Registers event handlers for the page (wow!).
+     */
     function registerEventHandlers() {
         const submitHandler = function() {
             answerElement.setAttribute('disabled', 'disabled');
@@ -66,28 +100,7 @@
                 submitHandler();
         });
     }
-
-    // TODO Add support for alternative answers
-    // TODO Add removal of extraneous parenthesized information
-    function processAnswerString(answer) {
-        const answerArray = answer.toLowerCase().split(' ');
-        const prunedArray = [];
-        for (word of answerArray) {
-            if (word !== 'the' && word !== 'a' &&
-                word !== 'an' && word !== 'she' &&
-                word !== 'he' && word !== 'her' &&
-                word !== 'him' && word !== 'and' &&
-                word !== 'but' && word !== 'or') {
-                prunedArray.push(word);
-            }
-        }
-
-        // Remove escape characters and quotes
-        const noEscapeString = prunedArray.join(' ').split('\\').join('')
-        const noQuotes = noEscapeString.split('"').join('').split("'").join('');
-        return removeTags(noQuotes);
-    }
-
+    
     /**
      * Removes HTML tags.
      * @param {string} str 
@@ -101,6 +114,10 @@
         }
     }
 
+    /**
+     * Adds input value to the score and updates the element's class.
+     * @param {*} value 
+     */
     function updateScore(value) {
         let score = parseInt(scoreElement.innerText);
         score += value;
