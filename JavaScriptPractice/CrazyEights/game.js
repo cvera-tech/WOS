@@ -27,6 +27,11 @@
         return cards;
     }
 
+    /**
+     * Draws and returns a card from a pile.
+     * @param {string} pileName 
+     * @param {string} code 
+     */
     async function drawPileCard(pileName, code) {
         const deckId = getDeckId();
         const response = await fetch(apiUrl + deckId + '/pile/' + pileName + '/draw/?cards=' + code);
@@ -169,19 +174,18 @@
             if (matchCardCode(cardCode, topCardCode)) {
                 // Put card in discard
                 console.log('match');
+                const playedCard = (await drawPileCard(humanPileName, cardCode));
+                await putCardInPile(discardPileName, [playedCard]);
+                humanPile = await getPile(humanPileName);
+                discardPile = await getPile(discardPileName);
             }
 
             renderCards();
         });
         gebi(deckDivId).addEventListener('click', async () => {
-            // draw a card
             const drawnCard = (await drawDeckCards(1))[0];
-            const drawnCardCode = drawnCard.code;
-            console.log(drawnCardCode);
             await putCardInPile(humanPileName, [drawnCard]);
-
             humanPile = await getPile(humanPileName);
-            debugger;
             renderCards();
         });
     }
@@ -209,5 +213,4 @@
     }
 
     await initGame();
-    console.log(remaining);
 })();
