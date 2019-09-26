@@ -3,6 +3,9 @@
     const computerPileName = 'computer_pile';
     const discardPileName = 'discard_pile';
     const humanPileName = 'human_pile';
+    const computerDivId = 'computer';
+    const playAreaDivId = 'play-area';
+    const humanDivId = 'human';
     const apiUrl = "https://deckofcardsapi.com/api/deck/";
     let computerPile = [];
     let discardPile = [];
@@ -32,35 +35,34 @@
         return fetch(apiUrl + deckId + '/pile/' + pileName + '/list/');
     }
 
+    function gebi(id) {
+        return document.getElementById(id);
+    }
+
     async function getDeck() {
         let deck;
         let response;
-        // let deckId = localStorage.getItem(deckIdKey);
-        // if (deckId !== null) {
-        //     response = await fetchDeck(deckId);
-        // } else {
+        let deckId = localStorage.getItem(deckIdKey);
+        if (deckId !== null) {
+            response = await fetchDeck(deckId);
+        } else {
             response = await fetchNewShuffledDeck();
-        // }
+        }
         deck = await response.json();
         localStorage.setItem(deckIdKey, deck.deck_id);
-        // console.log(deck);
         return deck;
     }
 
     async function initGame() {
         const deck = await getDeck();
         const deckId = deck.deck_id;
-        
+
         if (deck.remaining === 52) {
             // New deck; set up piles.
             const initialCards = await drawCards(deckId, 11);
             const initComputerPile = initialCards.slice(0, 5);
             const initDiscardPile = initialCards.slice(10);
             const initHumanPile = initialCards.slice(5, 10);
-            const computerPileCodes = initComputerPile.map(card => card.code);
-            const discardPileCodes = initDiscardPile.map(card => card.code);
-            const humanPileCodes = initHumanPile.map(card => card.code);
-            // console.log(computerPileCodes, discardPileCodes, humanPileCodes);
 
             const putPileResponses = await Promise.all([
                 putCardInPile(deckId, computerPileName, initComputerPile),
@@ -69,7 +71,6 @@
             ]);
 
             const putPileObjects = await Promise.all(putPileResponses.map(response => response.json()));
-            // console.log(putPileObjects);
         }
 
         // Get piles
@@ -79,7 +80,10 @@
             fetchCardsInPile(deckId, humanPileName)
         ]);
         const fetchPileObjects = await Promise.all(fetchPileResponses.map(response => response.json()));
-        // console.log(fetchPileObjects);
+        computerPile = fetchPileObjects[0].piles[computerPileName].cards;
+        discardPile = fetchPileObjects[1].piles[discardPileName].cards;
+        humanPile = fetchPileObjects[2].piles[humanPileName].cards;
+        renderCards();
     }
 
     function matchCard(playedCard, topCard) {
@@ -91,6 +95,24 @@
         return await fetch(apiUrl + deckId + '/pile/' + pileName + '/add/?cards=' + cardCodes);
     }
 
+    function renderCards() {
+        // computer cards
+        const computerImages = computerPile
+            .map(() => '<div class="card card-down"></div>');
+        gebi(computerDivId).innerHTML = computerImages.join('');
+
+        // human cards
+        const humanImages = humanPile
+            .map(card => card.image)
+            .map(url => '<img src="' + url + '" class="card card-up">');
+        gebi(humanDivId).innerHTML = humanImages.join('');
+
+        // play area
+        const topCard = discardPile[discardPile.length - 1];
+        const topCardUrl = topCard.image;
+        gebi(playAreaDivId).innerHTML = '<img src="'
+            + topCardUrl + '" class="card card-up"><div data-code="deck" class="card card-down"></div>';
+    }
+
     await initGame();
-    console.log(computerPile, discardPile, humanPile);
 })();
