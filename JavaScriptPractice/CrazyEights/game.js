@@ -14,6 +14,23 @@
     let humanPile = [];
     let remaining = 0;
 
+    async function computerTurn() {
+        const getPlayableCardIndex = function () {
+            return computerPile.findIndex(card => matchCardCode(card.code, topCardCode));
+        };
+        const topCardCode = getTopCard().code;
+        let cardIndex = getPlayableCardIndex();
+        // debugger;
+        while (cardIndex === -1) {
+            const drawnCards = await drawDeckCards(1);
+            await putCardsInPile(computerPileName, drawnCards);
+            computerPile = await getPile(computerPileName);
+            cardIndex = getPlayableCardIndex();
+        }
+        const playableCard = computerPile[cardIndex];
+        await playCard(playableCard.code, computerPileName);
+    }
+
     /**
      * Returns an array of cards drawn from the deck.
      * @param {Number} num 
@@ -75,12 +92,12 @@
     async function getDeck() {
         let deck;
         let response;
-        const deckId = getDeckId();
-        if (deckId !== null) {
-            response = await fetchDeck(deckId);
-        } else {
+        // const deckId = getDeckId();
+        // if (deckId !== null) {
+        //     response = await fetchDeck(deckId);
+        // } else {
             response = await fetchNewShuffledDeck();
-        }
+        // }
         deck = await response.json();
         setDeckId(deck.deck_id);
         remaining = deck.remaining;
@@ -117,14 +134,15 @@
         if (deck.remaining === 52) {
             // New deck; set up piles.
             const initialCards = await drawDeckCards(11);
+            const topCardIndex = initialCards.findIndex(card => card.code[0] !== '8');
+            const initDiscardPile = initialCards.splice(topCardIndex, 1);
             const initComputerPile = initialCards.slice(0, 5);
-            const initDiscardPile = initialCards.slice(10);
             const initHumanPile = initialCards.slice(5, 10);
 
             const putPileResponses = await Promise.all([
-                putCardInPile(computerPileName, initComputerPile),
-                putCardInPile(discardPileName, initDiscardPile),
-                putCardInPile(humanPileName, initHumanPile)
+                putCardsInPile(computerPileName, initComputerPile),
+                putCardsInPile(discardPileName, initDiscardPile),
+                putCardsInPile(humanPileName, initHumanPile)
             ]);
 
             const putPileObjects = await Promise.all(putPileResponses.map(response => response.json()));
@@ -156,7 +174,28 @@
             || (playCardCode[0] === '8');
     }
 
-    async function putCardInPile(pileName, cards) {
+    /**
+     * Draws a card from the input pile and inserts it into the discard pile.
+     * Afterwards, updates the local piles.
+     * @param {string} cardCode 
+     * @param {string} pileName 
+     */
+    async function playCard(cardCode, pileName) {
+        const topCardCode = getTopCard().code;
+        if (matchCardCode(cardCode, topCardCode)) {
+            const playedCard = (await drawPileCard(pileName, cardCode));
+            await putCardsInPile(discardPileName, [playedCard]);
+
+            // Update local piles
+            if (pileName === humanPileName) {
+                humanPile = await getPile(pileName);
+            } else {
+                computerPile = await getPile(pileName);
+            }
+            discardPile = await getPile(discardPileName);
+        }
+    }
+    async function putCardsInPile(pileName, cards) {
         const deckId = getDeckId();
         const cardCodes = cards.map(card => card.code).join(',');
         return await fetch(apiUrl + deckId + '/pile/' + pileName + '/add/?cards=' + cardCodes);
@@ -169,22 +208,15 @@
                 return;
             }
             const cardCode = targetElement.getAttribute('data-code');
-            const topCardCode = getTopCard().code;
-
-            if (matchCardCode(cardCode, topCardCode)) {
-                // Put card in discard
-                console.log('match');
-                const playedCard = (await drawPileCard(humanPileName, cardCode));
-                await putCardInPile(discardPileName, [playedCard]);
-                humanPile = await getPile(humanPileName);
-                discardPile = await getPile(discardPileName);
-            }
-
+            await playCard(cardCode, humanPileName);
+            renderCards();
+            // debugger;
+            await computerTurn();
             renderCards();
         });
         gebi(deckDivId).addEventListener('click', async () => {
             const drawnCard = (await drawDeckCards(1))[0];
-            await putCardInPile(humanPileName, [drawnCard]);
+            await putCardsInPile(humanPileName, [drawnCard]);
             humanPile = await getPile(humanPileName);
             renderCards();
         });
