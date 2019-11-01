@@ -1,0 +1,34 @@
+﻿@model InvoiceMaker.FormModels.EditInvoice
+<h1>Edit</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <div>
+            @Html.HiddenFor(model => model.DateOpened)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.ClientId, "Client")
+            @Html.DropDownListFor(model => model.ClientId, Model.ClientList)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.InvoiceNumber, "Invoice Number")
+            @Html.TextBoxFor(model => model.InvoiceNumber)
+            @Html.ValidationMessageFor(model => model.InvoiceNumber)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Status, "Status")
+            @Html.EnumDropDownListFor(model => model.Status)
+        </div>
+
+        <div>
+            <input type="submit" value="Submit" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
+    </fieldset>
+}

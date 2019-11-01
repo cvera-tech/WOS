@@ -1,0 +1,37 @@
+﻿@model InvoiceMaker.FormModels.AddLineItem
+
+@{
+    ViewBag.Title = "AddLineItem";
+}
+
+<h1>AddLineItem</h1>
+
+<h2>Work Done</h2>
+@using (Html.BeginForm("AddWorkLineItem", "Invoices"))
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Work Type</td>
+                <td>Started On</td>
+                <td>Ended On</td>
+                <td>Amount</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var workDone in Model.WorkDoneList)
+            {
+                <tr>
+                    <td>@Html.RadioButtonFor(model => model.WorkDoneId, workDone.Id)</td>
+                    <td>@workDone.WorkType.Name</td>
+                    <td>@workDone.StartedOn</td>
+                    <td>@workDone.EndedOn</td>
+                    <td>@workDone.GetTotal()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <input type="submit" value="Add Work" />
+    </div>
+}

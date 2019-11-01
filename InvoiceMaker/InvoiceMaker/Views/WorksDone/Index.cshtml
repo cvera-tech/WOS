@@ -1,0 +1,33 @@
+﻿@model List<InvoiceMaker.Models.WorkDone>
+
+<h1>Works Done</h1>
+
+<p>
+    @Html.ActionLink("Create a work done", "Create",
+        routeValues: new { },
+        htmlAttributes: new { })
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Client Name</th>
+            <th>Work Type</th>
+            <th>Started On</th>
+            <th>Ended On</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workDone in Model)
+        {
+            <tr>
+                <th>@workDone.Client.Name</th>
+                <th>@workDone.WorkType.Name</th>
+                <th>@workDone.StartedOn</th>
+                <th>@workDone.EndedOn</th>
+                <th>@Html.ActionLink("Edit", "Edit", routeValues: new { Id = workDone.Id })</th>
+            </tr>
+        }
+    </tbody>
+</table>
