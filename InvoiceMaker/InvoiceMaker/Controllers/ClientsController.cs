@@ -23,7 +23,7 @@ namespace InvoiceMaker.Controllers
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(CreateClient formModel)
         {
             var repo = new ClientRepository(_context);
@@ -33,12 +33,9 @@ namespace InvoiceMaker.Controllers
                 repo.Insert(newClient);
                 return RedirectToAction("Index");
             }
-            catch (SqlException se)
+            catch
             {
-                if (se.Number == 2627)
-                {
-                    ModelState.AddModelError("Name", "That name is already taken");
-                }
+                ModelState.AddModelError("Name", "Unable to add client.");
             }
 
             return View(formModel);
@@ -57,7 +54,7 @@ namespace InvoiceMaker.Controllers
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(int id, EditClient formModel)
         {
             var repo = new ClientRepository(_context);

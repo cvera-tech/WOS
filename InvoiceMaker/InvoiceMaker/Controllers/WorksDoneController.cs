@@ -2,7 +2,6 @@
 using InvoiceMaker.Models;
 using InvoiceMaker.Repositories;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
@@ -31,7 +30,7 @@ namespace InvoiceMaker.Controllers
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(CreateWorkDone formModel)
         {
             var workDone = new WorkDone()
@@ -47,7 +46,7 @@ namespace InvoiceMaker.Controllers
                 workDoneRepo.Insert(workDone);
                 return RedirectToAction("Index");
             }
-            catch (SqlException se)
+            catch
             {
                 // TODO handle this
                 ModelState.AddModelError("Create", "Unable to add new work done");
@@ -76,7 +75,7 @@ namespace InvoiceMaker.Controllers
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(int id, EditWorkDone formModel)
         {
             var client = new Client(formModel.ClientId);
@@ -95,7 +94,7 @@ namespace InvoiceMaker.Controllers
                 repo.Update(workDone);
                 return RedirectToAction("Index");
             }
-            catch (SqlException se)
+            catch
             {
                 ModelState.AddModelError("Edit", "Unable to update work done");
                 return View(formModel);

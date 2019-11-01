@@ -21,7 +21,7 @@ namespace InvoiceMaker.Controllers
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(CreateWorkType formModel)
         {
             var repo = new WorkTypeRepository(_context);
@@ -54,7 +54,7 @@ namespace InvoiceMaker.Controllers
             return View(formModel);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(int id, EditWorkType formModel)
         {
             var repo = new WorkTypeRepository(_context);

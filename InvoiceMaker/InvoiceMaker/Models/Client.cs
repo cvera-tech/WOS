@@ -6,7 +6,7 @@ namespace InvoiceMaker.Models
     public class Client
     {
         public int Id { get; set; }
-        [Required, Column("ClientName"), MaxLength(255)]
+        [Required, Column("ClientName"), MaxLength(255), Index(IsUnique = true)]
         public string Name { get; set; }
         [Column("IsActivated")]
         public bool IsActive { get; set; }
